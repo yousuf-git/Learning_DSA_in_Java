@@ -1,0 +1,30 @@
+01-Bubble Sort:
+    If previous element is greater than next one, swap them
+
+02-Selection Sort:
+    check and update smallest value 
+    Iteration 1, from index 0 to length (Assign smallest to index 0)
+    Iteration 2, from index 1 to length (Assign smallest to index 1)
+    Iteration 3, from index 2 to length (Assign smallest to index 2)
+    .
+    .
+    .
+    Iteration length-1, from index length-1 to length (Assign smallest to index length)
+
+03-Insertion Sort:
+    Take a Part of array as sorted (1st index initially)
+    then compare other values one by one with sorted portion and place elements in sorted portion accordingly
+
+    let an array of length 5, indices --> 0, 1, 2, 3, 4
+    array = [2, 5, 1, 3, 5] (Assume array[0], it is as sorted)
+    for(i = 1 to length of array, step 1) for indices of unsorted portion
+        element = array[i]
+        declare variable j for indices of sorted portion which should not < 0
+        j = i-1; (sorted portion ends just before the choosen element)
+        --> make place for the element
+        while(j>=0 && element < array[j]):
+            array[j+1] = array[j]
+            j--; (moving from end to start)
+        
+        --> place the element at its position(where j<0 or element>array[j])
+        array[j+1] = element

@@ -1,0 +1,357 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "HSinglyLL",
+            "request": "launch",
+            "mainClass": "linkedList.HSinglyLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "LLStack",
+            "request": "launch",
+            "mainClass": "LLStack",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "HBDMalaika",
+            "request": "launch",
+            "mainClass": "linkedList.HBDMalaika",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MenuLL_2",
+            "request": "launch",
+            "mainClass": "linkedList.MenuLL_2",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Test_2",
+            "request": "launch",
+            "mainClass": "linkedList.Test_2",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "linkedList.Test",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MenuLL",
+            "request": "launch",
+            "mainClass": "linkedList.MenuLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MultiThreadExample",
+            "request": "launch",
+            "mainClass": "MultiThreadExample",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "StackQs",
+            "request": "launch",
+            "mainClass": "StackQs",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BuiltInStack",
+            "request": "launch",
+            "mainClass": "BuiltInStack",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ALStack",
+            "request": "launch",
+            "mainClass": "ALStack",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "StackLL",
+            "request": "launch",
+            "mainClass": "StackLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "A",
+            "request": "launch",
+            "mainClass": "linkedList.A",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ReverseLL",
+            "request": "launch",
+            "mainClass": "linkedList.ReverseLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "LLTesting",
+            "request": "launch",
+            "mainClass": "linkedList.LLTesting",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MyLinkedList",
+            "request": "launch",
+            "mainClass": "linkedList.MyLinkedList",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "LLQuestions",
+            "request": "launch",
+            "mainClass": "linkedList.LLQuestions",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ReverseLL",
+            "request": "launch",
+            "mainClass": "ReverseLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "CollectionsLL",
+            "request": "launch",
+            "mainClass": "CollectionsLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MyLinkedList",
+            "request": "launch",
+            "mainClass": "MyLinkedList",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ArrayLists",
+            "request": "launch",
+            "mainClass": "ArrayLists",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "QuickSort",
+            "request": "launch",
+            "mainClass": "QuickSort",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MergeSortSelf",
+            "request": "launch",
+            "mainClass": "MergeSortSelf",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MergeSort",
+            "request": "launch",
+            "mainClass": "MergeSort",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Sudoku",
+            "request": "launch",
+            "mainClass": "Sudoku",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "NQueens",
+            "request": "launch",
+            "mainClass": "NQueens",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Permutation2",
+            "request": "launch",
+            "mainClass": "Permutation2",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Subsets",
+            "request": "launch",
+            "mainClass": "Subsets",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "WaysToInvite",
+            "request": "launch",
+            "mainClass": "WaysToInvite",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "PlaceTiles",
+            "request": "launch",
+            "mainClass": "PlaceTiles",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MazePaths",
+            "request": "launch",
+            "mainClass": "MazePaths",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Permutation",
+            "request": "launch",
+            "mainClass": "Permutation",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "KeyPadComb",
+            "request": "launch",
+            "mainClass": "KeyPadComb",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "UniqueSubsequences",
+            "request": "launch",
+            "mainClass": "UniqueSubsequences",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "RecursionQs3",
+            "request": "launch",
+            "mainClass": "RecursionQs3",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "RecursionQs2",
+            "request": "launch",
+            "mainClass": "RecursionQs2",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Strings",
+            "request": "launch",
+            "mainClass": "Strings",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "RecursionQs",
+            "request": "launch",
+            "mainClass": "RecursionQs",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Recursion",
+            "request": "launch",
+            "mainClass": "Recursion",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ComplexQuestions",
+            "request": "launch",
+            "mainClass": "ComplexQuestions",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "DisplayFibonacci",
+            "request": "launch",
+            "mainClass": "DisplayFibonacci",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Array",
+            "request": "launch",
+            "mainClass": "Array",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Recursion",
+            "request": "launch",
+            "mainClass": "Recursion",
+            "projectName": "03-DSA_in_JAVA_Practice_7f26272b"
+        },
+        {
+            "type": "java",
+            "name": "Sorting",
+            "request": "launch",
+            "mainClass": "Sorting",
+            "projectName": "03-DSA_in_JAVA_Practice_7f26272b"
+        },
+        {
+            "type": "java",
+            "name": "Sorting",
+            "request": "launch",
+            "mainClass": "Sorting",
+            "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
+        },
+        {
+            "type": "java",
+            "name": "Bit",
+            "request": "launch",
+            "mainClass": "Bit",
+            "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Array",
+            "request": "launch",
+            "mainClass": "Array",
+            "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
+        },
+        {
+            "type": "java",
+            "name": "StringBuilders",
+            "request": "launch",
+            "mainClass": "StringBuilders",
+            "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
+        },
+        {
+            "type": "java",
+            "name": "Strings",
+            "request": "launch",
+            "mainClass": "Strings",
+            "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
+        }
+    ]
+}

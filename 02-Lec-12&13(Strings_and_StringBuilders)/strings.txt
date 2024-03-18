@@ -1,0 +1,3 @@
+In case of string if any modification occures, older one is deleted and new modified string is created which takes time
+But in StringBuilder class, the variable points to same location in heap where previous version is updated in case of modifications
+

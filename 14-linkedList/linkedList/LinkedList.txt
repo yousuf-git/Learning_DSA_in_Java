@@ -1,0 +1,32 @@
+Linked List => Nodes Connected to one another
+
+| I | ---> | am |
+
+            -
+            -
+            -
+            v
+
+          | Harry | 
+
+Data Structure  |   Operation   |   Time Complexity
+
+ArrayList           Insert          O(n) --> move all elements to make place for new
+LinkedList          Insert          O(1) --> only adjuts pointers, constant operations
+
+ArrayList           Search          O(1) --> element is directly accessible by index
+LinkedList          Insert          O(n) --> traverse all index, non contiguous memory
+
+
+Properties:
+    Varibale size
+    Non Contiguous memory location
+    Made with node (data + next/poinnter)
+
+First node --> head
+Last node --> tail
+
+Singular Linked List --> only move forward
+Doubly Linked List --> can move forward or backward
+Circular Linked List --> Last element points to first one
+

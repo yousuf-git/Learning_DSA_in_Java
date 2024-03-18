@@ -1,0 +1,13 @@
+Array: Consecutive memory locations for same type of data
+Array Size: size of array * unit size of data type 
+    Example: int[] array = new int[5];  --> Size = 5*4 = 20 bytes
+
+2D Array:  Matrix form 
+[[1,2,3],
+ [4,5,6],
+ [7,8,9]];
+
+Order --> 3x3 ; No. of elements = 3*3 = 9
+Size = No. of elements * 4 => 9*4 = 36 bytes
+
+

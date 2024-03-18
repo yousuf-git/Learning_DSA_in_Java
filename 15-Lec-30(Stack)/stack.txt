@@ -1,0 +1,17 @@
+LIFO => Last in First Out
+Items on one another
+    New Item can be placed on top only
+    Item can be retrieved from top only
+
+
+Push --> Add element on top => O(1)
+Pop --> Remove element from top => O(1)
+Peek --> Retrieve element from top => O(1)
+
+Can be implemented by:
+    Array --> Fixed Size
+    ArrayList --> Varibale size, easy to extend
+    LinkedList --> each time new element is added, make it head or simply you can say addFirst.
+    
+
+    

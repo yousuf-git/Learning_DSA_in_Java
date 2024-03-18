@@ -1,0 +1,69 @@
+Bit Manipulation => Bit Mask
+
+Few Operators: 
+    --> Bitwise Operators
+Left Shift __ <<
+Right Shift __ >>
+AND __ & 
+OR __ |
+XOR __ ^ (if same then false, otherwise true)
+
+==> Get Bit (at index i):
+    Method: 
+        Bit Maks: 1<<i
+        Operation: AND => BitMask & givenNumber
+    if final number is non zero then bit at index i is 1, otherwise it is 0
+Logic: 
+    Assume that i=3
+        1 << 3 => 0001 << 3 => 1000 (which is a number(BitMask) that has only single 1 at that specific index whoose bit is to be checked in original number)
+    Now we can perform AND of this number(BitMask) with original number, the resultant will have exactly all 0s at indices other than that specific index bcz there BitMask bits are 0 (if any one bit is 0, AND returns 0), but bit at that specific index of the resultant depends on the number with which AND Operation is performed (i.e., givenNumber)
+    At that specific index BitMask is already 1, if the bit of givenNumber is also 1 than resultant will be non-zero, otherwise it will be 0 
+
+    Example: Q --> given number is 5 which is = 0101 (index will be counted from right)
+        Assume that we want to get bit at index 2 (which is actually 1)
+    Procedure: 
+        1<<2 means 0001 << 2 => BitMask = 0100
+        BitMask & givenNumber => 0100 & 0101 => 0100 (non-zero) which means bit is 1
+    Example-2:
+        Now Assume that we want to get bit at index 1 (which is actually 0)
+    Procedure: 
+        1<<1 means 0001 << 1 => BitMask = 0010
+        BitMask & givenNumber =>   0 0 1 0
+                                &  0 1 0 1 => 0000 (zero) which means bit is 0
+
+==> Set Bit at index i (Set always sets the specific bit at index i from original value to 1, either original bit is 0 or 1 already)   
+    Method: 
+        Bit Maks: 1<<i
+        Operation: OR => BitMask | givenNumber
+    in resultant the bit at that specific index will be always 1 bcz of 1 at that index in BitMask
+    
+    Example: Q --> given number is 5 which is = 0101
+        Assume that we want to set bit at index 3 (which is actually 0) ; it will be converted to 1 after set
+    Procedure:
+        step 1: BitMask = (1 << 3) => (0001 << 3) = 1000
+        step 2: num after set = BitMask | num
+            num =       1 0 0 0
+                (OR)  | 0 1 0 1 => 1101 = 13 
+
+==> Clear Bit at index i (clear always sets the specific bit at index i from original value to 0, either original bit is 1 or 0 already)
+    Method: 
+        Bit Maks: 1 << i
+        Operation: AND with NOT of BitMask => ~(BitMask) & givenNumber
+    in resultant the bit at that specific index will be always 1 bcz of 1 at that index in BitMask
+    Logic:
+        !(BitMask) will give a 0 bit at that specific index and its AND with givenNumber will generate 0 bit in resultant either at that index, bit in givenNumber is 0 or 1  
+    
+    Example: Q --> given number is 5 which is = 0101
+        Assume that we want to clear bit at index 2 (which is actually 1) ; it will be converted to 0 after clear
+    Procedure:
+        step 1: BitMask = (1 << 2) => (0001 << 2) = 0100 ;
+        step 2: !(BitMask) = ~(0100) = 1011
+        step 3: num after clear = ~(BitMask) & num
+            num =       1 0 1 1
+               (AND) &  0 1 0 1 => 0001 = 1
+
+
+
+
+
+
