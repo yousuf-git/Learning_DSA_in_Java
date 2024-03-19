@@ -1,6 +1,8 @@
 If you want to stuck your head in building concepts of Data Structures in JAVA and make your problem solving skill better then you can enter this sh*t.
 
-And if you are going to try to solve a problem yourself then don't give it more than limited minutes, after that it will be time wasting... simple see the solution and try to understand the flow and logic in solution or simply use chatGPT its fine to use if you are facing difficulty in understanding anything after trying yourself
+And if you are going to try to solve a problem yourself then don't give it more than limited minutes, after that it will be time wasting...
+Simply see the solution and try to understand the flow and logic in the solution or simply use chatGPT.
+It is fine to be used if you are facing difficulty in understanding anything after trying yourself
 
 I did this practice after learning from "Apna College", you guys can checkout that too
 
