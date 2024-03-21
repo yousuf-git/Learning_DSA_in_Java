@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SortingMenu",
+            "request": "launch",
+            "mainClass": "SortingMenu",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
             "name": "HSinglyLL",
             "request": "launch",
             "mainClass": "linkedList.HSinglyLL",

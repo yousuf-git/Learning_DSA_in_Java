@@ -189,10 +189,27 @@ public class HSinglyLL {
         }
       }
     }
-
   }
 
-  /* ---------- display elements of list ----------- */
+  /* ---------- To Update Value at a specifc index ----------- */
+  public void update(int idx, String val) {
+    if (idx >= size || idx < 0) {
+      System.out.println("Invalid Index <:( ");
+    } else if (idx == 0) {
+      delFirst();
+      addFirst(val);
+    } else {
+      Node newNode = new Node(val);
+      Node currNode = head;
+      for (int i = 0; i < idx-1; i++) {
+        currNode = currNode.next;
+      }
+      newNode.next = currNode.next.next;
+      currNode.next = newNode;
+    }
+  }
+
+  /* ----------To display elements of list ----------- */
   public void display() {
     if (isEmpty()) {
       System.out.println("Nothing to display, List is Empty !");
@@ -266,7 +283,8 @@ public class HSinglyLL {
             e.printStackTrace();
           }
           System.out.print("¯");
-          // System.out.print("-"); use this if upper symbol is not supported by your terminal
+          // System.out.print("-"); use this if upper symbol is not supported by your
+          // terminal
         }
         System.out.print("   ");
         currNode = currNode.next;
@@ -615,7 +633,10 @@ public class HSinglyLL {
     if (isEmpty() || head.next == null) {
       return true; // if list is empty, or there is 1 element
     } else {
-      /* -------- M1 - If you want to save memory use below approach but original list will be modified-------- */
+      /*
+       * -------- M1 - If you want to save memory use below approach but original list
+       * will be modified--------
+       */
       // // find middle
       // Node middle = this.middle(head);
       // System.out.println("Middle Value: " + middle.data);
@@ -625,16 +646,19 @@ public class HSinglyLL {
       // Node leftNode = head;
       // Node rightNode = middle.next;
       // while (rightNode != null) {
-      //   if (!leftNode.data.equals(rightNode.data)) {
-      //     return false;
-      //   }
-      //   leftNode = leftNode.next;
-      //   rightNode = rightNode.next;
+      // if (!leftNode.data.equals(rightNode.data)) {
+      // return false;
+      // }
+      // leftNode = leftNode.next;
+      // rightNode = rightNode.next;
       // }
       // return true;
-      /* ---------------- M2 - A new list will have to be created, but original will not be affected---------- */
+      /*
+       * ---------------- M2 - A new list will have to be created, but original will
+       * not be affected----------
+       */
       return this.isEqual(reverse());
-      
+
     }
   }
 
@@ -667,11 +691,14 @@ public class HSinglyLL {
     System.out.print("\nOriginal List: ");
     // list.newDisplay();
     list.display();
+    list.update(0, "69");
+    System.out.print("Updated List: ");
+    list.display();
 
-    // calculate mid of 2 --> 34 --> 4 --> 1 
+    // calculate mid of 2 --> 34 --> 4 --> 1
 
-    Node midNode = list.middle(list.getHead().next, list.middle(list.getHead()).next);
-    System.out.println(midNode.data);
+    // Node midNode = list.middle(list.getHead().next, list.middle(list.getHead()).next);
+    // System.out.println(midNode.data);
 
     // list.bubbleSort();
     // list.display();
