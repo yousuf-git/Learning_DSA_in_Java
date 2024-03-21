@@ -2,7 +2,7 @@ public class Sorting {
     public static void main(String[] args) {
         // bubble sort (in each iteration if previous is greater than next one, swap
         // them)
-        int[] array = { 5, 4, 3, 6, 7 };
+        int[] array = { 5, 4, 3, 6, 7, -1 };
         for (int i = 0; i < array.length - 1; i++) { // len - 1 bcz last element is already sorted (its actaully an
                                                      // iterator, not for index)
             for (int j = 0; j < array.length - i - 1; j++) {
@@ -20,17 +20,17 @@ public class Sorting {
 
         // selection sort
         int marks[] = { 50, 90, 40, 30, 69 }; // user input can also be used
-        int smallest, temp;
+        int minIdx, swap;
         for (int i = 0; i < marks.length - 1; i++) {
-            smallest = marks[i];
+            minIdx = i; // assume that current index value is smallest
             for (int j = i + 1; j < marks.length; j++) {
-                if (marks[j] < smallest) {
-                    temp = marks[j];
-                    marks[j] = smallest;
-                    smallest = temp;
+                if (marks[j] < marks[minIdx]) {
+                    minIdx = j;
                 }
-                marks[i] = smallest;
             }
+            swap = marks[i];
+            marks[i] = array[minIdx];
+            array[minIdx] = swap;
         }
         System.out.print("Sorted Marks by Selection sort: ");
         printArray(marks);
@@ -57,8 +57,8 @@ public class Sorting {
     }
 
     public static void printArray(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
+        for (int elememnt : arr) {
+            System.out.print(elememnt + " ");
         }
         System.out.println();
     }

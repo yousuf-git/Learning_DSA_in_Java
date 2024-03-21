@@ -116,7 +116,7 @@ public class SortingMenu {
     }
   }
 
-  /* ------------To sort array in ascending order by bubble sort------------ */
+  /* ------------To sort array in ascending order by selection sort------------ */
   public static void selectionSort(int[] array) {
     if (array.length == 1) {
       return;
@@ -156,21 +156,16 @@ public class SortingMenu {
       int element, sortedIdx;
 
       for (int i = 1; i < array.length; i++) {
-        element = array[i];
-        sortedIdx = i - 1;
+        element = array[i]; // retrieve the current item
+        sortedIdx = i - 1; // sorted portion starts from just behind current i
         innerCount = 1; // inner loop counter
-        while (sortedIdx >= 0) {
-          if (array[sortedIdx] > element) {
-            array[sortedIdx + 1] = array[sortedIdx];
-          } else {
-            break;
-          }
+        while (sortedIdx >= 0 && element < array[sortedIdx]) {
+          array[sortedIdx + 1] = array[sortedIdx];
           sortedIdx--;
-          System.out.println("\nArray After Inner Iteration " + (innerCount++));
-          newDisplay(array);
-          // displayArray(array);
-          totalItr++; // total iterations counter
-        } // end while
+        } // end of while
+        System.out.println("\nArray After Inner Iteration " + (innerCount++));
+        newDisplay(array);
+        totalItr++; // total iterations counter
         array[sortedIdx + 1] = element;
         System.out.println(YELLOW + "\nArray After Outer Iteration " + RESET + (outerCount++));
         newDisplay(array);

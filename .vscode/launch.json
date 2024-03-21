@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Sorting",
+            "request": "launch",
+            "mainClass": "Sorting",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
             "name": "SortingMenu",
             "request": "launch",
             "mainClass": "SortingMenu",
@@ -311,20 +318,6 @@
             "request": "launch",
             "mainClass": "Recursion",
             "projectName": "03-DSA_in_JAVA_Practice_7f26272b"
-        },
-        {
-            "type": "java",
-            "name": "Sorting",
-            "request": "launch",
-            "mainClass": "Sorting",
-            "projectName": "03-DSA_in_JAVA_Practice_7f26272b"
-        },
-        {
-            "type": "java",
-            "name": "Sorting",
-            "request": "launch",
-            "mainClass": "Sorting",
-            "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
         },
         {
             "type": "java",
