@@ -8,7 +8,7 @@ public class Node {
   public Node next; // same class bcz next node also has data + next
 
   // Parameterized Constructor that will create a single node initiallly-----------*/
-  Node(String data) {
+  public Node(String data) {
     this.data = data;
     // whenever a node is created its pointer is null, assume that it is the last node
     this.next = null;
