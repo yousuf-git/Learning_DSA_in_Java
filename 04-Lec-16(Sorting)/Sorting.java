@@ -29,8 +29,8 @@ public class Sorting {
                 }
             }
             swap = marks[i];
-            marks[i] = array[minIdx];
-            array[minIdx] = swap;
+            marks[i] = marks[minIdx];
+            marks[minIdx] = swap;
         }
         System.out.print("Sorted Marks by Selection sort: ");
         printArray(marks);
