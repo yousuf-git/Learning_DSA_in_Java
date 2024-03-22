@@ -1,4 +1,4 @@
-package linkedList;
+package singlyLL;
 
 public class LLTesting {
 

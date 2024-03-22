@@ -1,5 +1,5 @@
 /* Implemented Stack using LinkedList */
-import linkedList.*;
+import singlyLL.*;
 
 public class LLStack {
 

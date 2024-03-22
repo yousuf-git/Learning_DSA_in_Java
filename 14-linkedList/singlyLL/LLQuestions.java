@@ -1,5 +1,5 @@
 // File 4
-package linkedList;
+package singlyLL;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package linkedList;
+package singlyLL;
 
 // There are nodes in a Linked List, so I'm using a class for it-----------*/
 public class Node {

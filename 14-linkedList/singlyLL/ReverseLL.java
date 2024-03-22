@@ -1,6 +1,6 @@
 // File 3
 
-package linkedList;
+package singlyLL;
 
 /* Reverse a linked list
  * Method 1

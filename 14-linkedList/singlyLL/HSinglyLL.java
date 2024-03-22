@@ -1,5 +1,5 @@
-// File 1 - contains methods that I used realted to linked list-----------*/
-package linkedList;
+// File 1 - it contains methods that I used realted to singly linked list-----------*/
+package singlyLL;
 
 // LinkedList is already a class in JAVA so I used another name-----------*/
 public class HSinglyLL {

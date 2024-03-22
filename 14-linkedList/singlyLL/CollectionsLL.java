@@ -1,6 +1,6 @@
 // File 2
 
-package linkedList;
+package singlyLL;
 
 // This is file no. 2. first see MyLinkedList.java file
 

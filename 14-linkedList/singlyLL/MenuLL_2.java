@@ -1,5 +1,5 @@
 /* -----------20 Different Operations on as many number of lists as you want-------------- */
-package linkedList;
+package singlyLL;
 
 import java.util.Scanner;
 
