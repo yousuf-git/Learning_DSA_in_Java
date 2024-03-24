@@ -16,14 +16,14 @@ public class LLQuestions {
       System.out.println("nth last element: " + head.data);
       return head.next;
     } else {
-      //   Node prevNode = head;
-      //   Node currNode = head.next;
+      // Node prevNode = head;
+      // Node currNode = head.next;
       Node prevNode = head;
-      //   if we want to delete 4th node we need 3rd node and change its next
+      // if we want to delete 4th node we need 3rd node and change its next
       for (int i = 1; i < size - n; i++) {
         prevNode = prevNode.next;
       }
-      //   prevNode.next means nth node
+      // prevNode.next means nth node
       System.out.println("nth last element: " + prevNode.next.data);
       prevNode.next = prevNode.next.next; // n-1 will point to n+1
       return head;
@@ -57,8 +57,44 @@ public class LLQuestions {
     }
   }
 
+  public static void reorderList(Node head, Node mid, int size) {
+    if (head == null) {
+      System.out.println("List is Empty !");
+    }
+    Node currPtr = head;
+    Node nextPtr = mid.next;
+    Node currNode, nextNode;
+    if (size % 2 != 0) {
+      while (nextPtr != null) {
+        currNode = currPtr;
+        nextNode = nextPtr;
+
+        nextPtr = nextPtr.next;
+        currPtr = currPtr.next;
+
+        nextNode.next = currNode.next;
+        currNode.next = nextNode;
+      }
+      currPtr.next = null;
+    } else {
+      while (nextPtr.next != null) {
+        currNode = currPtr;
+        nextNode = nextPtr;
+
+        nextPtr = nextPtr.next;
+        currPtr = currPtr.next;
+
+        nextNode.next = currNode.next;
+        currNode.next = nextNode;
+      }
+      currPtr.next = nextPtr;
+    }
+
+  }
+
   public static void main(String[] args) {
-    /*Q1: Find nth node from last and delete it
+    /*
+     * Q1: Find nth node from last and delete it
      * if n = 2 it means 2nd last node and so on....
      */
     HSinglyLL list = new HSinglyLL();
@@ -80,16 +116,18 @@ public class LLQuestions {
 
     input.close();
 
-    /*Q2: Check if a linked list is palindrome
-     * 313, 1221, bob, LOL,..  is palindrom i.e., reverse = original
+    /**
+     * Q2: Check if a linked list is palindrome
+     * 313, 1221, bob, LOL,.. is palindrom i.e., reverse = original
      * Methods:
-     *  1. Store data of list in an array/arrayList then check if array/arrayList is palindrome or not
-     *  2. Create a new reversed linkedList and then compare it with original
-     *  3. Follow the 3 steps (Also avoids extra space)
-     *      Suppose list is: 1 2 2 1
-     *      a.  Find Middle of linked list --> 2
-     *      b.  Reverse the list after middle --> 1 2 1 2
-     *      c.  Compare data/values of 1st half with 2nd half --> 1==1, 2==2
+     * 1. Store data of list in an array/arrayList then check if array/arrayList is
+     * palindrome or not
+     * 2. Create a new reversed linkedList and then compare it with original
+     * 3. Follow the 3 steps (Also avoids extra space)
+     * Suppose list is: 1 2 2 1
+     * a. Find Middle of linked list --> 2
+     * b. Reverse the list after middle --> 1 2 1 2
+     * c. Compare data/values of 1st half with 2nd half --> 1==1, 2==2
      */
 
     // By Method 2
@@ -113,5 +151,23 @@ public class LLQuestions {
     } else {
       System.out.println("NO");
     }
+    /**
+     * Q3: Reorder given List
+     * Input: 1 --> 2 --> 3 --> 4 --> 5
+     * Output: 1 --> 5 --> 2 --> 4 --> 3
+     */
+    HSinglyLL inputList = new HSinglyLL();
+    inputList.add("1");
+    inputList.add("2");
+    inputList.add("3");
+    inputList.add("4");
+    inputList.add("5");
+    inputList.add("6");
+    System.out.print("Input List: ");
+    inputList.display();
+    inputList.middle(inputList.getHead()).next = inputList.recursiveReverse(inputList.middle(inputList.getHead()).next);
+    reorderList(inputList.getHead(), inputList.middle(inputList.getHead()), inputList.getSize());
+    System.out.print("Reordered List: ");
+    inputList.display();
   }
 }
