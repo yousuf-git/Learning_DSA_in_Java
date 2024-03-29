@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BinaryTree",
+            "request": "launch",
+            "mainClass": "BinaryTree",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "LLQuestions",
+            "request": "launch",
+            "mainClass": "singlyLL.LLQuestions",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "MenuLL",
+            "request": "launch",
+            "mainClass": "singlyLL.MenuLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "HDoublyLL",
+            "request": "launch",
+            "mainClass": "doublyLL.HDoublyLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "DoublyLLTesting",
+            "request": "launch",
+            "mainClass": "doublyLL.DoublyLLTesting",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
             "name": "Sorting",
             "request": "launch",
             "mainClass": "Sorting",
