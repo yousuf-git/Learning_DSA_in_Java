@@ -126,12 +126,11 @@ public class SortingMenu {
         smallIdx = i; // index of smallest valu, will be updated if any other element is smaller
         innerCount = 1; // inner loop counter
         for (int j = i + 1; j < array.length; j++) {
-          System.out.println("\nArray After Inner Iteration " + (innerCount++));
+          System.out.println("\nAfter Inner Iteration " + (innerCount++));
           if (array[j] < array[smallIdx]) {
             // update smallest value index
             smallIdx = j;
           }
-          newDisplay(array);
           System.out.println("Smallest: " + array[smallIdx]);
           totalItr++; // total iterations counter
         }
