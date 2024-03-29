@@ -8,6 +8,7 @@ Methods in collections framework
     5. addAll
     6. removeAll
     7. clear
+        .........................
 
 List Interface
     ArrayList
