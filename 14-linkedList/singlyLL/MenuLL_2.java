@@ -20,7 +20,9 @@ public class MenuLL_2 {
         + "\n \t╠══  20 Different Menus for as many number of lists as you want  ══╣ \n" + RESET);
     System.out.print("\nEnter Limit for Lists Creation: ");
     int listsLimit = input.nextInt();
-    HSinglyLL[] lists = new HSinglyLL[listsLimit];
+    @SuppressWarnings("unchecked") // Suppress unchecked warning
+    HSinglyLL<String>[] lists = (HSinglyLL<String>[]) new HSinglyLL[listsLimit]; // casted it to an array of HSinglyLL<String>. This cast is safe because we know that all elements of the array will be of type HSinglyLL<String>.
+
     int listsCount = 0;
     int ch = 0;
     String item;
@@ -56,7 +58,7 @@ public class MenuLL_2 {
           if (listsCount >= listsLimit) {
             System.out.println("List Creation Limit Exceeded :( ");
           } else {
-            lists[listsCount] = new HSinglyLL();
+            lists[listsCount] = new HSinglyLL<>();
             char c = 'Y';
             while (c == 'Y' || c == 'y') {
               System.out.print("\nEnter Item to Insert: ");
@@ -163,7 +165,7 @@ public class MenuLL_2 {
           break;
         case 9: // display all lists
           int itr = 1;
-          for (HSinglyLL list : lists) {
+          for (HSinglyLL<String> list : lists) {
             if (list != null) {
               System.out.println("\nList " + (itr++));
               list.newDisplay();
@@ -253,8 +255,8 @@ public class MenuLL_2 {
           if (listIdx == -1) {
             System.out.println("Invalid List Number :( ");
           } else {
-            Node headNode = lists[listIdx].getHead();
-            Node midNode = lists[listIdx].middle(headNode);
+            Node<String> headNode = lists[listIdx].getHead();
+            Node<String> midNode = lists[listIdx].middle(headNode);
             midNode.next = lists[listIdx].iterativeReverse(midNode.next);
             System.out.println("\n2nd Half List Reversed Successfully :) ");
           }

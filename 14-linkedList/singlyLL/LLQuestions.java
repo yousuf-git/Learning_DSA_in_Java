@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class LLQuestions {
 
-  public static Node delN(int n, int size, Node head) {
+  public static Node<String> delN(int n, int size, Node<String> head) {
     if (n > size || n < 1) {
       System.out.println("Invalid n !");
       return head;
@@ -18,7 +18,7 @@ public class LLQuestions {
     } else {
       // Node prevNode = head;
       // Node currNode = head.next;
-      Node prevNode = head;
+      Node<String> prevNode = head;
       // if we want to delete 4th node we need 3rd node and change its next
       for (int i = 1; i < size - n; i++) {
         prevNode = prevNode.next;
@@ -30,21 +30,21 @@ public class LLQuestions {
     }
   }
 
-  public static boolean isPalindrome(HSinglyLL list) {
-    Node head = list.getHead();
+  public static boolean isPalindrome(HSinglyLL<String> list) {
+    Node<String> head = list.getHead();
     if (head == null || head.next == null) {
       return true;
     } else {
       // find middle
-      Node middle = list.middle(head);
+      Node<String> middle = list.middle(head);
       System.out.println("Middle Value: " + middle.data);
       // Reverse the 2nd half
       middle.next = list.iterativeReverse(middle.next);
       list.display();
 
       // Compare 1st half / left side with 2nd half / right side
-      Node leftNode = head;
-      Node rightNode = middle.next;
+      Node<String> leftNode = head;
+      Node<String> rightNode = middle.next;
 
       while (rightNode != null) {
         if (!leftNode.data.equals(rightNode.data)) {
@@ -57,13 +57,13 @@ public class LLQuestions {
     }
   }
 
-  public static void reorderList(Node head, Node mid, int size) {
+  public static void reorderList(Node<String> head, Node<String> mid, int size) {
     if (head == null) {
       System.out.println("List is Empty !");
     }
-    Node currPtr = head;
-    Node nextPtr = mid.next;
-    Node currNode, nextNode;
+    Node<String> currPtr = head;
+    Node<String> nextPtr = mid.next;
+    Node<String> currNode, nextNode;
     if (size % 2 != 0) {
       while (nextPtr != null) {
         currNode = currPtr;
@@ -97,7 +97,7 @@ public class LLQuestions {
      * Q1: Find nth node from last and delete it
      * if n = 2 it means 2nd last node and so on....
      */
-    HSinglyLL list = new HSinglyLL();
+    HSinglyLL<String> list = new HSinglyLL<>();
     list.addFirst("11");
     list.addFirst("9");
     list.addFirst("7");
@@ -131,7 +131,7 @@ public class LLQuestions {
      */
 
     // By Method 2
-    HSinglyLL palList = new HSinglyLL();
+    HSinglyLL<String> palList = new HSinglyLL<>();
     palList.add("3");
     palList.add("1");
     palList.add("1");
@@ -156,7 +156,7 @@ public class LLQuestions {
      * Input: 1 --> 2 --> 3 --> 4 --> 5
      * Output: 1 --> 5 --> 2 --> 4 --> 3
      */
-    HSinglyLL inputList = new HSinglyLL();
+    HSinglyLL<String> inputList = new HSinglyLL<>();
     inputList.add("1");
     inputList.add("2");
     inputList.add("3");

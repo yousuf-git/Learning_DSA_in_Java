@@ -1,37 +1,37 @@
 /* Implemented Stack using LinkedList */
 import singlyLL.*;
 
-public class LLStack {
+public class LLStack<T> {
 
   //   private Node top;
   //   private int size;
-  HSinglyLL stack;
+  HSinglyLL<T> stack;
 
   public LLStack() {
-    stack = new HSinglyLL();
+    stack = new HSinglyLL<>();
     // this.top = null;
     // this.size = size;
   }
 
-  public void push(String item) {
+  public void push(T item) {
     stack.addFirst(item);
   }
 
-  public String pop() {
+  public T pop() {
     if (stack.isEmpty()) {
       return null;
     } else {
-      String item = stack.getHead().data;
+      T item = stack.getHead().data;
       stack.delFirst();
       return item;
     }
   }
 
-  public String peek() {
+  public T peek() {
     if (stack.isEmpty()) {
       return null;
     } else {
-      String item = stack.getHead().data;
+      T item = stack.getHead().data;
       return item;
     }
   }
@@ -45,7 +45,7 @@ public class LLStack {
   }
 
   public static void main(String[] args) {
-    LLStack stack = new LLStack();
+    LLStack<String> stack = new LLStack<>();
     // stack.push("I");
     // stack.display();
     // stack.push("am");

@@ -1,5 +1,5 @@
 // File 3
-
+// This implementation is also included in HSinglyLL class which is generic amd contains all methods of singly ////linked list, however to understand this specific method separately, you can consider it.
 package singlyLL;
 
 /* Reverse a linked list
@@ -13,24 +13,24 @@ package singlyLL;
  */
 // I've again created linkedList class but you can use previous one bcz we are in the same pkg
 
-class LL {
+class LL<T> {
 
-  private Node head;
+  private Node<T> head;
 
-  public Node getHead() {
+  public Node<T> getHead() {
     return this.head;
   }
 
-  public void setHead(Node head) {
+  public void setHead(Node<T> head) {
     this.head = head;
   }
 
-  public void add(String data) {
-    Node newNode = new Node(data);
+  public void add(T data) {
+    Node<T> newNode = new Node<>(data);
     if (head == null) {
       head = newNode;
     } else {
-      Node currNode = head;
+      Node<T> currNode = head;
       while (currNode.next != null) {
         currNode = currNode.next;
       }
@@ -42,7 +42,7 @@ class LL {
     if (head == null) {
       System.out.println("Linked List is Empty !");
     } else {
-      Node curNode = head;
+      Node<T> curNode = head;
       while (curNode != null) {
         System.out.print(curNode.data + " --> ");
         curNode = curNode.next;
@@ -60,10 +60,10 @@ class LL {
     } else {
       // I'll be using 3 pointers i.e., each time deal with 3 nodes in the list
       // In each iteration 2nd element will point to 1st element and 3rd element will then become the 2nd element which will point backwards and so on untill null is reached
-      Node prevNode = head; // 1st
-      Node currNode = head.next; // 2nd
+      Node<T> prevNode = head; // 1st
+      Node<T> currNode = head.next; // 2nd
       while (currNode != null) { // untill reached null
-        Node nextNode = currNode.next; // 3rd
+        Node<T> nextNode = currNode.next; // 3rd
         currNode.next = prevNode; // 2nd --> 1st
 
         // update nodes/pointers
@@ -78,13 +78,13 @@ class LL {
   }
 
   /************ Reverse a link list by recursive approach ************/
-  public Node recursiveReverse(Node head) {
+  public Node<T> recursiveReverse(Node<T> head) {
     // base case, for last element
     if (head == null || head.next == null) {
       return head;
     }
     // Recursive call that will return new head, when head.next == null it means head is last element so it will be the new head that will be same returned to all functions below. i.e., this call and return statements are connected
-    Node newHead = recursiveReverse(head.next);
+    Node<T> newHead = recursiveReverse(head.next);
 
     head.next.next = head; // if current head is 1st element then next of its next element should point to it (1st element)
     // upper line can be divided as below 2 lines
@@ -99,19 +99,21 @@ class LL {
 public class ReverseLL {
 
   public static void main(String[] args) {
-    LL list = new LL();
+    LL<Integer> list = new LL<>();
     // list.add("hi");
     // list.add("harry");
     // list.add("Welcome !");
 
-    list.add("1");
-    list.add("3");
-    list.add("3");
-    list.add("1");
-
+    list.add(1);
+    list.add(3);
+    list.add(2);
+    list.add(1);
+    System.out.print("Original List: ");
     list.displayList();
-
+    System.out.println();
+    
     list.iterativeReverse();
+    System.out.print("Reversed List: ");
     list.displayList();
     // list.setHead(list.recursiveReverse(list.getHead()));
     // list.displayList();

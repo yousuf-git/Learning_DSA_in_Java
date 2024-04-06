@@ -21,7 +21,7 @@ public class MenuLL {
          * 11. Count
          * 12. Exit
          */
-        HSinglyLL list = new HSinglyLL();
+        HSinglyLL<String> list = new HSinglyLL<>();
         Scanner input = new Scanner(System.in);
         int ch = 0;
         String item;

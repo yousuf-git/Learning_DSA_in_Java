@@ -1,15 +1,21 @@
 // File 1 - it contains methods that I used realted to singly linked list-----------*/
+
+/**
+ * This is generic type Singly Linked List class that contains basic linked list methods in
+ * order to understand its implementation
+ * @param T => Type of Data that will be stored in the nodes of linked list
+ */
 package singlyLL;
 
 // LinkedList is already a class in JAVA so I used another name-----------*/
-public class HSinglyLL {
+public class HSinglyLL <T> {
   public final String ANSI_RESET = "\u001B[0m";
   public final String ANSI_RED = "\u001B[31m";
   public final String ANSI_GREEN = "\u001B[32m";
   public final String ANSI_YELLOW = "\u001B[33m";
 
   // Each linked list has a head(First Node) and size
-  private Node head;
+  private Node<T> head;
   private int size;
 
   public HSinglyLL() { // constructor
@@ -17,12 +23,12 @@ public class HSinglyLL {
   }
 
   /* --------Setter for head node--------- */
-  public void setHead(Node head) {
+  public void setHead(Node<T> head) {
     this.head = head;
   }
 
   /* --------Getter for head node--------- */
-  public Node getHead() {
+  public Node<T> getHead() {
     return this.head;
   }
 
@@ -39,9 +45,9 @@ public class HSinglyLL {
   // Add Element / Node Method can be of 2 types => addFirst() and addLast()
 
   /* ---------- Adds element at the start ----------- */
-  public void addFirst(String data) {
+  public void addFirst(T data) {
     // Create a new node
-    Node newNode = new Node(data);
+    Node<T> newNode = new Node<>(data);
 
     // if list is empty, i.e., head = null
     if (isEmpty()) {
@@ -57,14 +63,14 @@ public class HSinglyLL {
   }
 
   /* ---------- Adds element at the end ----------- */
-  public void addLast(String data) {
-    Node newNode = new Node(data);
+  public void addLast(T data) {
+    Node<T> newNode = new Node<>(data);
     if (isEmpty()) {
       head = newNode;
     } else {
       // if we directly change the head, first item and hence list list will be lost,
       // thats why we use a currentNode and update it untill null is reached
-      Node currentNode = head;
+      Node<T> currentNode = head;
       while (currentNode.next != null) {
         currentNode = currentNode.next;
       }
@@ -74,27 +80,27 @@ public class HSinglyLL {
   }
 
   /* ---------- default add -> To add element at the end ----------- */
-  public void add(String data) {
+  public void add(T data) {
     this.addLast(data);
   }
 
   /* ------------------To Add Element at a position------------------ */
-  public void addAtIndex(int idx, String data) {
+  public void addAtIndex(int idx, T data) {
     if (idx > this.size || idx < 0) {
       System.out.println("Invalid Index :( ");
     } else {
-      Node newNode = new Node(data);
+      Node<T> newNode = new Node<>(data);
       if (idx == 0) {
         newNode.next = head;
         head = newNode;
         System.out.println("Item " + data + " added at index " + idx + " :)");
         size += 1;
       } else {
-        Node currNode = head;
+        Node<T> currNode = head;
         for (int i = 0; i < idx - 1; i++) {
           currNode = currNode.next;
         }
-        Node nextNode = currNode.next;
+        Node<T> nextNode = currNode.next;
         currNode.next = newNode;
         newNode.next = nextNode;
         System.out.println("Item " + data + " added at index " + idx + " :)");
@@ -104,11 +110,11 @@ public class HSinglyLL {
   }
 
   /* ---------- Removes element from start ----------- */
-  public String delFirst() {
+  public T delFirst() {
     if (isEmpty()) {
       return null;
     } else {
-      String item = head.data;
+      T item = head.data;
       head = head.next;
       this.size -= 1;
       return item;
@@ -116,13 +122,13 @@ public class HSinglyLL {
   }
 
   /* ---------- Removes element from the end ----------- */
-  public String delLast() {
+  public T delLast() {
     if (isEmpty()) {
       return null;
     } else {
-      String item;
+      T item;
       this.size -= 1;
-      Node currentNode = head;
+      Node<T> currentNode = head;
       /******************** Wrong Approach *********************************/
 
       // while (currentNode.next != null) {
@@ -159,7 +165,7 @@ public class HSinglyLL {
   }
 
   /* ---------- default remove -> removes element from the end ----------- */
-  public String remove() {
+  public T remove() {
     return this.delLast();
   }
 
@@ -171,14 +177,14 @@ public class HSinglyLL {
       if (idx > this.size || idx < 0) {
         System.out.println("Invalid Index <:( ");
       } else {
-        String data;
+        T data;
         if (idx == 0) {
           data = head.data;
           head = head.next;
           System.out.println("Item " + data + " removed from index " + idx + " :)");
           size -= 1;
         } else {
-          Node currNode = head;
+          Node<T> currNode = head;
           for (int i = 0; i < idx - 1; i++) {
             currNode = currNode.next;
           }
@@ -192,15 +198,15 @@ public class HSinglyLL {
   }
 
   /* ---------- To Update Value at a specifc index ----------- */
-  public void update(int idx, String val) {
+  public void update(int idx, T val) {
     if (idx >= size || idx < 0) {
       System.out.println("Invalid Index <:( ");
     } else if (idx == 0) {
       delFirst();
       addFirst(val);
     } else {
-      Node newNode = new Node(val);
-      Node currNode = head;
+      Node<T> newNode = new Node<>(val);
+      Node<T> currNode = head;
       for (int i = 0; i < idx-1; i++) {
         currNode = currNode.next;
       }
@@ -214,7 +220,7 @@ public class HSinglyLL {
     if (isEmpty()) {
       System.out.println("Nothing to display, List is Empty !");
     } else {
-      Node currentNode = head;
+      Node<T> currentNode = head;
       while (currentNode != null) {
         System.out.print(currentNode.data + " --> ");
         currentNode = currentNode.next;
@@ -229,9 +235,9 @@ public class HSinglyLL {
     if (isEmpty()) {
       System.out.println(ANSI_RED + "null" + ANSI_RESET);
     } else {
-      Node currNode = head;
+      Node<T> currNode = head;
       while (currNode != null) {
-        for (int i = 0; i < 6 + currNode.data.length(); i++) {
+        for (int i = 0; i < 6 + currNode.data.toString().length(); i++) {
           try {
             Thread.sleep(100);
           } catch (InterruptedException e) {
@@ -261,22 +267,13 @@ public class HSinglyLL {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
-        // System.out.print("| " + currNode.data + " | | --> ");
         currNode = currNode.next;
       }
       System.out.print(ANSI_RED + "null" + ANSI_GREEN);
       System.out.println();
-      // for (int i = 0; i < size * 7; i++) {
-      // if (i % 7 == 0) {
-      // if (i != 0) {
-      // System.out.print(" ");
-      // }
-      // }
-      // System.out.print("-");
-      // }
       currNode = head;
       while (currNode != null) {
-        for (int i = 0; i < 6 + currNode.data.length(); i++) {
+        for (int i = 0; i < 6 + currNode.data.toString().length(); i++) {
           try {
             Thread.sleep(50);
           } catch (InterruptedException e) {
@@ -300,7 +297,7 @@ public class HSinglyLL {
       return idx;
     } else {
       idx = 0;
-      Node currNode = head;
+      Node<T> currNode = head;
       while (currNode != null) {
         if (currNode.data.equals(item)) {
           return idx;
@@ -323,17 +320,17 @@ public class HSinglyLL {
       int count;
       for (int i = 0; i < size - 1; i++) {
         count = 1; // if swapping occurs we have to change head
-        Node prevNode = head;
-        Node currNode = head.next;
-        Node nextNode;
+        Node<T> prevNode = head;
+        Node<T> currNode = head.next;
+        Node<T> nextNode;
         int flag = 0; // either swapping occcurs or not, change the prevNode, start from head and step
                       // forward till flag (old prev is reached)
 
         // while (currNode != null) {
         for (int k = 0; k < size - i - 1; k++) {
-          prevItem = Integer.parseInt(prevNode.data);
+          prevItem = Integer.parseInt(prevNode.data.toString()); // first convert the data type into string 
           // System.out.println("Previous Item : " + prevItem);
-          currItem = Integer.parseInt(currNode.data);
+          currItem = Integer.parseInt(currNode.data.toString());
           // System.out.println("Current Item : " + currItem);
           nextNode = currNode.next;
 
@@ -347,7 +344,7 @@ public class HSinglyLL {
             if (count == 1) { // there is no previous list
               head = currNode;
             } else {
-              Node ptr = head;
+              Node<T> ptr = head;
               while (ptr.next != prevNode) {
                 ptr = ptr.next;
               }
@@ -372,7 +369,7 @@ public class HSinglyLL {
   }
 
   /* ----------Boolean Method to check if 2 linked lists are equal----------- */
-  public boolean isEqual(HSinglyLL list) {
+  public boolean isEqual(HSinglyLL<T> list) {
     // case 1 : if both lists are empty
     if (this.isEmpty() && list.isEmpty()) {
       return true;
@@ -383,8 +380,8 @@ public class HSinglyLL {
     }
     // case 3: if both lists have same size and contain some data
     else {
-      Node currNode = this.head;
-      Node listNode = list.head;
+      Node<T> currNode = this.head;
+      Node<T> listNode = list.head;
       boolean flag = true; // equality indicator flag
 
       while (currNode != null && listNode != null) {
@@ -402,13 +399,13 @@ public class HSinglyLL {
   }
 
   /* ----------Copies the current list into provided list----------- */
-  public HSinglyLL copyInto(HSinglyLL list) {
-    HSinglyLL newList = new HSinglyLL();
+  public HSinglyLL<T> copyInto(HSinglyLL<T> list) {
+    HSinglyLL<T> newList = new HSinglyLL<>();
     if (isEmpty()) {
-      return new HSinglyLL();
+      return new HSinglyLL<>();
     } else {
-      Node currNode = this.head;
-      Node newNode = currNode;
+      Node<T> currNode = this.head;
+      Node<T> newNode = currNode;
       while (currNode != null) {
         newList.addLast(currNode.data);
         newNode.next = currNode.next;
@@ -420,16 +417,16 @@ public class HSinglyLL {
   }
 
   /* ----------Returns a new list that is reverse of original----------- */
-  public HSinglyLL reverse() {
-    HSinglyLL revList = new HSinglyLL();
+  public HSinglyLL<T> reverse() {
+    HSinglyLL<T> revList = new HSinglyLL<>();
     if (isEmpty()) {
       return revList;
     } else {
       revList = this.copyInto(revList);
-      Node prevNode = revList.head;
-      Node currNode = prevNode.next;
+      Node<T> prevNode = revList.head;
+      Node<T> currNode = prevNode.next;
       while (currNode != null) {
-        Node nextNode = currNode.next;
+        Node<T> nextNode = currNode.next;
         currNode.next = prevNode;
         prevNode = currNode;
         currNode = nextNode;
@@ -445,12 +442,12 @@ public class HSinglyLL {
    * returns middle Node of list => Hare - Turtle approach-----------
    * If only starting point is given, range will be till end
    */
-  public Node middle(Node head) {
+  public Node<T> middle(Node<T> head) {
     if (isEmpty()) {
       return null; // if list is empty
     } else {
-      Node hare = head;
-      Node turtle = head;
+      Node<T> hare = head;
+      Node<T> turtle = head;
       while (hare.next != null && hare.next.next != null) {
         hare = hare.next.next; // 2 steps
         turtle = turtle.next; // 1 step
@@ -460,12 +457,12 @@ public class HSinglyLL {
   }
 
   /* ---------Method 2 for middle: If start and end both are given----------- */
-  public Node middle(Node start, Node end) {
+  public Node<T> middle(Node<T> start, Node<T> end) {
     if (start == null) {
       return null;
     } else {
-      Node hare = start;
-      Node turtle = start;
+      Node<T> hare = start;
+      Node<T> turtle = start;
       while (hare == end || hare.next != end) {
         hare = hare.next.next; // 2 stpes
         turtle = turtle.next; // 1 step
@@ -500,7 +497,7 @@ public class HSinglyLL {
    * head to end-----------
    * Can be attached with original list in order to save memory
    */
-  public Node iterativeReverse(Node head) {
+  public Node<T> iterativeReverse(Node<T> head) {
     if (head == null) { // for empty list
       System.out.println("List is Empty, Cannot be reversed");
       return null;
@@ -527,10 +524,10 @@ public class HSinglyLL {
       // head = prevNode;
       // return head;
       /*********************** In Simple way *******************************/
-      Node prevNode = null;
-      Node currNode = head;
+      Node<T> prevNode = null;
+      Node<T> currNode = head;
       while (currNode != null) {
-        Node nextNode = currNode.next;
+        Node<T> nextNode = currNode.next;
         currNode.next = prevNode;
 
         prevNode = currNode;
@@ -543,7 +540,7 @@ public class HSinglyLL {
   /*---- Recursive Approach ---- Returns the new head of reversed list from passed head to end -----------
    * Can be attached with original list in order to save memory
    */
-  public Node recursiveReverse(Node head) {
+  public Node<T> recursiveReverse(Node<T> head) {
     // base case, for last element
     if (head == null || head.next == null) {
       return head;
@@ -551,7 +548,7 @@ public class HSinglyLL {
     // Recursive call that will return new head; when head.next == null it means
     // head is last element so it will be the new head that will be same returned to
     // all functions below. i.e., this call and return statements are connected
-    Node newHead = recursiveReverse(head.next);
+    Node<T> newHead = recursiveReverse(head.next);
 
     head.next.next = head; // if current head is 1st element then next of its next element should point to
                            // it (1st element) and so on....
@@ -563,12 +560,12 @@ public class HSinglyLL {
   }
 
   /*----------- Returns true if there is any infinite loop/cycle in the list ---------*/
-  public boolean hasCycle(Node head) {
+  public boolean hasCycle(Node<T> head) {
     if (head == null) {
       return false;
     } else {
-      Node hare = head;
-      Node turtle = head;
+      Node<T> hare = head;
+      Node<T> turtle = head;
       while (hare.next != null && hare.next.next != null) {
         hare = hare.next.next;
         turtle = turtle.next;
@@ -581,12 +578,12 @@ public class HSinglyLL {
   }
 
   /*----------- Removes cycle / loop from list, if any ---------*/
-  public void rmvCycle(Node head) {
+  public void rmvCycle(Node<T> head) {
     if (!this.hasCycle(head)) {
       System.out.println("There is no cycle in the list to remove !");
     } else {
-      Node hare = head;
-      Node turtle = head;
+      Node<T> hare = head;
+      Node<T> turtle = head;
       while (hare.next != null && hare.next.next != null) {
         hare = hare.next.next;
         turtle = turtle.next;
@@ -600,7 +597,7 @@ public class HSinglyLL {
   }
 
   /*----------- Merges/concats current list with provided one ---------*/
-  public void merge(HSinglyLL newList) {
+  public void merge(HSinglyLL<T> newList) {
     // if (head == null) {
     // head = newList.getHead();
     // size = newList.getSize();
@@ -621,7 +618,7 @@ public class HSinglyLL {
      * Another Approach, get data from each node of newList and add at last of
      * currList
      */
-    Node node = newList.getHead();
+    Node<T> node = newList.getHead();
     while (node != null) {
       this.add(node.data);
       node = node.next;
@@ -665,16 +662,16 @@ public class HSinglyLL {
   /* To get SUM of a list, list must be integer type */
   public int getSum() {
     int sum = 0;
-    Node currNode = head;
+    Node<T> currNode = head;
     while (currNode != null) {
-      sum += Integer.parseInt(currNode.data);
+      sum += Integer.parseInt(currNode.data.toString());
       currNode = currNode.next;
     }
     return sum;
   }
 
   public static void main(String[] args) {
-    HSinglyLL list = new HSinglyLL();
+    HSinglyLL<String> list = new HSinglyLL<>();
     // list.add("nth");
     // list.add("Sehri");
     // list.add("Done");

@@ -7,7 +7,7 @@ public class LLTesting {
       "\n-------------Testing diff Linked List Methods-------------\n"
     );
 
-    HSinglyLL list = new HSinglyLL();
+    HSinglyLL<String> list = new HSinglyLL<>();
     /*-----------addFirst Method------------*/
     list.addFirst("I'm");
     /*-----------addLast Method------------*/
@@ -30,7 +30,7 @@ public class LLTesting {
     /*-----------Size Method------------*/
     System.out.println("Size of List: " + list.getSize());
 
-    HSinglyLL list_1 = new HSinglyLL();
+    HSinglyLL<String> list_1 = new HSinglyLL<>();
     list_1.addFirst("1");
     list_1.addLast("2");
     list_1.addLast("3");
@@ -38,7 +38,7 @@ public class LLTesting {
     // list_1.display();
     list_1.newDisplay();
 
-    HSinglyLL list_2 = new HSinglyLL();
+    HSinglyLL<String> list_2 = new HSinglyLL<>();
     list_2.addFirst("1");
     list_2.addLast("2");
     // list_2.addLast("3");
@@ -55,7 +55,7 @@ public class LLTesting {
     }
 
     /*-----------copying the list into new list------------*/
-    HSinglyLL copyList = new HSinglyLL();
+    HSinglyLL<String> copyList = new HSinglyLL<>();
     copyList = list_2.copyInto(copyList);
     System.out.print("\nCopied List: ");
     // copyList.display();
@@ -85,7 +85,7 @@ public class LLTesting {
     list_2.newDisplay();
 
     /*******************Creating a new list that is reverse of original**************************/
-    HSinglyLL revList = list_2.reverse();
+    HSinglyLL<String> revList = list_2.reverse();
     System.out.print("\nReverse of List 2: ");
     // revList.display();
     revList.newDisplay();
@@ -104,8 +104,8 @@ public class LLTesting {
     list_2.newDisplay();
 
     /*-------------Reversing the list after middle i.e. 2nd half of it------------------*/
-    Node head = revList.getHead();
-    Node mid = revList.middle(head);
+    Node<String> head = revList.getHead();
+    Node<String> mid = revList.middle(head);
     System.out.println("\nMiddle of List: " + mid.data);
 
     // newHead will be returned that will lead to reversed portion
@@ -114,7 +114,7 @@ public class LLTesting {
 
     System.out.println("Returned Head val: " + mid.next.data);
     System.out.print("Returned List that is going to be connected after mid: ");
-    Node updNode = mid.next;
+    Node<String> updNode = mid.next;
     while (updNode != null) {
       System.out.print(updNode.data + " ");
       updNode = updNode.next;

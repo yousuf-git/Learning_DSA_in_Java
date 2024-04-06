@@ -1,13 +1,9 @@
 Linked List => Nodes Connected to one another
 
-| I | ---> | am |
+_____      ______       _________
+│ I │ ---> │ am │ --->  │ Harry │ ---> null 
+¯¯¯¯¯      ¯¯¯¯¯¯       ¯¯¯¯¯¯¯¯¯
 
-            -
-            -
-            -
-            v
-
-          | Harry | 
 
 Data Structure  |   Operation   |   Time Complexity
 
@@ -26,7 +22,7 @@ Properties:
 First node --> head
 Last node --> tail
 
-Singular Linked List --> only move forward
+Singly Linked List --> only move forward
 Doubly Linked List --> can move forward or backward
 Circular Linked List --> Last element points to first one
 
