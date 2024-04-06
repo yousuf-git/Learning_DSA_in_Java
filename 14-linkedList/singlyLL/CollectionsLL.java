@@ -1,8 +1,6 @@
-// File 2
+// See this file at the end 
 
 package singlyLL;
-
-// This is file no. 2. first see MyLinkedList.java file
 
 // Built it Linked List class that helps to avoid implementing linked list methods from scratch
 
@@ -33,7 +31,8 @@ public class CollectionsLL {
     System.out.println("\nList: " + list);
     System.out.println("Size of List: " + list.size());
 
-    // If we use add/remove without specifying first/last, item is added/removed from last
+    // If we use add/remove without specifying first/last, item is added/removed
+    // from last
     list.add("testVal");
     System.out.println("\nList: " + list);
     System.out.println("Size of List: " + list.size());
