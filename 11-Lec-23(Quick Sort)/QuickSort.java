@@ -13,29 +13,29 @@ public class QuickSort {
 
   public static int getPivot(int[] array, int stIdx, int endIdx) {
     int pivot = array[endIdx]; // last element choosen as pivot
-    int i = stIdx - 1; //
+    int i = stIdx - 1; // => to make place for elements smaller than pivot
     for (int j = stIdx; j < endIdx; j++) {
       if (array[j] < pivot) {
-        i++;
+        i++; // if 1st elemnt in range is less than pivot then i -> stIdx and j -> stIdx, so swap with itself
         // swap array[i] and array[j]
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
       }
     }
-    i++;
+    i++; // correct place for pivot is i++
     int temp = array[i];
-    array[i] = array[endIdx];
+    array[i] = array[endIdx]; // array[endIdx] is pivot so swap with it
     array[endIdx] = temp;
     return i;
   }
 
   public static void quickSort(int[] array, int stIdx, int endIdx) {
     if (stIdx < endIdx) {
-      int pivotIdx = getPivot(array, stIdx, endIdx);
+      int pivotIdx = getPivot(array, stIdx, endIdx); // get actual position of pivot and place elements less than pivot before pivot and the elements greater than pivot after pivot
 
-      quickSort(array, stIdx, pivotIdx - 1);
-      quickSort(array, pivotIdx + 1, endIdx);
+      quickSort(array, stIdx, pivotIdx - 1); // apply quick sort for list at left of pivot
+      quickSort(array, pivotIdx + 1, endIdx); // apply quick sort for list at right of pivot
     }
   }
 
