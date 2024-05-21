@@ -1,0 +1,69 @@
+Use Terminal to run file if IDE is not detecting main class
+
+We are going to study binary tree (which has max 2 children)
+
+-------------Basic Terminologies---------------
+
+Root Node
+        - First node of the tree
+Leaf Node
+        - A node which has no child
+
+
+Integer[] nodes = { 1, 2, 4, null, null, 5, null, null, 3, null, 6, null, null };
+
+
+height = 2                    1              ------- Level 1; Depth 0
+                            /   \
+height = 1                 2     3           ------- Level 2; Depth 1
+                         /   \     \
+height = 0              4     5     6        ------- Level 3; Depth 2
+          
+
+Levels can also start from 0
+
+--------------Preorder building of tree-------------
+
+root -> 1
+
+root.left --> 2.left --> 4.left --> null               4 --> (leaf)
+                         4.right --> null               
+              
+              2.right --> 5.left --> null              5 --> (leaf)
+                          5.right --> null
+
+root.right --> 3.left --> null
+               3.right --> 6.left --> null             6 --> (leaf)
+                           6.right --> null
+
+
+-------------Traversal Methods---------------
+
+DFS (Depth First Traversal)
+    Time Complexity: O(n)
+    
+    1.  Preorder Traversal
+            - Root
+            - Left Tree
+            - Right Tree
+    
+    2.  In Order Traversal
+            - Left Tree
+            - Root
+            - Right Tree
+    
+    3.  Post Order Traversal
+            - Left Tree
+            - Right Tree
+            - Root
+
+
+BFS (Bredth First Traversal) 
+    Time Complexity: O(n)
+    
+    1. Level Order Traversal
+        Print Levels
+            - Level 1 nodes
+            - Level 2 nodes
+            - 
+            - Level N nodes

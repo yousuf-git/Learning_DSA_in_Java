@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HashSetTest",
+            "request": "launch",
+            "mainClass": "HashSetTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BSTree",
+            "request": "launch",
+            "mainClass": "binarytree.BSTree",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "HBinaryTree",
+            "request": "launch",
+            "mainClass": "binarytree.HBinaryTree",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Solution",
+            "request": "launch",
+            "mainClass": "Solution",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Solution",
+            "request": "launch",
+            "mainClass": "Temp.Solution",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ReverseLL",
+            "request": "launch",
+            "mainClass": "singlyLL.ReverseLL",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "LLTesting",
+            "request": "launch",
+            "mainClass": "singlyLL.LLTesting",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Temp",
+            "request": "launch",
+            "mainClass": "Temp",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
             "name": "BinaryTree",
             "request": "launch",
             "mainClass": "BinaryTree",
