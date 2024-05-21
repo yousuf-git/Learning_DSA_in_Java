@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "HHashMap",
+            "request": "launch",
+            "mainClass": "HHashMap",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
             "name": "HashSetTest",
             "request": "launch",
             "mainClass": "HashSetTest",
@@ -443,6 +450,12 @@
             "request": "launch",
             "mainClass": "Strings",
             "projectName": "03-DSA_in_JAVA_Practice_f96d50f0"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "HHashMap"
         }
     ]
 }
