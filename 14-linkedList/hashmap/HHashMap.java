@@ -14,12 +14,19 @@
  *      if n/N > limit => increase the size of buckets (N) = N*2
  *  
  * Incldues the following methods:
- * 1. put(key, value)
- * 2. searchInLinkedLL(key, bucketIdx) => search a key in linked list at bucketIdx
- * 3. getBucketIdx() => returns index of bucket at which to add the node, based on hashCode of key
- * 4. get(key) => returns value of key, null if key doesn't exist
- * 
- * 
+ * 01. put(K key, V value)
+ * 02. searchInLinkedLL(K key, int bucketIdx) => search a key in linked list at bucketIdx
+ * 03. getBucketIdx() => returns index of bucket at which to add the node, based on hashCode of key
+ * 04. get(key) => returns value of key, null if key doesn't exist
+ * 05. display()
+ * 06. remove(K key) => if only key is known. returns true if key is removed successfully, false otherwise
+ * 07. remove(K key, V value) => if key and value both are known
+ * 08. size() => returns total number of nodes
+ * 09. containsKey(K key) => returns true if passed key exists
+ * 10. containsValue(V value) => returns true if passed value exists
+ * 11. keySet() => returns all keys of map in the form of HashSet<K>
+ * 12. entrySet() => returns all entries of map in the form of HashSet<HmEntry<K, V>>
+ * 13. isEmpty() => returns true if there is no node in the HashMap, false otherwise
  * 
 */
 package hashmap;
@@ -199,7 +206,7 @@ class HHashMap<K, V> {
 
     /*--------To get size of HashMap------ */
     public int size() {
-        return n;
+        return n; // number of nodes / key-value pairs
     }
 
     /*--------To check whether specific key exists in HashMap------ */
