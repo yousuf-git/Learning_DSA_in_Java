@@ -1,0 +1,26 @@
+Hash Map is implemented by array of linked lists
+
+Hasing --> changing form of data
+    Example : abc --> 6969
+
+SHA1 SHA256
+
+
+input --> hasCode() --> output
+    same output for same input untill hashmap is same
+ 
+if n nodes are divided into N buckets
+    n/N = lambda <= k (Threshold Value)
+
+if lambda > k --> rehasing 
+    - increase size of buckets / array
+    - put all nodes into new buckets
+
+
+
+searchInLL()
+rehash()
+
+
+
+

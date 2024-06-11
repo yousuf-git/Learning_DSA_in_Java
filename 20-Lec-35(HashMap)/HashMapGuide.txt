@@ -1,0 +1,40 @@
+----------HashMap is used to store key value pairs-------------
+
+key : value
+key is unique while values can be duplicated
+
+Efficient data structure in term of time complexity
+
+------------Different Methods in HashMap class------------
+
+1. put(key, value)
+    - To add a key value pair
+    - If key already exists => its value is updated
+    - If key doesn't exist already => new key value pair is added
+    - Worst case Time complexity = O(n) => n is number of nodes
+    - In avergae case = O(lamda) that is constant time
+
+2. remove(key)
+    - To remove a key and its value
+    - nothing happens if key doesn't exist
+
+3. get(key)
+    - To get value against a key 
+    - returns null if key doesn't exist
+
+4. size()
+    - To get size of HashMap
+    - Total number of key-value pairs / entries
+
+5. containsKey(keyName)
+6. containsValue(value)
+    - returns true if specific key/value exists, false otherwise
+
+7. entrySet()
+    - returns all entries of HashMap in the form of set
+    - in that set, each entry has key and value
+
+8. keySet()
+    - returns all keys of HashMap in the form of set
+    - elements of this set represent keys of Map
+    - that keys can help to get values by using get(key) method
