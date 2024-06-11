@@ -1,0 +1,71 @@
+----------Trie Data Structure------------
+Also known as:
+    - Retrieval Tree
+    - Prefix Tree
+    - Digital Search Tree
+
+- Trie is k-ary Tree where each node can have k children
+- Used mostly for stings patterns and fast searching purpose
+
+---------------Creating Trie--------------
+
+- Root is an empty node
+- Prefix is not repeated while creating a Trie
+- At the end of each word [End of Word] is stored
+
+For Search: Time Complexity = O(L) where L is length of string
+
+Creating Example:
+
+words[] = "the", "a", "there", "their", "any"
+
+                   *
+                 /   \
+                t     a [EOW]
+               /     /
+              h     n
+             /     /
+      [EOW] e     y [EOW]
+           / \
+          r   i
+         /     \ 
+  [EOW] e       r [EOW]
+
+Here is no concept of left or right, just children matter
+__________________________________
+
+For Binary Tree creation, we need a left and a right node but
+For trie DS:
+
+class Node {
+  Node[] children;
+  // if only small alphabets => size = 26
+  // if small + capital alphabets => size = 26 + 26 = 52
+  // if all characters => size = 256 
+  
+  boolean isEOW; // true if current node is end of word
+}
+
+No need to store data itself, previous level node has information about all its children in the form of array
+
+We know that:
+'a' - 'a' = 0
+'b' - 'a' = 1
+'c' - 'a' = 2
+.
+.
+
+'z' - 'a' = 25
+
+if children[0] != null it means 'a' is stored there
+if children[1] != null it means 'b' is stored there
+if children[2] != null it means 'c' is stored there
+
+.
+.
+.
+.
+
+
+
+
