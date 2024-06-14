@@ -1,0 +1,106 @@
+-----------------Graph Data Structure----------------
+
+    Cities Path in the form of graph:
+        
+        Multan ---- Lahore__    
+       /                |   \
+      Murree            |    Karachi ---- Islamabad
+       \                |   /
+        Peshawar ---- Quetta
+
+Functions Performed on Graph:
+
+1. Creating Graph - weighted / unwieghted
+2. Finding all neighbours of a vertex
+3. BFS / DFS for connected and unconnected graph
+
+Graph can be Implemented by:
+
+1. Adjacency List -> List of List
+        I'll be creating Array[] of ArrayList, 
+        where size of array will be No. Of Vertices
+
+2. Adjacency Matrix -> A(n x n)
+    where a(ij) = 1 if there is path from i to j, 0 otherwise
+
+3. Edge List
+    A single list containing all edges
+
+4. 2D Matrix (Implicit Graph)
+
+ArrayList<Edge>[n] graph; // n is number of edges
+
+class Edge<Type, Type_2(if any)> {
+    Type src;
+    Type dest;
+    Type_2 weight; // if graph is weighted
+}
+
+To Acceess all the neighbours of a vertex, we can directly access it by its index.
+graph[vertexIdx] gives an ArrayList that contains exactly all its neighbours
+
+for (Edge edge : ArrayList) {
+    edge.src; // source vertex itself
+    edge.dest; // neighbour
+}
+
+Time Complexity = O(n) where n is number of neighbours
+which is quite low, thats why we use Adjacency List
+
+-------------Graph Traversal--------------
+
+- Depth First Search (DFS)
+- Bredth First Search (BFS)
+
+BFS:
+    Also called Level Order Traversal
+    Give Priority to immediate neighbours First
+    Example:
+
+        A --- B --- D --- E
+        |           |     / 
+        C --- F      \   /
+                       G
+
+    In this graph if we are applying BFS and choose A as start
+    Suppose Step 1: A --> B then
+    Before going from B --> D, First goto C
+
+    I'll be using a queue and an array visited[] to Implement BFS on graph, that includes 3 steps
+        1. Print current vertex
+        2. Add All the neighbours of current vertex in queue
+        3. Remove the current vertex and mark it as visited
+    
+    Time Complexity O (V+E) 
+        if V is very large => O(V)
+        if E is very large => O(E)
+
+    Example Graph:
+
+        1 ---- 3    
+       /       | \
+      0        |   5 ---- 6
+       \       | /
+        2 ---- 4
+    
+    BFS should result in : 0 1 2 3 4 5 6
+
+DFS:
+    DFS should result in : 0 1 3 4 2 5 6
+
+
+
+        
+
+
+    
+
+
+
+
+
+
+
+
+
+
