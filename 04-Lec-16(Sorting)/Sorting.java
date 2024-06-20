@@ -1,13 +1,13 @@
 public class Sorting {
     public static void main(String[] args) {
-        // bubble sort (in each iteration if previous is greater than next one, swap
-        // them)
+        // Bubble sort (in each iteration if previous is greater than next one, swap them)
         int[] array = { 5, 4, 3, 6, 7, -1 };
-        for (int i = 0; i < array.length - 1; i++) { // len - 1 bcz last element is already sorted (its actaully an
-                                                     // iterator, not for index)
+        // Use an iterator (i) from 0 to len - 1 bcz last element is already sorted
+        for (int i = 0; i < array.length - 1; i++) {
+            // an index tracker (j) that will be used to compare prev element with next consecutive
             for (int j = 0; j < array.length - i - 1; j++) {
-                if (array[j] > array[j + 1]) { // Ascending order
-                    // if (array[j] > array[j+1]) { // Descending order
+                if (array[j] > array[j + 1]) { // For Ascending order
+                    // if (array[j] > array[j+1]) { // For Descending order
                     // swapping without temp
                     array[j] = array[j] + array[j + 1];
                     array[j + 1] = array[j] - array[j + 1];
@@ -16,18 +16,19 @@ public class Sorting {
             }
         }
         System.out.print("Sorted Array by bubble sort: ");
-        printArray(array);
+        printArray(array); // a user-dfined method to print the elements of array
 
-        // selection sort
+        // Selection sort: Find smallest element and swap with 1st unsorted element
         int marks[] = { 50, 90, 40, 30, 69 }; // user input can also be used
-        int minIdx, swap;
+        int minIdx, swap; // minIdx will track the index of smallest element in each iteration
         for (int i = 0; i < marks.length - 1; i++) {
             minIdx = i; // assume that current index value is smallest
             for (int j = i + 1; j < marks.length; j++) {
                 if (marks[j] < marks[minIdx]) {
-                    minIdx = j;
+                    minIdx = j; // no swap just update the index
                 }
             }
+            // Swap using thirs variable (swap)
             swap = marks[i];
             marks[i] = marks[minIdx];
             marks[minIdx] = swap;
