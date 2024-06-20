@@ -8,11 +8,42 @@
        \                |   /
         Peshawar ---- Quetta
 
+-------------Vertex/Edge-------------------
+
+There are 2 main things in graph:
+
+- Vertex : Multan, Lahore, ... etc.
+- Edge : (source, destination), like (Multan, Lahore) means path from multan to Lahore
+
+-------------Directed/Undirected graphs-------------------
+
+If there is specific direction to go from one vertex to other, then graph is called directed. Or if we can go to and from one vertex to other then graph is undirected
+
+Directed => A --> B --> C --> A
+
+Undirected => A -- B -- C -- A
+    Can also be as => A <--> B <--> C <--> A (or bi-directional)
+
+-------------Connected/Unconnected graphs-------------------
+
+Suppose if I add (A,B) and (B,A) for all edges it means that graph is undirected, we can go in both directions
+
+If all edges of graph are connected through some path then graph is connected and otherwise it is un-connected. Consider 2 separate graphs, these will be unconnected because not all edges are connected
+Example:
+    G1 : A -- B -- C
+    G1 : D -- E
+
+    G1 and G2 are individually connected graphs but if we see them both combined as a single graph then it is an unconnected graph
+
+---------------------
+
 Functions Performed on Graph:
 
-1. Creating Graph - weighted / unwieghted
+1. Creating Graph - weighted / unwieghted 
 2. Finding all neighbours of a vertex
 3. BFS / DFS for connected and unconnected graph
+4. Finding All Paths from source to destination
+5. Topological Sorting
 
 Graph can be Implemented by:
 
@@ -28,7 +59,10 @@ Graph can be Implemented by:
 
 4. 2D Matrix (Implicit Graph)
 
+---------Implementation Structure-------------
+
 ArrayList<Edge>[n] graph; // n is number of edges
+HashMap<T, ArrayList<Edge>> graph; // keys are vertices and each vertex has an ArrayList that contains all edges directly connected to it
 
 class Edge<Type, Type_2(if any)> {
     Type src;
@@ -90,14 +124,32 @@ DFS:
 
 
 
-        
+----------------------Topological Sorting----------------------
 
+- Applicable for DAG (Directed Acyclic Graph)
+- For every vertex (u,v), in topological sorted order u should come before v
+- Linear Time Complexity O(n)
+- Not unique, there can be many topological sorted orders
 
-    
+Example: Directed Graph V(G) = { (B,A), (B,D), (A,D), (D,C) }
+            A
+          / |
+        B   |   C
+            v  /
+            D
 
+Topological Sort: B, A, D, C
+                  B, D, A, C      // wrong because A comes before D in edge (A, D)
 
+Can be done by BFS / DFS, I'm doing by DFS here
 
+----------Steps-------------
 
+1. Start visiting the univisited edges one by one and apply DFS
+2. When there is no neighbour left, put the current vertex into a common stack
+3. At the end when all vertices are visited, pop all elements from the stack
+
+Time Complexity = O (V + E)
 
 
 

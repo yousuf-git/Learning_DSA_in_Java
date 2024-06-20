@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 /*
  * I've implemented graph in this class
@@ -25,44 +26,37 @@ import java.util.Set;
  * 6. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs
  * 7. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs
  * 8. printPath(T src, T dest) : To print all possible paths from given source to destination vertex
+ * 9. Topological Sort(T start) : Returns ArrayList of vertices in topologically sorted order
  */
 
 public class Graph<T> {
-    int V; // number of vertices
+    private int V; // number of vertices
     // A HashMap where key is vertex and value is an ArrayList of all edges directly
     // connected to it
-    HashMap<T, ArrayList<Edge<T>>> graph;
+    private HashMap<T, ArrayList<Edge<T>>> graph;
 
     // constructor
-    // @param
-    // V => Number of Vertices
-
-    Graph() {
-        graph = new HashMap<>();
-        this.V = 0;
+    public Graph() {
+        graph = new HashMap<>(); // initializing the graph as an empty HashSet
+        this.V = 0; // current vertices will be zero
     }
-
-    // Graph(int V) {
-    // graph = new HashMap<>();
-    // this.V = V;
-    // }
 
     /*---------------Build A fully connected graph by list of edges---------------- */
-    public void buildConGraph(ArrayList<Edge<T>> edges) {
-        for (Edge<T> edge : edges) {
-            T src = edge.src;
-            // // check if src exist in the Map as a key or not
-            // if (!graph.containsKey(src)) {
-            // graph.put(src, new ArrayList<>()); // if not exists, add an empty array list
-            // as its value
-            // }
-            // The above if statement for adding new key, can be replaced by:
-            if (graph.putIfAbsent(src, new ArrayList<>()) == null) { // returns valid value if key exists already
-                V++; // if null is returned, it means key / vertex is newly added
-            }
-            graph.get(src).add(edge); // get the vertex and attach new edge with it
-        }
-    }
+    // public void buildConGraph(ArrayList<Edge<T>> edges) {
+    //     for (Edge<T> edge : edges) {
+    //         T src = edge.src;
+    //         // // check if src exist in the Map as a key or not
+    //         // if (!graph.containsKey(src)) {
+    //         // graph.put(src, new ArrayList<>()); // if not exists, add an empty array list
+    //         // as its value
+    //         // }
+    //         /*--The above if statement for adding new key, can be replaced by--*/ 
+    //         if (graph.putIfAbsent(src, new ArrayList<>()) == null) { // returns valid value if key exists already
+    //             V++; // if null is returned, it means key / vertex is newly added
+    //         }
+    //         graph.get(src).add(edge); // get the vertex and attach new edge with it
+    //     }
+    // }
 
     /*---------------Build An un-connected graph by list of edges---------------- */
     public void buildGraph(ArrayList<Edge<T>> edges) {
@@ -87,7 +81,10 @@ public class Graph<T> {
 
     /*------------------Add a new vertex in graph---------- */
     public void addVertex(T vertex) {
-        graph.putIfAbsent(vertex, new ArrayList<>()); // add the vertex as a key, if it doesn't exist already
+        // add the vertex as a key, if it doesn't exist already
+        if (graph.putIfAbsent(vertex, new ArrayList<>()) == null) {
+            V++; // null is returned only if vertex is being added as a new key
+        } 
     }
 
     /*----------Add a new edge in the vertex---------
@@ -96,20 +93,12 @@ public class Graph<T> {
      * Case-3: src and dest, both doesn't exist => Add both as vertex then connect them
      */
     public void addEdge(Edge<T> edge) {
-        // Case-1
-        if (graph.containsKey(edge.src) && graph.containsKey(edge.dest)) {
-            graph.get(edge.src).add(edge); // connect them, by adding vertex in the list of vertices of src
-        }
-        // Case-2
-        else if (graph.containsKey(edge.src)) { // means dest doesn't exist
-            graph.put(edge.dest, new ArrayList<>()); // add the dest as vertex
-            graph.get(edge.src).add(edge); // connect them, by adding vertex in the list of vertices of src
-        }
-        // Case-3
-        else { // src doesn't exist
-            graph.put(edge.src, new ArrayList<>()); // add the src as vertex
-            graph.get(edge.src).add(edge); // connect them by updating list of vertices
-        }
+        // Add source and destination of edge as individual vertices in the graph if they are not already there
+        this.addVertex(edge.src); // add source
+        this.addVertex(edge.dest); // add destination
+
+        // Adding the given edge in the edges list of source
+        graph.get(edge.src).add(edge); // Generally: ArrayList<Edges<T>>.add(Edge<T>)
     }
 
     /*------Display All the neighbors of given vertex if it exists------- */
@@ -259,42 +248,16 @@ public class Graph<T> {
             return;
         }
         pathHelper(src, dest, new ArrayList<>(), new HashSet<>());
-        // ArrayList<Edge<T>> edges = graph.get(src); // get all edges directly connected to src
-        // for (Edge<T> edge : edges) { // grab the neigbous by destination of these edges
-        //     ArrayList<T> path = new ArrayList<>();
-        //     path.add(src);
-        //     Set<T> visited = new HashSet<>();
-        //     visited.add(src);
-        //     pathHelper(edge.dest, dest, path, visited);
-        // }
     }
 
-    // public void pathHelper(T src, T dest, ArrayList<T> path, Set<T> visited) {
-    //     path.add(src);
-    //     if (src.equals(dest)) {
-    //         printPath(path);
-    //         // path.remove(src);
-    //         return;
-    //         // return true;
-    //     }
-    //     ArrayList<Edge<T>> edges = graph.get(src); // get all edges directly connected to src
-    //     for (Edge<T> edge : edges) { // grab the neigbous by destination of these edges
-    //         if (!visited.contains(edge.dest)) {
-    //             visited.add(src);
-    //             pathHelper(edge.dest, dest, path, visited);
-    //             visited.remove(src);
-    //         }
-    //     }
-    //     // return false;
-    // }
+    /*---------Recursive Method to support all paths finding---------- */
     private void pathHelper(T src, T dest, ArrayList<T> path, Set<T> visited) {
         path.add(src);
-        visited.add(src);  // Correctly add src to visited here
-    
+        visited.add(src); // Correctly add src to visited here
+
         if (src.equals(dest)) {
             printPath(path);
-            // if you want to find all paths, you can remove the return statement
-            // return;
+            // return; // use return statement to print one path only
         } else {
             // DFS Traversal
             ArrayList<Edge<T>> edges = graph.get(src); // Get all edges directly connected to src
@@ -304,13 +267,13 @@ public class Graph<T> {
                 }
             }
         }
-        
+
         // Backtrack
         path.remove(path.size() - 1); // Remove the last element added to the path
-        visited.remove(src);  // Remove src from visited after processing its neighbors
+        visited.remove(src); // Remove src from visited after processing its neighbors
     }
-    
 
+    /*--------A private method to print the path containing vertices------ */
     private void printPath(ArrayList<T> vertices) {
         // for (T verex : vertices) {
         // System.out.print(verex + " --> ");
@@ -320,6 +283,46 @@ public class Graph<T> {
             System.out.print(" --> " + vertices.get(i));
         }
         System.out.println();
+    }
+
+    /*---------To print Topological Sorted Order of graph------------ */
+    public ArrayList<T> topologicalSort(T start) {
+        /* 
+         * 1. Apply dfs on start edge
+         * - I have made a topoSortHelper() method that uses modified dfs for topo sort
+         * 
+         * 
+         * 
+         * 
+        */ 
+        Set<T> visited = new HashSet<>(); // to track visited vertices
+        Stack<T> stack = new Stack<>(); // to store vertices in sorted order
+        topoSortHelper(start, visited, stack); // dfs on start vertex
+        // Get all vertices of the graph and apply dfs if any is not visited, (specially for unconnected graph)
+        for (T vertex : graph.keySet()) {
+            if (!visited.contains(vertex)) {
+                topoSortHelper(vertex, visited, stack);
+            }
+        }
+        // When all the vertices are visited, just pop all elements from the stack and return it as an ArrayList
+        ArrayList<T> vertices = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            vertices.add(stack.pop());
+        }
+        return vertices;
+    }
+    /*-----------Private Method to support Topological Sort------- */
+    private void topoSortHelper(T start, Set<T> visited, Stack<T> stack) {
+        visited.add(start);
+        // Get neighbours of current start vertex
+        for (Edge<T> edge : graph.get(start)) {
+            if (!visited.contains(edge.dest)) {
+                visited.add(edge.dest);
+                topoSortHelper(edge.dest, visited, stack); // dfs on all neighbours
+            }
+        }
+        // when neighbours are finished, just push the current vertex in stack
+        stack.push(start);
     }
 
     // Main method for testing
