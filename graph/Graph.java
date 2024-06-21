@@ -18,15 +18,17 @@ import java.util.Stack;
  * 
  * Contains following methods:
  * 
- * 1. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
- * 2. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
- * 3. addVertex(T vertex) : To add a vertex of generic type
- * 4. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex
- * 5. findNbrs(T vertex) : To Display All the neighbours of a given vertex
- * 6. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs
- * 7. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs
- * 8. printPath(T src, T dest) : To print all possible paths from given source to destination vertex
- * 9. Topological Sort(T start) : Returns ArrayList of vertices in topologically sorted order
+ * 01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
+ * 02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
+ * 03. addVertex(T vertex) : To add a vertex of generic type
+ * 04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex
+ * 05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
+ * 06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs
+ * 07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs
+ * 08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex
+ * 09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order
+ * 10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
+ * 11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
  */
 
 public class Graph<T> {
@@ -43,19 +45,21 @@ public class Graph<T> {
 
     /*---------------Build A fully connected graph by list of edges---------------- */
     // public void buildConGraph(ArrayList<Edge<T>> edges) {
-    //     for (Edge<T> edge : edges) {
-    //         T src = edge.src;
-    //         // // check if src exist in the Map as a key or not
-    //         // if (!graph.containsKey(src)) {
-    //         // graph.put(src, new ArrayList<>()); // if not exists, add an empty array list
-    //         // as its value
-    //         // }
-    //         /*--The above if statement for adding new key, can be replaced by--*/ 
-    //         if (graph.putIfAbsent(src, new ArrayList<>()) == null) { // returns valid value if key exists already
-    //             V++; // if null is returned, it means key / vertex is newly added
-    //         }
-    //         graph.get(src).add(edge); // get the vertex and attach new edge with it
-    //     }
+    // for (Edge<T> edge : edges) {
+    // T src = edge.src;
+    // // // check if src exist in the Map as a key or not
+    // // if (!graph.containsKey(src)) {
+    // // graph.put(src, new ArrayList<>()); // if not exists, add an empty array
+    // list
+    // // as its value
+    // // }
+    // /*--The above if statement for adding new key, can be replaced by--*/
+    // if (graph.putIfAbsent(src, new ArrayList<>()) == null) { // returns valid
+    // value if key exists already
+    // V++; // if null is returned, it means key / vertex is newly added
+    // }
+    // graph.get(src).add(edge); // get the vertex and attach new edge with it
+    // }
     // }
 
     /*---------------Build An un-connected graph by list of edges---------------- */
@@ -84,7 +88,7 @@ public class Graph<T> {
         // add the vertex as a key, if it doesn't exist already
         if (graph.putIfAbsent(vertex, new ArrayList<>()) == null) {
             V++; // null is returned only if vertex is being added as a new key
-        } 
+        }
     }
 
     /*----------Add a new edge in the vertex---------
@@ -93,7 +97,8 @@ public class Graph<T> {
      * Case-3: src and dest, both doesn't exist => Add both as vertex then connect them
      */
     public void addEdge(Edge<T> edge) {
-        // Add source and destination of edge as individual vertices in the graph if they are not already there
+        // Add source and destination of edge as individual vertices in the graph if
+        // they are not already there
         this.addVertex(edge.src); // add source
         this.addVertex(edge.dest); // add destination
 
@@ -287,30 +292,29 @@ public class Graph<T> {
 
     /*---------To print Topological Sorted Order of graph------------ */
     public ArrayList<T> topologicalSort(T start) {
-        /* 
+        /*
          * 1. Apply dfs on start edge
          * - I have made a topoSortHelper() method that uses modified dfs for topo sort
-         * 
-         * 
-         * 
-         * 
-        */ 
+         */
         Set<T> visited = new HashSet<>(); // to track visited vertices
         Stack<T> stack = new Stack<>(); // to store vertices in sorted order
         topoSortHelper(start, visited, stack); // dfs on start vertex
-        // Get all vertices of the graph and apply dfs if any is not visited, (specially for unconnected graph)
+        // Get all vertices of the graph and apply dfs if any is not visited, (specially
+        // for unconnected graph)
         for (T vertex : graph.keySet()) {
             if (!visited.contains(vertex)) {
                 topoSortHelper(vertex, visited, stack);
             }
         }
-        // When all the vertices are visited, just pop all elements from the stack and return it as an ArrayList
+        // When all the vertices are visited, just pop all elements from the stack and
+        // return it as an ArrayList
         ArrayList<T> vertices = new ArrayList<>();
         while (!stack.isEmpty()) {
             vertices.add(stack.pop());
         }
         return vertices;
     }
+
     /*-----------Private Method to support Topological Sort------- */
     private void topoSortHelper(T start, Set<T> visited, Stack<T> stack) {
         visited.add(start);
@@ -323,6 +327,80 @@ public class Graph<T> {
         }
         // when neighbours are finished, just push the current vertex in stack
         stack.push(start);
+    }
+
+    /*---------To Check if there is a cycle in undirected graph---------- 
+     * Time Complexity = O(V+E)
+    */
+    public boolean hasCycleUnd() {
+        // Get the vertices of graph
+        Set<T> visited = new HashSet<>();
+        for (T vertex : graph.keySet()) {
+            System.out.println("Vertex: " + vertex);
+            if (!visited.contains(vertex)) {
+                if (cycleHelperUnd(vertex, visited, null)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /*---------A private method to help dfs traversal for hasCycle()------- */
+    private boolean cycleHelperUnd(T curr, Set<T> visited, T parent) {
+        visited.add(curr);
+        // System.out.println("Current: " + curr);
+        // get all neighbours of the current vertex
+        for (Edge<T> edge : graph.get(curr)) {
+            // If current neighbour is not the parent
+            if (!edge.dest.equals(parent)) {
+                // System.out.println("Neighbour: " + edge.dest);
+                // If non-parent neighbour is already visited
+                if (visited.contains(edge.dest)) {
+                    return true;
+                }
+                // Neighbour is nor visited neither parent
+                if (cycleHelperUnd(edge.dest, visited, curr)) {
+                    return true;
+                }
+                // if false, check for next neighbour
+            }
+        }
+        return false;
+    }
+
+    /*-----------To check cycle in directed graph-------- */
+    public boolean hasCycleDir() {
+        // Get all the vertices and apply dfs approach on them
+        Set<T> visited = new HashSet<>();
+        for (T vertex : graph.keySet()) {
+            if (!visited.contains(vertex)) {
+                if (cycleHelperDir(vertex, visited, new HashSet<>())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /*---------Helper for hasCycleDir() that applies dfs----- */
+    private boolean cycleHelperDir(T curr, Set<T> visited, Set<T> stack) {
+        visited.add(curr);
+        stack.add(curr);
+        // get all neighbours of current vertex
+        for (Edge<T> edge : graph.get(curr)) { // edge.dest will be neighbour
+            if (stack.contains(edge.dest)) { // if neigbour is already in the recursion stack ther is a cycle
+                return true;
+            }
+            // if any neigbour returns true, cycle exists, simply return true
+            if (cycleHelperDir(edge.dest, visited, stack)) { // recursive call to neighbour
+                return true;
+            }
+            // otherwise do nothing just continue to next neighbour
+        }
+        // backtrack => remove current vertex from recursion stack
+        stack.remove(curr);
+        return false;
     }
 
     // Main method for testing

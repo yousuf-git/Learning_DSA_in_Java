@@ -44,6 +44,7 @@ Functions Performed on Graph:
 3. BFS / DFS for connected and unconnected graph
 4. Finding All Paths from source to destination
 5. Topological Sorting
+6. Cycle Detection for directed / undirected graphs
 
 Graph can be Implemented by:
 
@@ -151,8 +152,14 @@ Can be done by BFS / DFS, I'm doing by DFS here
 
 Time Complexity = O (V + E)
 
+----------------Cycle Detection---------------
+
+1. For Undirected Graph
+    - DFS / BFS
+    - DSU (Disjoint Graph Union)
 
 
-
-
+2. For Directed Graph
+    - DFS / BFS
+    - Topological Sort (Kahn's Algorithm)
 
