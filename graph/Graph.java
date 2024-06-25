@@ -1,78 +1,78 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-/*
+import hashmap.HmNode; // my own built HashMap Node class
+
+/**
  * I've implemented graph in this class
- * Fully connected and unconnected, directed and undirected graphs are handled in this single class in a general way
- * You just have to ensure that you are passing the right edges while building the graph
- * Implemented some methods both for connected and un-connected graphs separately, 
- * in order to let you understand the difference between them
- * General methods work well for both connected and unconncted graph so try to use them in most cases
+ * Fully connected / unconnected, directed / undirected graphs are handled in
+ * this single class in a general way You just have to ensure that you are
+ * passing the right edges while building the
+ * graph Implemented some methods both for connected and un-connected graphs
+ * separately, in order to let you
+ * understand the difference between them General methods work well for both
+ * connected and unconncted graph so try to
+ * use them in most cases
  * 
  * Contains following methods:
  * 
- * 01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
- * 02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
- * 03. addVertex(T vertex) : To add a vertex of generic type
- * 04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex
- * 05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
- * 06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs
- * 07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs
- * 08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex
- * 09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order
- * 10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
- * 11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
+ * 01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs
+ * building with list of edges
+ * 02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected
+ * graphs building 03. addVertex(T vertex)
+ * : To add a vertex of generic type 04. addEdge(Edges<T> edge) : To add an edge
+ * and ensure that source and
+ * destination are themselves added as vertex 05. findNbrs(T vertex) : To
+ * Display All the neighbours of a given
+ * vertex 06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for
+ * traversal in connected graphs 07. bfs(T
+ * start) / dfs(T start, Set<T> visited) : Traversal in general graphs 08.
+ * printPath(T src, T dest) : To print all
+ * possible paths from given source to destination vertex 09. topologicalSort(T
+ * start) : Returns ArrayList of
+ * vertices in topologically sorted order 10. hasCycleUnd() : Returns true if
+ * there is cycle in the undirected graph,
+ * false otherwise 11. hasCycleDir() : Returns true if there is cycle in the
+ * directed graph, false otherwise 12.
+ * getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains
+ * vertices as keys and value refers to
+ * minimum cost/weights from source to that vertices using dijkstra's algorithm
+ * 
  */
 
 public class Graph<T> {
-    private int V; // number of vertices
+    protected int V; // number of vertices
     // A HashMap where key is vertex and value is an ArrayList of all edges directly
     // connected to it
-    private HashMap<T, ArrayList<Edge<T>>> graph;
+    protected HashMap<T, ArrayList<Edge<T>>> graph;
 
-    // constructor
+    /**
+     * @constructor
+     */
     public Graph() {
         graph = new HashMap<>(); // initializing the graph as an empty HashSet
         this.V = 0; // current vertices will be zero
     }
-
-    /*---------------Build A fully connected graph by list of edges---------------- */
-    // public void buildConGraph(ArrayList<Edge<T>> edges) {
-    // for (Edge<T> edge : edges) {
-    // T src = edge.src;
-    // // // check if src exist in the Map as a key or not
-    // // if (!graph.containsKey(src)) {
-    // // graph.put(src, new ArrayList<>()); // if not exists, add an empty array
-    // list
-    // // as its value
-    // // }
-    // /*--The above if statement for adding new key, can be replaced by--*/
-    // if (graph.putIfAbsent(src, new ArrayList<>()) == null) { // returns valid
-    // value if key exists already
-    // V++; // if null is returned, it means key / vertex is newly added
-    // }
-    // graph.get(src).add(edge); // get the vertex and attach new edge with it
-    // }
-    // }
 
     /*---------------Build An un-connected graph by list of edges---------------- */
     public void buildGraph(ArrayList<Edge<T>> edges) {
         for (Edge<T> edge : edges) {
             T src = edge.src;
             T dest = edge.dest;
-            // // check if src exist in the Map as a key or not
+            // Check if src exist in the Map as a key or not
             // if (!graph.containsKey(src)) {
-            // graph.put(src, new ArrayList<>()); // if not exists, add an empty array list
-            // as its value
+            // graph.put(src, new ArrayList<>()); // if not exists, add an empty array list as its value
             // }
-            // The above if statement for adding new key, can be replaced by:
+            // The above if statement for adding new key, can be replaced by method putIfAbsent():
             if (graph.putIfAbsent(src, new ArrayList<>()) == null) { // returns valid value if key exists already
                 V++; // if null is returned, it means key / vertex is newly added
             }
@@ -80,6 +80,11 @@ public class Graph<T> {
                 V++; // if null is returned, it means key / vertex is newly added
             }
             graph.get(src).add(edge); // get the vertex and attach new edge with it
+
+            /*---------Shorter Form---------- */
+            // this.addVertex(edge.src);
+            // this.addVertex(edge.dest);
+            // this.addEdge(edge);
         }
     }
 
@@ -129,7 +134,7 @@ public class Graph<T> {
             System.out.println("Start Point doesn't exist !");
             return;
         }
-        // boolean[] visited = new boolean[graph.size()]; // for generic type using
+        // boolean[] visited = new boolean[graph.size()]; // for generic type, using
         // index is a problem
         // That's why I'll be using a set
         Set<T> visited = new HashSet<>();
@@ -157,6 +162,10 @@ public class Graph<T> {
     }
 
     /*-------------DFS Traversal in recursive way - for connected graph ----------- */
+    /**
+     * @param start
+     * @param visited
+     */
     public void dfsCon(T start, Set<T> visited) {
         // If any invalid start point is passed
         if (!graph.containsKey(start)) {
@@ -182,8 +191,11 @@ public class Graph<T> {
 
     // Below DFS and BFS are suitable if all the vertices are not connected, i.e,
     // graph is not fully connected
-
     /*-------------DFS Traversal in recursive way - for general graph ----------- */
+    /**
+     * @param start
+     * @param visited
+     */
     public void dfs(T start, Set<T> visited) {
         if (!graph.containsKey(start)) {
             System.out.println("Invalid Start Point !");
@@ -215,6 +227,11 @@ public class Graph<T> {
         }
     }
 
+    /*------------Private method to help support bfs traversal in graph------------- */
+    /**
+     * @param start
+     * @param visited
+     */
     private void bfsHelper(T start, Set<T> visited) {
         // if (!graph.containsKey(start)) {
         // System.out.println("Invalid Start Point !");
@@ -242,6 +259,10 @@ public class Graph<T> {
     }
 
     /*-----------Display All paths from source to destination---------- */
+    /**
+     * @param src
+     * @param dest
+     */
     public void printPath(T src, T dest) {
         // Some base conditions for validation of src and dest
         if (!graph.containsKey(src)) {
@@ -256,6 +277,12 @@ public class Graph<T> {
     }
 
     /*---------Recursive Method to support all paths finding---------- */
+    /**
+     * @param src
+     * @param dest
+     * @param path
+     * @param visited
+     */
     private void pathHelper(T src, T dest, ArrayList<T> path, Set<T> visited) {
         path.add(src);
         visited.add(src); // Correctly add src to visited here
@@ -278,7 +305,7 @@ public class Graph<T> {
         visited.remove(src); // Remove src from visited after processing its neighbors
     }
 
-    /*--------A private method to print the path containing vertices------ */
+    /*--------A private method to print the path containing vertices' ArrayList------ */
     private void printPath(ArrayList<T> vertices) {
         // for (T verex : vertices) {
         // System.out.print(verex + " --> ");
@@ -291,10 +318,15 @@ public class Graph<T> {
     }
 
     /*---------To print Topological Sorted Order of graph------------ */
+    /**
+     * @param start
+     * @return ArrayList of vertices in topological sorted order
+     */
     public ArrayList<T> topologicalSort(T start) {
         /*
-         * 1. Apply dfs on start edge
-         * - I have made a topoSortHelper() method that uses modified dfs for topo sort
+         * 1. Apply dfs on start edge - I have made a topoSortHelper() method that uses
+         * modified dfs for
+         * topo sort
          */
         Set<T> visited = new HashSet<>(); // to track visited vertices
         Stack<T> stack = new Stack<>(); // to store vertices in sorted order
@@ -316,6 +348,11 @@ public class Graph<T> {
     }
 
     /*-----------Private Method to support Topological Sort------- */
+    /**
+     * @param start
+     * @param visited
+     * @param stack
+     */
     private void topoSortHelper(T start, Set<T> visited, Stack<T> stack) {
         visited.add(start);
         // Get neighbours of current start vertex
@@ -347,6 +384,12 @@ public class Graph<T> {
     }
 
     /*---------A private method to help dfs traversal for hasCycle()------- */
+    /**
+     * @param curr
+     * @param visited
+     * @param parent
+     * @return boolean
+     */
     private boolean cycleHelperUnd(T curr, Set<T> visited, T parent) {
         visited.add(curr);
         // System.out.println("Current: " + curr);
@@ -370,6 +413,9 @@ public class Graph<T> {
     }
 
     /*-----------To check cycle in directed graph-------- */
+    /**
+     * @return boolean
+     */
     public boolean hasCycleDir() {
         // Get all the vertices and apply dfs approach on them
         Set<T> visited = new HashSet<>();
@@ -384,12 +430,20 @@ public class Graph<T> {
     }
 
     /*---------Helper for hasCycleDir() that applies dfs----- */
+    /**
+     * @param curr    => current node
+     * @param visited => to track visited vertices
+     * @param stack   => recursion stack, to check if any vertex has been in the
+     *                recursion stack already
+     * @return boolean
+     */
     private boolean cycleHelperDir(T curr, Set<T> visited, Set<T> stack) {
+
         visited.add(curr);
         stack.add(curr);
         // get all neighbours of current vertex
         for (Edge<T> edge : graph.get(curr)) { // edge.dest will be neighbour
-            if (stack.contains(edge.dest)) { // if neigbour is already in the recursion stack ther is a cycle
+            if (stack.contains(edge.dest)) { // if neigbour is already in the recursion stack there is a cycle
                 return true;
             }
             // if any neigbour returns true, cycle exists, simply return true
@@ -401,6 +455,69 @@ public class Graph<T> {
         // backtrack => remove current vertex from recursion stack
         stack.remove(curr);
         return false;
+    }
+
+    /*--------For Dijkstra's Algorithm-----------*/
+    /**
+     * @param source => Shortest Path finding from this single source to all
+     *               vertices
+     */
+    public HashMap<T, Integer> getShortestPaths(T source) {
+        // A graph holding distance from source to specific vertex
+        HashMap<T, Integer> costs = new HashMap<>(); // keys : Vertices, Values :
+        // Distance / cost to that vertex
+        // get all vertices and add cost from source to destination as infinity,
+        // execpt for source itself, because source to source cost is 0
+        // Building the cost storage graph
+        for (T vertex : graph.keySet()) { // get all vertices of graph
+            if (vertex.equals(source)) {
+                costs.put(source, 0); // source to souce cost is 0
+            } else {
+                costs.put(vertex, Integer.MAX_VALUE); // Integer.MAX_VALUE => +infinity
+            }
+        }
+        /**
+         * Create a priority queue to insert the key-value pair I've used my HmNode
+         * class that has 2 attributes: key
+         * and value I'll store vertex as a key and cost to that vertex as value, in the
+         * HmNode This queue will
+         * internally sort the nodes on the basis of shortest cost / distance means the
+         * vertex having minimum cost
+         * will be removed first
+         */
+        PriorityQueue<HmNode<T, Integer>> queue = new PriorityQueue<>(new Comparator<HmNode<T, Integer>>() {
+            @Override
+            public int compare(HmNode<T, Integer> entry1, HmNode<T, Integer> entry2) {
+                return Integer.compare(entry1.value, entry2.value);
+            }
+        });
+        queue.add(new HmNode<T, Integer>(source, 0));
+
+        // A vertex will be marked visited if all of its neighbours' distance has been
+        // updated
+        Set<T> visited = new HashSet<>();
+        while (!queue.isEmpty()) {
+            HmNode<T, Integer> node = queue.remove(); // remove the max priority (min cost) vertex
+            T vertex = node.key;
+            // Integer cost = node.value;
+
+            // Get all neighbours of current vertex
+            for (Edge<T> edge : graph.get(vertex)) { // edge.dest is neighbour
+                if (!visited.contains(edge.dest)) { // for each unvisited neighbour
+                    int srcCost = costs.get(vertex);
+                    int destCost = costs.get(edge.dest);
+
+                    // Check for Relaxation
+                    if (srcCost + edge.wt < destCost) {
+                        // update the destination's / neighbours cost
+                        costs.put(edge.dest, srcCost + edge.wt);
+                    }
+                    queue.add(new HmNode<T, Integer>(edge.dest, costs.get(edge.dest)));// add neighbour and its cost
+                }
+            }
+            visited.add(vertex);
+        }
+        return costs;
     }
 
     // Main method for testing
