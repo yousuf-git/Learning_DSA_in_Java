@@ -1,4 +1,6 @@
 public class DisplayFibonacci {
+    // display fibnocci series till n
+    // fibonacci series = 0 1 1 2 3 . . . . ; --> here first 2 numbers are always 0 and 1
     public static void displayFibonacci(int n, int first, int second, int count) {
         // System.out.println("First: "+first);
         // System.out.println("Second: " + second);
