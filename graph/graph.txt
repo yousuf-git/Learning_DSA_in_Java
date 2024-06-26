@@ -36,6 +36,50 @@ Example:
     G1 and G2 are individually connected graphs but if we see them both combined as a single graph then it is an unconnected graph
 
 ---------------------
+------------Temp Comment----------------
+
+/**
+ * I've implemented graph in this class with generic type of vertices (T)
+ * Fully connected / unconnected, directed / undirected graphs are handled in this single class in a general way
+ * You just have to ensure that you are passing the right edges while building the graph 
+ * Implemented some methods both for connected and un-connected graphs separately,
+     in order to let you understand the difference between them
+ * General methods work well for both connected and unconncted graph so try to use them in most cases
+ 
+ * _______________Contains following methods______________
+ * 
+ * 01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
+ 
+ * 02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
+ 
+ * 03. addVertex(T vertex): To add a vertex of generic type 
+ 
+ * 04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex 
+ 
+ * 05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
+ 
+ * 06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs 
+ 
+ * 07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs 
+ 
+ * 08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex 
+ 
+ * 09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order 
+ 
+ * 10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
+ 
+ * 11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
+ 
+ * 12. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from 
+ source to those vertices using dijkstra's algorithm
+ 
+ * 13. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using Bellman Ford algorithm
+ 
+ * 
+ * 
+ * 
+ */
+
 
 Functions Performed on Graph:
 
@@ -45,6 +89,7 @@ Functions Performed on Graph:
 4. Finding All Paths from source to destination
 5. Topological Sorting
 6. Cycle Detection for directed / undirected graphs
+7. Dijkstra's Algorithm for shortest path finding from source to all vertices
 
 Graph can be Implemented by:
 
@@ -163,3 +208,44 @@ Time Complexity = O (V + E)
     - DFS / BFS
     - Topological Sort (Kahn's Algorithm)
 
+________________Shortest Path Algorithms________________
+
+These all are same for weighted graph:
+ - Shortest Path / Shortest Distance / Minimum Cost  / Minimum Weight
+
+-------------------Dijkstra's Algorithm---------------
+
+ - Uses BFS approach (by using Priority Queue)
+
+=> Time Complexity Analysis
+ Let's break down the time complexity of the Dijkstra's algorithm implementation:
+
+Initialization:
+
+ - The initialization of the costs map takes 𝑂(𝑉) where 𝑉 is the number of vertices.
+ - The creation and initialization of the priority queue 𝑂(1)
+
+Priority Queue Operations:
+
+ - Adding all vertices to the priority queue in the worst case would take  𝑂(𝐸 log 𝑉) as each vertex is added at most once for each edge.
+ - Removing the minimum element from the priority queue takes 𝑂(log𝑉) and this operation is performed once for each vertex, resulting in a total of 𝑂(𝑉 log⁡ 𝑉)
+
+Edge Relaxation:
+
+ - The edge relaxation step involves checking and updating the shortest path estimates, which in the worst case will occur 𝑂(𝐸) times. Each relaxation operation involves a priority queue update (insert), costing 
+𝑂(log 𝑉) Hence, this step takes 𝑂(𝐸 log 𝑉)
+
+Total Time Complexity: 
+    𝑂((𝑉+𝐸) log 𝑉)
+
+Disadvantage:
+ - Not Valid for Negative weights
+ - Not Valid for cyclic graphs
+
+-----------------Bellman Ford Algorithm-----------------
+
+Perform Relaxation for all edges V-1 times
+
++ Can be Applied on cyclic and weighted graph
+- Can not be used for graph if there is Negative wight cycle
+    The total weight of edges included in cycle, must be +ve
