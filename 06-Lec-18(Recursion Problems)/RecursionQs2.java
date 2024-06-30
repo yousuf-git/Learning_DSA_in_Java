@@ -12,7 +12,7 @@ public class RecursionQs2 {
     }
   }
 
-  // 2. Move all x in a string to the end
+  // 2. Move all character (ch) in a string to the end
   public static String moveToEnd(
     String str, // original string
     char ch, // character which is to be moved
@@ -20,18 +20,20 @@ public class RecursionQs2 {
     int count, // character counter
     String newString // new string to be formed
   ) {
+    // Base case-1 : If idx has reached end, attach the character (ch) count times with the new string
     if (idx == str.length()) {
       for (int i = 1; i <= count; i++) {
         newString += ch;
       }
       return newString;
     }
+    // If current character of original str is ch, don't append in the new string, just increase its count
     if (str.charAt(idx) == ch) {
       count++;
-      return moveToEnd(str, ch, idx + 1, count, newString);
-    } else {
+      return moveToEnd(str, ch, idx + 1, count, newString); // recurisive call for next index
+    } else { // Otherwise, append the character in the new string
       newString += str.charAt(idx);
-      return moveToEnd(str, ch, idx + 1, count, newString);
+      return moveToEnd(str, ch, idx + 1, count, newString); // recurisive call for next index
     }
     // Time Complexity:
     // One time complete traversing in string --> O(n)
@@ -71,7 +73,7 @@ public class RecursionQs2 {
     String str = "abcbdjxxxxdbdxbsdx";
     char ch = 'x';
     str = moveToEnd(str, ch, 0, 0, "");
-    System.out.println("Moved "+ch+ " at end: "+ moveToEnd(str, ch, 0, 0, ""));
+    System.out.println("Moved "+ch+ " at end: "+ str);
 
     // 3. Remove duplicate from a string
     String name = "Harry ";

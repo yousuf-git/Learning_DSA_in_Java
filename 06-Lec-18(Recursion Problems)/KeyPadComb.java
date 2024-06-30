@@ -1,16 +1,16 @@
 public class KeyPadComb {
 
   public static String[] keyPad = {
-    "_", // 0
-    ".", // 1
-    "abc", // 2
-    "def", // 3
-    "ghi", // 4
-    "jkl", // 5
-    "mno", // 6
-    "pqrs", // 7
-    "tuv", // 8
-    "wxyz", // 9
+    "_", // keyPas[0] -> space
+    ".", // keyPas[1]
+    "abc", // keyPas[2]
+    "def", // keyPas[3]
+    "ghi", // keyPas[4]
+    "jkl", // keyPas[5]
+    "mno", // keyPas[6]
+    "pqrs", // keyPas[7]
+    "tuv", // keyPas[8]
+    "wxyz", // keyPas[9]
   };
 
   public static void printComb(String input, int idx, String comb) {
@@ -27,12 +27,13 @@ public class KeyPadComb {
 
   public static void main(String[] args) {
     // 1. Input numbers as a string and print combinations according to that numbers according to character mapping from keypad
-
     // To understand how to get combinations from string array using char type index
-    // System.out.println(keyPad['2']);
-    // System.out.println(keyPad['2'-'0']);
-
-    printComb("10", 0, "");
+    // System.out.println(keyPad['2']); // index out of bound error
+    // System.out.println('2'-'0');
+    // System.out.println(keyPad['2'-'0']); // vakue at index 2
+    String input = "254";
+    System.out.println("Combinations that can be formed by " + input + " : ");
+    printComb(input, 0, "");
   }
 }
 /*/////////////////////////////////////////////////////////////
@@ -44,7 +45,7 @@ Time Complexity:
     
 //////////////////////////////////////////////////////////////
 Another keypad pattern:
-   public static String[] keyPad = {
+  public static String[] keyPad = {
     ".", // 0
     "abc", // 1
     "def", // 2

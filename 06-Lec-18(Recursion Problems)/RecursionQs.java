@@ -1,6 +1,6 @@
 class RecursionQs {
 
-  // 1. For Tower of Hanoi
+  // 1. Tower of Hanoi
   public static void TransferDisks(
     int n,
     String src,
@@ -23,7 +23,7 @@ class RecursionQs {
     // Time Complexity --> O(2^n)
   }
 
-  // 2. For reverse of string
+  // 2. Print string in reverse order
   public static void reverseString(String str, int idx) {
     if (idx == 0) { // Base Case
       System.out.println(str.charAt(idx));
@@ -40,7 +40,7 @@ class RecursionQs {
     // Time Complexity --> O(n)
   }
 
-  // 3. Occurance of Element
+  // 3. Print First and Last occurance of an element in string
   public static void findOccurance(
     String str,
     char ch,
@@ -70,9 +70,12 @@ class RecursionQs {
   }
 
   public static void main(String[] args) {
+    System.out.println("\n__________Movement of disks__________\n");
     // 1. Tower of Hanoi
-    int n = 4;
+    int n = 3;
     TransferDisks(n, "S", "H", "D");
+
+    System.out.println("All disks moved from source to destination\n");
 
     // 2. Print string in reverse order
     String name = "YRRAH";
