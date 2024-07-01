@@ -10,11 +10,11 @@ public class UniqueSubsequences {
   ) {
     // Base Case
     if (idx == str.length()) {
-      if (set.contains(newString)) {
+      if (set.contains(newString)) { // To skip duplicated
         return;
       } else {
         System.out.println(newString);
-        set.add(newString);
+        set.add(newString); // Add the subsequence in the set
         return;
       }
     }

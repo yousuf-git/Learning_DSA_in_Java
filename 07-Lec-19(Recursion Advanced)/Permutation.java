@@ -9,7 +9,8 @@ class Permutation {
 
     for (int i = 0; i < str.length(); i++) {
       char currentChar = str.charAt(i); // character to be fixed
-      String newStr = str.substring(0, i) + str.substring(i + 1); // string of characters other than choosen one
+      // New string of characters other than choosen / fixed character
+      String newStr = str.substring(0, i) + str.substring(i + 1);
       displayPerm(newStr, permStr + currentChar);
     }
     /* Time Complexity:
@@ -24,6 +25,8 @@ class Permutation {
   }
 
   public static void main(String[] args) {
-    displayPerm("xyz", "");
+    String str = "xyz";
+    System.out.println("\nPermutation of " + str + ":");
+    displayPerm(str, "");
   }
 }

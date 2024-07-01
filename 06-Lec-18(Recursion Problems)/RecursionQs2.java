@@ -43,19 +43,21 @@ public class RecursionQs2 {
     // Finally --> O(n) where n is length of string
   }
 
-  // 3. Function to remove duplicate from a string
+  // 3. Function to remove duplicate characters from a string
   public static String removeDuplicate(
     String str, // Original String
     int idx, // Current Index
     String newString // New String where there is no duplication
   ) {
+    // Base case : If index has reached to end of string
     if (idx == str.length()) {
       return newString;
     }
+    // If character at current index in original string is not in newString
     if (newString.indexOf(str.charAt(idx)) == -1) {
-      newString += str.charAt(idx);
+      newString += str.charAt(idx); // Append the character in the new string
     }
-    return removeDuplicate(str, idx + 1, newString);
+    return removeDuplicate(str, idx + 1, newString); // recursive call
     // Traversed string single time
     // Time Complexity --> O(n)
   }
@@ -75,10 +77,10 @@ public class RecursionQs2 {
     str = moveToEnd(str, ch, 0, 0, "");
     System.out.println("Moved "+ch+ " at end: "+ str);
 
-    // 3. Remove duplicate from a string
-    String name = "Harry ";
+    // 3. Remove duplicate characters from a string
+    String name = "Harry James";
     String newName = removeDuplicate(name, 0, "");
-    System.out.println("New Name after deleting duplicate: "+ newName);
+    System.out.println("New Name after deleting duplicate characters: "+ newName);
 
   }
 }
