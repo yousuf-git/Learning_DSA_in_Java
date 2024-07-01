@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -13,43 +14,42 @@ import java.util.Stack;
 import hashmap.HmNode; // my own built HashMap Node class
 
 /**
- * I've implemented graph in this class with generic type of vertices (T)
- * Fully connected / unconnected, directed / undirected graphs are handled in this single class in a general way
- * You just have to ensure that you are passing the right edges while building the graph 
- * Implemented some methods both for connected and un-connected graphs separately,
-    in order to let you understand the difference between them
- * General methods work well for both connected and unconncted graph so try to use them in most cases
+I've implemented graph in this class with generic type of vertices (T)
+Fully connected / unconnected, directed / undirected graphs are handled in this single class in a general way
+You just have to ensure that you are passing the right edges while building the graph 
+Implemented some methods both for connected and un-connected graphs separately, in order to let you understand the difference between them
+General methods work well for both connected and unconncted graph so try to use them in most cases
 
- * _______________Contains following methods______________
- * 
- * 01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
+_______________Contains following methods______________
 
- * 02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
+01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
 
- * 03. addVertex(T vertex): To add a vertex of generic type 
+02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
 
- * 04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex 
+03. addVertex(T vertex): To add a vertex of generic type 
 
- * 05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
+04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex 
 
- * 06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs 
+05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
 
- * 07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs 
+06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs 
 
- * 08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex 
+07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs 
 
- * 09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order 
+08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex 
 
- * 10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
+09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order 
 
- * 11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
+10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
 
- * 12. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using dijkstra's algorithm
+11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
 
- * 13. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using Bellman Ford algorithm
+12. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using dijkstra's algorithm
 
- * 
- * 
+13. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using Bellman Ford algorithm
+
+14. mst(T start) : Returns ArrayList of edges included in MST for the given graph, using Prim's Algorithm
+
  * 
  */
 public class Graph<T> {
@@ -457,8 +457,8 @@ public class Graph<T> {
          */
         PriorityQueue<HmNode<T, Integer>> queue = new PriorityQueue<>(new Comparator<HmNode<T, Integer>>() {
             @Override
-            public int compare(HmNode<T, Integer> entry1, HmNode<T, Integer> entry2) {
-                return Integer.compare(entry1.value, entry2.value);
+            public int compare(HmNode<T, Integer> node1, HmNode<T, Integer> node2) {
+                return Integer.compare(node1.value, node2.value);
             }
         });
         queue.add(new HmNode<T, Integer>(source, 0));
@@ -507,7 +507,7 @@ public class Graph<T> {
                 for (Edge<T> edge : graph.get(vertex)) { // get the neighbours
                     int destCost = costs.get(edge.dest); // get the cost of neighbour
                     // Check for relxation
-                    if (srcCost + edge.wt < destCost) {
+                    if (srcCost != Integer.MAX_VALUE && srcCost + edge.wt < destCost) { // +infinity + 1 = -ve
                         costs.put(edge.dest, srcCost + edge.wt); // update the cost
                     }
                 }
@@ -515,6 +515,50 @@ public class Graph<T> {
         }
         return costs;
     }
+
+    /*------------Prim's Algorithm------------- */
+    // To find the Minimum Spanning Tree - MST
+    // Time Complexity : O((V+E) log V) = O(E log V)
+    public ArrayList<Edge<T>> mst(T start) {
+        ArrayList<Edge<T>> edges = new ArrayList<>(); // To store the edges included in MST
+        // int cost = 0; // to track the cost of MST
+
+        PriorityQueue<HmNode<T, Integer>> queue = new PriorityQueue<>(new Comparator<HmNode<T, Integer>>() {
+            @Override
+            public int compare(HmNode<T, Integer> node1, HmNode<T, Integer> node2) {
+                return Integer.compare(node1.value, node2.value);
+            }
+        });
+        queue.add(new HmNode<T, Integer>(start, 0));
+        Set<T> mst = new HashSet<>(); // track the vertices that are added in MST
+        Map<T, Edge<T>> edgeTo = new HashMap<>(); // to track the edge that leads to each vertex in the MST
+
+        while (!queue.isEmpty()) {
+            HmNode<T, Integer> currNode = queue.remove(); // O(log n)
+            T vertex = currNode.key;
+            if (!mst.contains(vertex)) {
+                mst.add(vertex); // O(1)
+                // cost += currNode.value;
+
+                // Add the edge that leads to this vertex to the MST (except for the start vertex)
+                if (edgeTo.containsKey(vertex)) {
+                    edges.add(edgeTo.get(vertex)); // Amortized O(1) time complexity
+                }
+
+                for (Edge<T> edge : graph.get(vertex)) { // get edges connected to current vertex
+                    if (!mst.contains(edge.dest)) { // for each neighbour that is not in MST
+                        // Add the neighbour and edge cost / wt in the queu
+                        queue.add(new HmNode<T, Integer>(edge.dest, edge.wt)); // O(log n)
+                        // Add the neighbour and edge leading to that neighbour in edgeTo Map
+                        edgeTo.put(edge.dest, edge); // O(1)
+                    }
+                }
+            }
+        }
+        // System.out.println("Cost: " + cost);
+        return edges;
+    }
+
 
     // Main method for testing
     public static void main(String[] args) {

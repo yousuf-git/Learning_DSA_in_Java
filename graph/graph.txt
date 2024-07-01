@@ -39,44 +39,42 @@ Example:
 ------------Temp Comment----------------
 
 /**
- * I've implemented graph in this class with generic type of vertices (T)
- * Fully connected / unconnected, directed / undirected graphs are handled in this single class in a general way
- * You just have to ensure that you are passing the right edges while building the graph 
- * Implemented some methods both for connected and un-connected graphs separately,
-     in order to let you understand the difference between them
- * General methods work well for both connected and unconncted graph so try to use them in most cases
- 
- * _______________Contains following methods______________
- * 
- * 01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
- 
- * 02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
- 
- * 03. addVertex(T vertex): To add a vertex of generic type 
- 
- * 04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex 
- 
- * 05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
- 
- * 06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs 
- 
- * 07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs 
- 
- * 08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex 
- 
- * 09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order 
- 
- * 10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
- 
- * 11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
- 
- * 12. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from 
- source to those vertices using dijkstra's algorithm
- 
- * 13. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using Bellman Ford algorithm
- 
- * 
- * 
+I've implemented graph in this class with generic type of vertices (T)
+Fully connected / unconnected, directed / undirected graphs are handled in this single class in a general way
+You just have to ensure that you are passing the right edges while building the graph 
+Implemented some methods both for connected and un-connected graphs separately, in order to let you understand the difference between them
+General methods work well for both connected and unconncted graph so try to use them in most cases
+
+_______________Contains following methods______________
+
+01. buildConGraph(ArrayList<Edge<T>> edges) : Specially for connected graphs building with list of edges
+
+02. buildGraph(ArrayList<Edge<T>> edges) : For general connected / unconnected graphs building
+
+03. addVertex(T vertex): To add a vertex of generic type 
+
+04. addEdge(Edges<T> edge) : To add an edge and ensure that source and destination are themselves added as vertex 
+
+05. findNbrs(T vertex) : To Display All the neighbours of a given vertex
+
+06. bfsCon(T start) / dfsCon(T start, Set<T> visited) : Special for traversal in connected graphs 
+
+07. bfs(T start) / dfs(T start, Set<T> visited) : Traversal in general graphs 
+
+08. printPath(T src, T dest) : To print all possible paths from given source to destination vertex 
+
+09. topologicalSort(T start) : Returns ArrayList of vertices in topologically sorted order 
+
+10. hasCycleUnd() : Returns true if there is cycle in the undirected graph, false otherwise 
+
+11. hasCycleDir() : Returns true if there is cycle in the directed graph, false otherwise 
+
+12. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using dijkstra's algorithm
+
+13. getShortestPaths(T source) : Returns a HashMap<T, Integer> that contains vertices as keys and value refers to minimum cost/weights from source to those vertices using Bellman Ford algorithm
+
+14. mst(T start) : Returns ArrayList of edges included in MST for the given graph, using Prim's Algorithm
+
  * 
  */
 
@@ -89,7 +87,7 @@ Functions Performed on Graph:
 4. Finding All Paths from source to destination
 5. Topological Sorting
 6. Cycle Detection for directed / undirected graphs
-7. Dijkstra's Algorithm for shortest path finding from source to all vertices
+7. Bellman Ford / Dijkstra's Algorithm for shortest path finding from source to all vertices
 
 Graph can be Implemented by:
 
@@ -214,10 +212,11 @@ These all are same for weighted graph:
  - Shortest Path / Shortest Distance / Minimum Cost  / Minimum Weight
 
 -------------------Dijkstra's Algorithm---------------
-
+ - Uses Greedy approach
  - Uses BFS approach (by using Priority Queue)
 
-=> Time Complexity Analysis
+=> Time Complexity Analysis: 𝑂((𝑉 + 𝐸) log 𝑉)
+ 
  Let's break down the time complexity of the Dijkstra's algorithm implementation:
 
 Initialization:
@@ -236,7 +235,7 @@ Edge Relaxation:
 𝑂(log 𝑉) Hence, this step takes 𝑂(𝐸 log 𝑉)
 
 Total Time Complexity: 
-    𝑂((𝑉+𝐸) log 𝑉)
+    𝑂((𝑉 + 𝐸) log 𝑉)𝑂((𝑉 + 𝐸) log 𝑉)
 
 Disadvantage:
  - Not Valid for Negative weights
@@ -244,8 +243,70 @@ Disadvantage:
 
 -----------------Bellman Ford Algorithm-----------------
 
+Uses Dynamic Programming
 Perform Relaxation for all edges V-1 times
 
-+ Can be Applied on cyclic and weighted graph
-- Can not be used for graph if there is Negative wight cycle
++ Can be Applied on cyclic and negative weighted graph
+- Can not be used for graph if there is Negative weight cycle
     The total weight of edges included in cycle, must be +ve
+
+Time Complexity Analysis: 𝑂(𝑉𝐸)
+
+ - Initialization:
+
+Initializing the costs HashMap with all vertices: This takes O(V) time, where V is the number of vertices.
+
+ - Main Loop:
+
+The outer loop runs V−1 times, where V is the number of vertices. This is because the Bellman-Ford algorithm requires V−1 iterations to ensure that the shortest path is found, even in the worst case.
+The inner loop iterates over each vertex V, and for each vertex, it iterates over its edges. Assuming E is the number of edges in the graph, this inner loop can take O(E) time because each vertex might have several edges.
+
+ - Putting it all together:
+
+The outer loop runs V−1 times.
+For each iteration of the outer loop, the inner loop processes all edges, taking O(E) time.
+Therefore, the overall time complexity of the algorithm is:
+ O(V)+(V−1)×O(E)
+ = O(V+VE)
+
+Since V is typically much smaller than VE, the dominant term is VE. Thus, the time complexity simplifies to:
+ - 𝑂(𝑉𝐸)
+
+--------------Prim's Algorithm------------------
+
+Used to find Minimum Spannin Tree (MST)
+Note: There There can be multiple minimum spanning trees (MSTs) for a given edge-weighted graph
+
+MST properties:
+    - Contains each Vertex of original graph
+    - Has Minimum edge weight
+    - Doesn't have any cycle
+
+Start from an arbitrary vertex and choose minimum weight neighbour (Use Priority Queue to store edges, it will automatically sort the edges based on their minimum weight)
+
+Time Complexity Breakdown:
+ - Initialization:
+
+Adding the start node to the priority queue: O(log 1) = O(1).
+ 
+ - Processing Each Vertex:
+
+Each vertex is processed once when it is removed from the priority queue.
+Removing a vertex from the priority queue: O(log V).
+ 
+ - Processing Each Edge:
+
+For each vertex, all its adjacent edges are examined.
+Adding an edge to the priority queue: O(log V).
+
+ - Total Complexity:
+
+Each vertex is inserted and removed from the priority queue exactly once, leading to a complexity of O(V log V) for these operations.
+
+Each edge is examined once, and for each edge, there may be an insertion into the priority queue, leading to a complexity of O(E log V) for these operations.
+
+ - Combined Complexity:
+
+The overall time complexity of the algorithm is dominated by the priority queue operations. Therefore, the combined complexity is:
+
+    O((V+E) log V) = O(E log V)
