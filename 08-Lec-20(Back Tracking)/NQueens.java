@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class NQueens {
+	public final static String YELLOW = "\u001B[33m";
+	public final static String BLUE = "\u001B[36m";
+	public final static String RESET = "\u001B[0m";
 	public static List<List<String>> solutions;
 	public static int solutionsCount = 0;
 
@@ -110,18 +113,22 @@ class NQueens {
 	}
 
 	public static void main(String[] args) {
-		
+
 		int n = 4; // Number of queens and size of board
 		System.out.println("\nTotal Queens: " + n);
-		System.out.println("\n__________Solution Boards_________\n");
+		System.out.println(YELLOW + "\n__________Solution Boards_________\n" + RESET);
 		List<List<String>> solutions = solveQueens(n);
-		
+
 		// Display the solutions in a formatted way
 		for (List<String> solution : solutions) { // Get each solution from the list of solutions
 			for (int i = 0; i < solution.size(); i++) { // Solution is actually a board that has rows as Strings
 				String row = solution.get(i); // Get each row
 				for (int j = 0; j < row.length(); j++) { // Iterate over the row
-					System.out.print(row.charAt(j) + " "); // print the individual entry of row
+					if (row.charAt(j) == 'Q') {
+						System.out.print(BLUE + row.charAt(j) + " " + RESET);
+					} else {
+						System.out.print(row.charAt(j) + " "); // print the individual entry of row
+					}
 				}
 				System.out.println(); // Next line after each row
 			}
