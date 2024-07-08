@@ -75,6 +75,12 @@ _______________Contains following methods______________
 
 14. mst(T start) : Returns ArrayList of edges included in MST for the given graph, using Prim's Algorithm
 
+15. getStronglyConComps(T start) : Returns ArrayList<ArrayList<T>> List of List of stromgly component vise vertices by implementing Kosaraju's Algorithm
+
+16. reverse() : Returns Graph<T>, that is transpose / reverse of original one (reverse the direction of all edges)
+
+17. printEdges() : Simply prints all edges in graph in the form of source --> destination
+
  * 
  */
 
@@ -144,7 +150,7 @@ BFS:
     Suppose Step 1: A --> B then
     Before going from B --> D, First goto C
 
-    I'll be using a queue and an array visited[] to Implement BFS on graph, that includes 3 steps
+    I'll be using a queue and a set visited to Implement BFS on graph, that includes 3 steps
         1. Print current vertex
         2. Add All the neighbours of current vertex in queue
         3. Remove the current vertex and mark it as visited
@@ -310,3 +316,23 @@ Each edge is examined once, and for each edge, there may be an insertion into th
 The overall time complexity of the algorithm is dominated by the priority queue operations. Therefore, the combined complexity is:
 
     O((V+E) log V) = O(E log V)
+
+--------------Kosaraju's Algorithm------------------
+
+Used to find all the strongly connected components
+A part of graph (set of vertices) makes strongly connected component if there is path from each vertex to every other vertex
+
+Steps:
+    1. Apply topological sort on the graph (Get the List of edges in topological order)
+    2. Reverse the graph (reverse the direction of all edges in graph)
+    3. Apply DFS on the vertices of reversed graph but in accordance of topological sorted list
+        Each time a new vertex is visited, it will be a new component
+    4. Repeat the process until all vertices are visited
+    5. Return the components
+
+Time Complexity: O(V+E)
+Analysis:
+    Topological Sorting: O(V + E)
+    Reversing the graph: O(V + E)
+    DFS: O(V + E)
+    Total = 3 * O(V + E) = O(V + E)

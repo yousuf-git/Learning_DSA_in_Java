@@ -50,12 +50,18 @@ _______________Contains following methods______________
 
 14. mst(T start) : Returns ArrayList of edges included in MST for the given graph, using Prim's Algorithm
 
+15. getStronglyConComps(T start) : Returns ArrayList<ArrayList<T>> List of List of stromgly component vise vertices by implementing Kosaraju's Algorithm
+
+16. reverse() : Returns Graph<T>, that is transpose / reverse of original one (reverse the direction of all edges)
+
+17. printEdges() : Simply prints all edges in graph in the form of source --> destination
+
  * 
  */
 public class Graph<T> {
-    protected int V; // number of vertices
+    private int V; // number of vertices
     // A HashMap where key is vertex and value is an ArrayList of all edges directly connected to it
-    protected HashMap<T, ArrayList<Edge<T>>> graph;
+    private HashMap<T, ArrayList<Edge<T>>> graph;
 
     /**
      * @constructor
@@ -303,7 +309,7 @@ public class Graph<T> {
     public ArrayList<T> topologicalSort(T start) {
         /*
          * 1. Apply dfs on start edge 
-         * - I have made a topoSortHelper() method that uses modified dfs for topological sortting
+         * - I have made a topoSortHelper() method that uses modified dfs for topological sorting
          */
         Set<T> visited = new HashSet<>(); // to track visited vertices
         Stack<T> stack = new Stack<>(); // to store vertices in sorted order
@@ -558,36 +564,83 @@ public class Graph<T> {
         // System.out.println("Cost: " + cost);
         return edges;
     }
-    /* Kosaraju's Algorithm
-     * To Find the strongly connected components in graph
+
+    /* Kosaraju's Algorithm - To Find the strongly connected components in graph
      * A group of vertices is said to be strongly connected if there is path from every vertex to every other
-     * Approach: Reverse DFS, according to topological sort order
+     * Approach:
+     * 1. Apply topological sort on the graph (List of edges in topological order)
+     * 2. Reverse the graph (reverse the direction of all edges)
+     * 3. Apply DFS on the vertices of reversed graph in the order of topological sort
+     * 4. Each time a new vertex is visited, it will be a new component
+     * 5. Repeat the process until all vertices are visited
+     * 6. Return the components
      */
-    public ArrayList<ArrayList<T>> getStronglyConnectedComponets(T start) {
+    public ArrayList<ArrayList<T>> getStronglyConComps(T start) {
+        // Validation Check
+        if (!graph.keySet().contains(start)) {
+            System.out.println("Start Point Doesn't Exist!");
+            return null;
+        }
         ArrayList<ArrayList<T>> components = new ArrayList<>();
-        ArrayList<T> sortedVertices =  this.topologicalSort(start);
+        // Step 1
+        ArrayList<T> sortedVertices = this.topologicalSort(start);
+        // Step 2
+        Graph<T> reversedGraph = this.reverse();
+        // Step 3 - DFS
+        Set<T> visited = new HashSet<>();
         ArrayList<T> currComponent;
         while (!sortedVertices.isEmpty()) {
-            currComponent = new ArrayList<>();
-            T vertex = sortedVertices.remove(sortedVertices.size()); // get the last vertex each time
-            // Start traversing in depth from this vertex
-            sccHelper(vertex, currComponent, null);
-            components.add(currComponent);
+            // a list to add vertices inlcuded in the component
+            T vertex = sortedVertices.remove(0); // get the vertices one-by-one in topological order
+
+            // Start traversing in depth from each unvisited vertex
+            if (!visited.contains(vertex)) {
+                currComponent = new ArrayList<>();
+                sccHelper(vertex, currComponent, visited, reversedGraph); // dfs
+                components.add(currComponent);
+            }
         }
-        
-        return null;
+        return components;
     }
-    private void sccHelper(T start, ArrayList<T> vertices, Set<T> visited) {
+
+    
+    /** A private method to help apply modified DFS for stronglyConnectedComponents()
+     * @param start
+     * @param vertices
+     * @param visited
+     * @param revGraph
+     */
+    private void sccHelper(T start, ArrayList<T> vertices, Set<T> visited, Graph<T> revGraph) {
         // if (visited.contains(start)) {
         //     return;
         // }
         visited.add(start);
         vertices.add(start);
         // get all edges connected of vertex
-        for (Edge<T> edge : graph.get(start)) {
+        for (Edge<T> edge : revGraph.graph.get(start)) {
             // for each neighbour
             if (!visited.contains(edge.dest)) {
-                sccHelper(edge.dest, vertices, visited);
+                sccHelper(edge.dest, vertices, visited, revGraph);
+            }
+        }
+    }
+
+    /*--------Method to reverse the graph---------*/
+    public Graph<T> reverse() {
+        Graph<T> reversedGraph = new Graph<>();
+        for (T vertex : graph.keySet()) {
+            for (Edge<T> edge : graph.get(vertex)) {
+                reversedGraph.addEdge(new Edge<T>(edge.dest, edge.src));
+            }
+        }
+        return reversedGraph;
+    }
+
+    /*--------To print the edges on console-------*/
+    public void printEdges() {
+        for (T vertex : graph.keySet()) {
+            for (Edge<T> edge : graph.get(vertex)) {
+                System.out.println(edge.src + " --> " + edge.dest);
             }
         }
     }
