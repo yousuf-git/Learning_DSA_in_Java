@@ -558,7 +558,39 @@ public class Graph<T> {
         // System.out.println("Cost: " + cost);
         return edges;
     }
-
+    /* Kosaraju's Algorithm
+     * To Find the strongly connected components in graph
+     * A group of vertices is said to be strongly connected if there is path from every vertex to every other
+     * Approach: Reverse DFS, according to topological sort order
+     */
+    public ArrayList<ArrayList<T>> getStronglyConnectedComponets(T start) {
+        ArrayList<ArrayList<T>> components = new ArrayList<>();
+        ArrayList<T> sortedVertices =  this.topologicalSort(start);
+        ArrayList<T> currComponent;
+        while (!sortedVertices.isEmpty()) {
+            currComponent = new ArrayList<>();
+            T vertex = sortedVertices.remove(sortedVertices.size()); // get the last vertex each time
+            // Start traversing in depth from this vertex
+            sccHelper(vertex, currComponent, null);
+            components.add(currComponent);
+        }
+        
+        return null;
+    }
+    private void sccHelper(T start, ArrayList<T> vertices, Set<T> visited) {
+        // if (visited.contains(start)) {
+        //     return;
+        // }
+        visited.add(start);
+        vertices.add(start);
+        // get all edges connected of vertex
+        for (Edge<T> edge : graph.get(start)) {
+            // for each neighbour
+            if (!visited.contains(edge.dest)) {
+                sccHelper(edge.dest, vertices, visited);
+            }
+        }
+    }
 
     // Main method for testing
     public static void main(String[] args) {
