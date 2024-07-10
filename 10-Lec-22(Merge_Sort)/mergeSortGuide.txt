@@ -1,0 +1,39 @@
+Key Points to recall merge sort:
+
+Consider the following array:
+
+  0   1   2   3   4   5    <-- Indices
+_________________________
+| 4 | 3 | 2 | 1 | 5 | 0 |
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+
+First we have to divide the array untill there is single element left
+
+_____________   ____________
+| 4 | 3 | 2 |    1 | 5 | 0 |
+¯¯¯¯¯¯¯¯¯¯¯¯¯   ¯¯¯¯¯¯¯¯¯¯¯¯
+_________   ____    ________    ____
+| 4 | 3 |    2 |     1 | 5 |     0 |
+¯¯¯¯¯¯¯¯¯   ¯¯¯¯    ¯¯¯¯¯¯¯¯    ¯¯¯¯
+_____   ____    ____    ____    ____    ____
+| 4 |    3 |     2 |     1 |     5 |     0 |
+¯¯¯¯¯   ¯¯¯¯    ¯¯¯¯    ¯¯¯¯    ¯¯¯¯    ¯¯¯¯
+
+Now merging / conquering part comes
+
+Suppose we have to arrays left and right that are to be merged
+
+- Create a new merged array of size => total size of left and right array
+- Compare elements one-by-one from left and right and fill elements in sorted order in merged array
+- Copy the elements of this merged array to original array
+
+_________   ____    ________    ____
+| 3 | 4 |    2 |     1 | 5 |     0 |
+¯¯¯¯¯¯¯¯¯   ¯¯¯¯    ¯¯¯¯¯¯¯¯    ¯¯¯¯
+_____________   ____________
+| 2 | 3 | 4 |    0 | 1 | 5 |
+¯¯¯¯¯¯¯¯¯¯¯¯¯   ¯¯¯¯¯¯¯¯¯¯¯¯
+_________________________
+| 0 | 1 | 2 | 3 | 4 | 5 |
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
