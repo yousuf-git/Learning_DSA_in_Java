@@ -1,12 +1,7 @@
 /*
- * Pivot and Partition
- * Pivot means a central/fixed point, it can be:
- *      Random
- *      Median
- *      First Element
- *      Last Element (I used here)
- * Step 1: Move elements less than pivot before pivot and elements greater * than pivot after pivot (pivot will move to its correct position)
- * Step 2: Repeat step 1 untill there is only unit element
+ * Pivot and Partition Pivot means a central/fixed point, it can be: Random Median First Element Last Element (I used
+ * here) Step 1: Move elements less than pivot before pivot and elements greater * than pivot after pivot (pivot will
+ * move to its correct position) Step 2: Repeat step 1 untill there is only unit element
  */
 
 public class QuickSort {
@@ -40,19 +35,20 @@ public class QuickSort {
   }
 
   public static void main(String[] args) {
-    int[] array = { 2, 4, 5, 10, 4, 0, 4, 9, 1 };
+    int[] array = {2, 4, 5, 10, 4, 0, 4, 9, 1};
 
-    System.out.println("Original Array:");
+    System.out.print("\nOriginal Array: ");
     for (int element : array) {
       System.out.print(element + " ");
     }
 
     quickSort(array, 0, array.length - 1);
 
-    System.out.println("\nSorted Array:");
+    System.out.print("\nSorted Array: ");
     for (int element : array) {
       System.out.print(element + " ");
     }
+    System.out.println("\n");
   }
 }
 /*
