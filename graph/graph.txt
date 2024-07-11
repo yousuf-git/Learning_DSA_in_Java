@@ -81,6 +81,8 @@ _______________Contains following methods______________
 
 17. printEdges() : Simply prints all edges in graph in the form of source --> destination
 
+18. findBridge() : Returns Edge<T> that is a bridge in the graph by implementing Tarjan's Algorithm
+ 
  * 
  */
 
@@ -211,13 +213,14 @@ Time Complexity = O (V + E)
 2. For Directed Graph
     - DFS / BFS
     - Topological Sort (Kahn's Algorithm)
+__________________________________________________________
+|________________Shortest Path Algorithms________________|
 
-________________Shortest Path Algorithms________________
-
-These all are same for weighted graph:
+following all are same for weighted graph:
  - Shortest Path / Shortest Distance / Minimum Cost  / Minimum Weight
 
--------------------Dijkstra's Algorithm---------------
+________________Dijkstra's Algorithm________________
+ - Used to find shortest path from srouce to all vertices
  - Uses Greedy approach
  - Uses BFS approach (by using Priority Queue)
 
@@ -247,10 +250,11 @@ Disadvantage:
  - Not Valid for Negative weights
  - Not Valid for cyclic graphs
 
------------------Bellman Ford Algorithm-----------------
+________________Bellman Ford Algorithm________________
 
-Uses Dynamic Programming
-Perform Relaxation for all edges V-1 times
+- Used to find shortest path from source to all vertices
+- Uses Dynamic Programming
+- Perform Relaxation for all edges V-1 times
 
 + Can be Applied on cyclic and negative weighted graph
 - Can not be used for graph if there is Negative weight cycle
@@ -278,7 +282,7 @@ Therefore, the overall time complexity of the algorithm is:
 Since V is typically much smaller than VE, the dominant term is VE. Thus, the time complexity simplifies to:
  - 𝑂(𝑉𝐸)
 
---------------Prim's Algorithm------------------
+________________Prim's Algorithm________________
 
 Used to find Minimum Spannin Tree (MST)
 Note: There There can be multiple minimum spanning trees (MSTs) for a given edge-weighted graph
@@ -317,9 +321,9 @@ The overall time complexity of the algorithm is dominated by the priority queue 
 
     O((V+E) log V) = O(E log V)
 
---------------Kosaraju's Algorithm------------------
+________________Kosaraju's Algorithm________________
 
-Used to find all the strongly connected components
+Used to find all the strongly connected components in a graph
 A part of graph (set of vertices) makes strongly connected component if there is path from each vertex to every other vertex
 
 Steps:
@@ -336,3 +340,47 @@ Analysis:
     Reversing the graph: O(V + E)
     DFS: O(V + E)
     Total = 3 * O(V + E) = O(V + E)
+
+
+________________Tarjan's Algorithm to find bridge in graph________________
+
+Steps:
+    1. Apply DFS on the graph
+    2. For each vertex, keep track of its discovery time and low time
+    3. Initially discovery time and low time of each vertex is same
+    4. For Each neighbour of the vertex:
+     
+     - If neighbour is parent, continue
+     - If neighbour is not visited, apply DFS on it
+        - After DFS, update the low time of vertex with minimum of its low time and low time of neighbour as:
+            low[vertex] = min(low[vertex], low[neighbour])
+        
+        - After Updating low time, check if there is a bridge between vertex and neighbour:
+            If discovery time of vertex is greater than low time of neighbour, then there is a bridge between them
+            
+            Because it means that neighbour has some other path to reach vertex
+            
+     - If neighbour is visited, update the low time of vertex with minimum of its low time and discovery time of neighbour as : low[vertex] = min(low[vertex], dTime[neighbour])
+     
+    5. Return the bridge if found, null otherwise
+    
+
+Detailed Breakdown of Time Complexity:
+ - Initialization O(V):
+
+Creating and initializing the visited, dTime, and lowDt maps require visiting each vertex once. Thus, it takes O(V).
+
+ - DFS Traversal (O(V + E)):
+
+Each vertex and edge in the graph is processed exactly once. The DFS traversal takes 
+O(V) for vertices and O(E) for edges.
+
+ - Time Updates O(1):
+
+Updating discovery times and low times involves simple arithmetic operations and map updates, each taking constant time O(1).
+
+Summing up the initialization and DFS traversal gives us the total time complexity:
+O(V) + O(V+E) = O(V+E)
+
+ => Final Time Complexity => O(V + E)
+

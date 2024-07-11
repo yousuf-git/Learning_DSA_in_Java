@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+// import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -56,6 +57,8 @@ _______________Contains following methods______________
 
 17. printEdges() : Simply prints all edges in graph in the form of source --> destination
 
+18. findBridge() : Returns Edge<T> that is a bridge in the graph by implementing Tarjan's Algorithm
+
  * 
  */
 public class Graph<T> {
@@ -103,7 +106,7 @@ public class Graph<T> {
         }
     }
 
-    /*----------Add a new edge in the vertex---------
+    /*----------Add a new edge in the graph---------
      * Case-1: src and dest both exist in the graph => connect them
      * Case-2: src exists but dest doesn't => First add the dest as a vertex then connect them
      * Case-3: src and dest, both doesn't exist => Add both as vertex then connect them
@@ -115,6 +118,11 @@ public class Graph<T> {
 
         // Adding the given edge in the edges list of source
         graph.get(edge.src).add(edge); // Generally: ArrayList<Edges<T>>.add(Edge<T>)
+    }
+
+    /*----------Add a new edge if directly sourc and destination are given---------*/
+    public void addEdge(T src, T dest) {
+        this.addEdge(new Edge<T>(src, dest));
     }
 
     /*------Display All the neighbors of given vertex if it exists------- */
@@ -603,7 +611,7 @@ public class Graph<T> {
         return components;
     }
 
-    
+
     /** A private method to help apply modified DFS for stronglyConnectedComponents()
      * @param start
      * @param vertices
@@ -644,6 +652,117 @@ public class Graph<T> {
             }
         }
     }
+
+    /**-----------To get the edge that is acting as a bridge----------
+     * => Tarjan's Algorithm
+     * - For fully connected graph - returns a single bridge edge, null otherwise
+     * Key Points:
+     * Discovery T ime (dTime) => The time at which the current vertex was visited / discovered
+     * Lowest Discovery Time (lowDt) => The lowest of discovery time among all the neighbours
+     * Bridge Condition => low[u] < dt[v] => (u --> v) is bridge edge
+     */
+    public Edge<T> getBridge(T start) {
+        // Step-1 : Start from each vertex and apply dfs on each unvisited
+        // Step-2 : Keep track of dTime and lowestDt by hashmap
+        Set<T> visited = new HashSet<>(); // track visited vertices
+        HashMap<T, Integer> dTime = new HashMap<>(); // Key: vertex, Value: Dicovery Time
+        HashMap<T, Integer> lowestDt = new HashMap<>();
+        int[] time = {0};
+        // int time = 0; // if time is used as an integer, it is not inrcremented across recursive calls correctly
+        Edge<T> bridge = bridgeDfs(start, null, visited, time, dTime, lowestDt);
+        System.out.println("\nDiscovery Times: ");
+        for (T vertex : dTime.keySet()) {
+            System.out.println("Vertex: " + vertex + "; dTime: " + dTime.get(vertex));
+        }
+        System.out.println("\nLowest Discovery Times: ");
+        for (T vertex : lowestDt.keySet()) {
+            System.out.println("Vertex: " + vertex + "; lowTime: " + lowestDt.get(vertex));
+        }
+        return bridge;
+    }
+
+    private Edge<T> bridgeDfs(T vertex, T parent, Set<T> visited, int[] time, HashMap<T, Integer> dTime,
+            HashMap<T, Integer> lowDt) {
+        visited.add(vertex); // visit the vertex
+        // time[0]++; // increase the time
+        time[0]++;
+        dTime.put(vertex, time[0]); // initially dTime and lowDt have same value
+        lowDt.put(vertex, time[0]);
+        // Iterate for all the neighbours
+        for (Edge<T> edge : graph.get(vertex)) {
+            T neighbour = edge.dest;
+            if (neighbour.equals(parent)) {
+                continue;
+            }
+            if (!visited.contains(neighbour)) {
+                bridgeDfs(neighbour, vertex, visited, time, dTime, lowDt);
+                // After DFS - update lowest dTime based on neighbours dTime
+                // low[curr] = min (low[curr], low[neighbour])
+                lowDt.put(vertex, Math.min(lowDt.get(vertex), lowDt.get(neighbour)));
+                if (dTime.get(vertex) < lowDt.get(neighbour)) {
+                    return new Edge<T>(edge.src, neighbour);
+                }
+            }
+            // If neighbour is visited - update lowest dTime of current vertex
+            else {
+                // low[currVertex] = min (low[currVertex], dTime[neighbour])
+                lowDt.put(vertex, Math.min(lowDt.get(vertex), dTime.get(neighbour)));
+            }
+        }
+        return null;
+    }
+    // _________________
+    // public List<Edge<T>> getBridges(T start) {
+    //     Set<T> visited = new HashSet<>();
+    //     HashMap<T, Integer> dTime = new HashMap<>();
+    //     HashMap<T, Integer> lowestDt = new HashMap<>();
+    //     List<Edge<T>> bridges = new ArrayList<>();
+    //     int[] time = {0}; // Use an array to keep track of time in recursive calls
+    //     bridgeDfs(start, null, visited, time, dTime, lowestDt, bridges);
+
+    //     // Output for debugging
+    //     System.out.println();
+    //     for (T vertex : dTime.keySet()) {
+    //         System.out.println("Vertex: " + vertex + "; dTime: " + dTime.get(vertex));
+    //     }
+    //     for (T vertex : lowestDt.keySet()) {
+    //         System.out.println("Vertex: " + vertex + "; lowTime: " + lowestDt.get(vertex));
+    //     }
+
+    //     return bridges;
+    // }
+
+    // private void bridgeDfs(T vertex, T parent, Set<T> visited, int[] time, HashMap<T, Integer> dTime,
+    //         HashMap<T, Integer> lowDt, List<Edge<T>> bridges) {
+    //     visited.add(vertex);
+    //     time[0]++;
+    //     dTime.put(vertex, time[0]);
+    //     lowDt.put(vertex, time[0]);
+
+    //     // Iterate over all neighbors
+    //     for (Edge<T> edge : graph.get(vertex)) {
+    //         T neighbor = edge.dest;
+    //         if (neighbor.equals(parent)) {
+    //             continue; // Skip the parent vertex
+    //         }
+
+    //         if (!visited.contains(neighbor)) {
+    //             bridgeDfs(neighbor, vertex, visited, time, dTime, lowDt, bridges);
+
+    //             // Update the low discovery time after DFS
+    //             lowDt.put(vertex, Math.min(lowDt.get(vertex), lowDt.get(neighbor)));
+
+    //             // Check if the current edge is a bridge
+    //             if (lowDt.get(neighbor) > dTime.get(vertex)) {
+    //                 bridges.add(new Edge<>(vertex, neighbor));
+    //             }
+    //         } else {
+    //             // Update the low discovery time for already visited neighbors
+    //             lowDt.put(vertex, Math.min(lowDt.get(vertex), dTime.get(neighbor)));
+    //         }
+    //     }
+    // }
+
 
     // Main method for testing
     public static void main(String[] args) {
