@@ -15,19 +15,19 @@ class NQueens {
 
 	public static boolean isSafe(String[][] board, int row, int col) {
 		// Check if there is any Queen in the same row 
-		// (optional, bcz if queen is placed in a row, we'll recursively check for next one instantly) 
+		// (optional, bcz if queen before is placed in a row, we'll recursively check for next row instantly) 
 		// for (int c = col; c >= 0; c--) {
 		// 	if (board[row][c] == "Q") {
 		// 		return false; // not safe
 		// 	}
 		// }
-		// Check if there is any Queen in the same col
+		// Check if there is any Queen before in the same col
 		for (int r = row; r >= 0; r--) {
 			if (board[r][col] == "Q") {
 				return false; // not safe
 			}
 		}
-		// Check if there is any Queen in the top left diagoanl
+		// Check if there is any Queen before in the top left diagoanl
 		int r = row;
 		int c = col;
 		// Repeat untill row and columns are in range
@@ -40,15 +40,14 @@ class NQueens {
 			c -= 1;
 		}
 
-		// Check if there is any Queen in top right diagonal, First reset row and col
-		// pointers
+		// Check if there is any Queen before in top right diagonal, First reset row and col pointers
 		r = row;
 		c = col;
 		while (r >= 0 && c < board[0].length) {
 			if (board[r][c] == "Q") {
 				return false; // not safe
 			}
-			// Move top right in the diagonal
+			// Move pointers top right in the diagonal
 			r -= 1;
 			c += 1;
 		}
@@ -98,9 +97,6 @@ class NQueens {
 	public static List<List<String>> solveQueens(int n) {
 		solutions = new ArrayList<>(); // initialize the solutions list
 
-		for (List<String> list : solutions) {
-			list = new ArrayList<>(); // initialize the lists in the solutions, as empty ArrayLists
-		}
 		String[][] board = new String[n][n];
 		// Fill the board with dots (.)
 		for (int i = 0; i < board.length; i++) {
