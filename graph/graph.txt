@@ -81,7 +81,7 @@ _______________Contains following methods______________
 
 17. printEdges() : Simply prints all edges in graph in the form of source --> destination
 
-18. findBridge() : Returns Edge<T> that is a bridge in the graph by implementing Tarjan's Algorithm
+18. getBridges() : Returns ArrayList<Edge<T>> that is list bridges in the graph, by implementing Tarjan's Algorithm
  
  * 
  */
@@ -96,6 +96,9 @@ Functions Performed on Graph:
 5. Topological Sorting
 6. Cycle Detection for directed / undirected graphs
 7. Bellman Ford / Dijkstra's Algorithm for shortest path finding from source to all vertices
+8. Prims Algorithm
+9. Kosaraju's Algorithm
+10. Tarjan's Algorithm
 
 Graph can be Implemented by:
 
@@ -342,7 +345,9 @@ Analysis:
     Total = 3 * O(V + E) = O(V + E)
 
 
-________________Tarjan's Algorithm to find bridge in graph________________
+________________Tarjan's Algorithm to find bridges in graph________________
+
+Primary Target: Undirected graphs. In undirected graphs, bridges are edges whose removal increases the number of connected components.
 
 Steps:
     1. Apply DFS on the graph
