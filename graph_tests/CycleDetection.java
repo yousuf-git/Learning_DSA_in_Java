@@ -9,11 +9,11 @@ class CycleDetection {
         Graph<Integer> graph = new Graph<>();
         // Building an undirected graph
         /*
-         * 1 ----- 2
+         *   1 ----- 2
          * / |
          * 0 |
          * \ |
-         * 4----5
+         *   4----5
          */
         graph.addEdge(new Edge<Integer>(0, 1));
         graph.addEdge(new Edge<Integer>(1, 0));

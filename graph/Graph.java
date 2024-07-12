@@ -119,7 +119,7 @@ public class Graph<T> {
         graph.get(edge.src).add(edge); // Generally: ArrayList<Edges<T>>.add(Edge<T>)
     }
 
-    /*----------Add a new edge if directly sourc and destination are given---------*/
+    /*----------Add a new edge if directly source and destination are given---------*/
     public void addEdge(T src, T dest) {
         this.addEdge(new Edge<T>(src, dest));
     }
@@ -196,7 +196,7 @@ public class Graph<T> {
 
     // Below DFS and BFS are suitable if all the vertices are not connected, i.e, graph is not fully connected
     /*-------------DFS Traversal in recursive way - for general graph ----------- */
-    /**
+    /** Time Complexity: O (V+E)
      * @param start
      * @param visited
      */
@@ -324,7 +324,7 @@ public class Graph<T> {
         System.out.println();
     }
 
-    /*---------To print Topological Sorted Order of graph------------ */
+    /*---------To print Topological Sorted Order of vertices in graph------------ */
     /**
      * @param start
      * @return ArrayList of vertices in topological sorted order
@@ -362,7 +362,6 @@ public class Graph<T> {
         // Get neighbours of current start vertex
         for (Edge<T> edge : graph.get(start)) {
             if (!visited.contains(edge.dest)) {
-                visited.add(edge.dest);
                 topoSortHelper(edge.dest, visited, stack); // dfs on all neighbours
             }
         }
@@ -374,10 +373,10 @@ public class Graph<T> {
      * Time Complexity = O(V+E)
     */
     public boolean hasCycleUnd() {
-        // Get the vertices of graph
         Set<T> visited = new HashSet<>();
+        // Get the vertices of graph
         for (T vertex : graph.keySet()) {
-            System.out.println("Vertex: " + vertex);
+            // System.out.println("Vertex: " + vertex);
             if (!visited.contains(vertex)) {
                 if (cycleHelperUnd(vertex, visited, null)) {
                     return true;
@@ -387,7 +386,7 @@ public class Graph<T> {
         return false;
     }
 
-    /*---------A private method to help dfs traversal for hasCycle()------- */
+    /*---------A private method to help dfs traversal for hasCycleUnd()------- */
     /**
      * @param curr
      * @param visited
@@ -410,7 +409,7 @@ public class Graph<T> {
                 if (cycleHelperUnd(edge.dest, visited, curr)) {
                     return true;
                 }
-                // if false, check for next neighbour
+                // else, check for next neighbour
             }
         }
         return false;
@@ -437,12 +436,10 @@ public class Graph<T> {
     /**
      * @param curr    => current node
      * @param visited => to track visited vertices
-     * @param stack   => recursion stack, to check if any vertex has been in the
-     *                recursion stack already
+     * @param stack   => recursion stack, to check if any vertex has been in the recursion stack already
      * @return boolean
      */
     private boolean cycleHelperDir(T curr, Set<T> visited, Set<T> stack) {
-
         visited.add(curr);
         stack.add(curr);
         // get all neighbours of current vertex
@@ -463,9 +460,9 @@ public class Graph<T> {
 
     /*--------For Dijkstra's Algorithm-----------*/
     /**
-     * @param source => Shortest Path finding from this single source to all
-     *               vertices
-     */
+     * @param source => Shortest Path finding from this single source to all vertices
+     * @return HashMap containing vertices and minimum cost from start point to that vertices
+     */ 
     public HashMap<T, Integer> getShortestPaths(T source) {
         // A graph holding distance from source to specific vertex
         HashMap<T, Integer> costs = new HashMap<>(); // keys : Vertices, Values : Distance / cost to that vertex
@@ -479,9 +476,10 @@ public class Graph<T> {
             }
         }
         /**
-         * Create a priority queue to insert the key-value pair I've used my HmNode class that has 2 attributes: key and value
+         * Create a priority queue to insert the key-value pair
+         * I've used my HmNode class that has 2 attributes: key and value
          * I'll store vertex as a key and cost to that vertex as value, in the HmNode 
-         * This queue will internally sort the nodes on the basis of shortest cost / distance
+         * This queue will internally sort the nodes on the basis of minimum cost / distance
          * Means the vertex having minimum cost will be removed first
          */
         PriorityQueue<HmNode<T, Integer>> queue = new PriorityQueue<>(new Comparator<HmNode<T, Integer>>() {
@@ -507,7 +505,7 @@ public class Graph<T> {
 
                     // Check for Relaxation
                     if (srcCost + edge.wt < destCost) {
-                        // update the destination's / neighbours cost
+                        // update the destination's / neighbour's cost
                         costs.put(edge.dest, srcCost + edge.wt);
                     }
                     queue.add(new HmNode<T, Integer>(edge.dest, costs.get(edge.dest)));// add neighbour and its cost
