@@ -5,9 +5,9 @@
 package graph;
 
 public class Edge<T> implements Comparable<Edge<T>> {
-    T src;
-    T dest;
-    Integer wt;
+    public T src;
+    public T dest;
+    public Integer wt;
 
     /**
      * Construtor for unweighted edge
@@ -34,8 +34,7 @@ public class Edge<T> implements Comparable<Edge<T>> {
         this.wt = wt;
     }
 
-    // To Compare any 2 edges based on their weights, here less weight edge will be
-    // considered as smaller
+    // To Compare any 2 edges based on their weights, here less weight edge will be considered as smaller
     @Override
     public int compareTo(Edge<T> edge) {
         return this.wt - edge.wt;
