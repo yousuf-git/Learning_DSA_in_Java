@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-// import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -171,20 +170,26 @@ public class Graph<T> {
     /*-------------DFS Traversal in recursive way - for connected graph ----------- */
     /**
      * @param start
-     * @param visited
      */
-    public void dfsCon(T start, Set<T> visited) {
+    public void dfsCon(T start) {
         // If any invalid start point is passed
         if (!graph.containsKey(start)) {
             System.out.println("Invalid Start point !");
             return;
         }
+        dfsHelper(start, new HashSet<>());
+    }
+
+    /** A private method to help dfs traversal for connected graph
+     * @param start
+     * @param visited
+     */
+    private void dfsHelper(T start, Set<T> visited) {
         visited.add(start); // Add the current vertex in set of visited
         System.out.print(start + " ");
-        ArrayList<Edge<T>> edges = graph.get(start);
-        for (Edge<T> edge : edges) {
+        for (Edge<T> edge : graph.get(start)) {
             if (!visited.contains(edge.dest)) {
-                dfsCon(edge.dest, visited); // recursive call for each non-visited neighbour
+                dfsHelper(edge.dest, visited);
             }
         }
     }
@@ -195,20 +200,21 @@ public class Graph<T> {
      * @param start
      * @param visited
      */
-    public void dfs(T start, Set<T> visited) {
+    public void dfs(T start) {
         if (!graph.containsKey(start)) {
             System.out.println("Invalid Start Point !");
             return;
         }
+        Set<T> visited = new HashSet<>();
         // start the dfs traversal from given start point
-        dfsCon(start, visited);
-
+        dfsHelper(start, visited);
         // When control returns and there are some other vertices left
         for (T vertex : graph.keySet()) { // get all vertices
             if (!visited.contains(vertex)) { // start dfs from all those vertices which aren't visited yet
-                dfsCon(vertex, visited); // call to dfs for non-visited vertices
+                dfsHelper(vertex, visited); // call to dfs for non-visited vertices
             }
         }
+
     }
 
     /*-------------BFS Traversal - for general graph ----------- */
@@ -258,7 +264,7 @@ public class Graph<T> {
      * @param src
      * @param dest
      */
-    public void printPath(T src, T dest) {
+    public void printPaths(T src, T dest) {
         // Some base conditions for validation of src and dest
         if (!graph.containsKey(src)) {
             System.out.println("Invalid Source !");
@@ -268,7 +274,15 @@ public class Graph<T> {
             System.out.println("Invalid Destination !");
             return;
         }
-        pathHelper(src, dest, new ArrayList<>(), new HashSet<>());
+        ArrayList<T> paths = new ArrayList<>();
+        int[] pathsCount = {0};
+        pathHelper(src, dest, paths, new HashSet<>(), pathsCount);
+
+        if (pathsCount[0] == 0) {
+            System.out.println("No path from " + src + " to " + dest);
+        } else {
+            System.out.println("Total Path(s): " + pathsCount[0]);
+        }
     }
 
     /*---------Recursive Method to support all paths finding method---------- */
@@ -278,11 +292,12 @@ public class Graph<T> {
      * @param path
      * @param visited
      */
-    private void pathHelper(T src, T dest, ArrayList<T> path, Set<T> visited) {
+    private void pathHelper(T src, T dest, ArrayList<T> path, Set<T> visited, int[] pCount) {
         path.add(src);
-        visited.add(src); // Correctly add src to visited here
+        visited.add(src); // Visited the source vertex
 
         if (src.equals(dest)) {
+            pCount[0]++;
             printPath(path);
             // return; // use return statement to print one path only
         } else {
@@ -290,7 +305,7 @@ public class Graph<T> {
             ArrayList<Edge<T>> edges = graph.get(src); // Get all edges directly connected to src
             for (Edge<T> edge : edges) { // Iterate over the neighbors by destination of these edges
                 if (!visited.contains(edge.dest)) {
-                    pathHelper(edge.dest, dest, path, visited);
+                    pathHelper(edge.dest, dest, path, visited, pCount);
                 }
             }
         }
@@ -725,108 +740,5 @@ public class Graph<T> {
             }
         }
     }
-    
-    // Main method for testing
-    public static void main(String[] args) {
-        System.out.println();
 
-        /*-----------For Building a graph of String type----------*/
-        Graph<String> graph = new Graph<>(); // initialize a graph with 5 vertices
-        ArrayList<Edge<String>> list = new ArrayList<>();
-
-        // See Cities graph from graph.txt file
-        list.add(new Edge<String>("Multan", "Murree"));
-        list.add(new Edge<String>("Multan", "Lahore"));
-
-        list.add(new Edge<String>("Murree", "Multan"));
-        list.add(new Edge<String>("Murree", "Peshawar"));
-
-        list.add(new Edge<String>("Peshawar", "Murree"));
-        list.add(new Edge<String>("Peshawar", "Quetta"));
-
-        list.add(new Edge<String>("Quetta", "Peshawar"));
-        list.add(new Edge<String>("Quetta", "Lahore"));
-        list.add(new Edge<String>("Quetta", "Karachi"));
-
-        list.add(new Edge<String>("Lahore", "Karachi"));
-        list.add(new Edge<String>("Lahore", "Multan"));
-        list.add(new Edge<String>("Lahore", "Quetta"));
-
-        list.add(new Edge<String>("Karachi", "Lahore"));
-        list.add(new Edge<String>("Karachi", "Quetta"));
-        list.add(new Edge<String>("Karachi", "Islamabad"));
-
-        list.add(new Edge<String>("Islamabad", "Karachi"));
-
-        /*-----------For Building a graph of integer type----------*/
-        // Graph<Integer> graph = new Graph<>(); // initialize a graph with 5 vertices
-        // ArrayList<Edge<Integer>> list = new ArrayList<>();
-
-        // list.add(new Edge<Integer>(0, 1));
-        // list.add(new Edge<Integer>(0, 2));
-
-        // list.add(new Edge<Integer>(1, 0));
-        // list.add(new Edge<Integer>(1, 3));
-
-        // list.add(new Edge<Integer>(2, 0));
-        // list.add(new Edge<Integer>(2, 4));
-
-        // list.add(new Edge<Integer>(3, 1));
-        // list.add(new Edge<Integer>(3, 4));
-        // list.add(new Edge<Integer>(3, 5));
-
-        // list.add(new Edge<Integer>(4, 2));
-        // list.add(new Edge<Integer>(4, 3));
-        // list.add(new Edge<Integer>(4, 5));
-
-        // list.add(new Edge<Integer>(5, 3));
-        // list.add(new Edge<Integer>(5, 4));
-        // list.add(new Edge<Integer>(5, 6));
-
-        // list.add(new Edge<Integer>(6, 5));
-
-        // For unconnected graph testing, these vertices are not connected to above ones
-        // list.add(new Edge<Integer>(8, 9));
-        // list.add(new Edge<Integer>(8, 10));
-
-        // Building graph out of these edges
-        graph.buildGraph(list);
-        // Build connected graph, ensure the edges values are correct
-        // graph.buildConGraph(list);
-
-        System.out.print("Neighbours of Multan: ");
-        graph.findNbrs("Multan");
-        // graph.findNbrs("Quetta");
-        // graph.findNbrs("Lahore");
-        // graph.findNbrs("hogwards"); // invalid vertex
-
-        System.out.println("Number of Vertices: " + graph.size());
-
-        // System.out.println("Neighbours of 1"); // for integer type graph
-        // graph.findNbrs(1);
-
-        System.out.println("----------Connected---------");
-        System.out.print("BFS Traversal: ");
-        graph.bfsCon("Murree");
-        // System.out.println();
-
-        System.out.print("DFS Traversal: ");
-        graph.dfsCon("Murree", new HashSet<>());
-        System.out.println();
-
-        // System.out.println("----------Unconnected---------");
-        System.out.print("DFS: ");
-        graph.dfs("Murree", new HashSet<>());
-        // graph.dfs(0, new HashSet<>());
-        System.out.println();
-
-        System.out.print("BFS: ");
-        graph.bfs("Murree");
-        // graph.bfs(0);
-        System.out.println();
-        // Q: Print All paths from given source to destination
-        System.out.println("\n----------All Paths from Multan to Murree are below---------");
-        graph.printPath("Multan", "Murree");
-
-    }
 }
