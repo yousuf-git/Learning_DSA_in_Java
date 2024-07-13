@@ -81,8 +81,10 @@ _______________Contains following methods______________
 
 17. printEdges() : Simply prints all edges in graph in the form of source --> destination
 
-18. getBridges() : Returns ArrayList<Edge<T>> that is list bridges in the graph, by implementing Tarjan's Algorithm
- 
+18. getBridges() : Returns ArrayList<Edge<T>> that is list of bridges in the graph, by implementing Tarjan's Algorithm
+
+19. articulationPoints() : Returns ArrayList<T> that is list of articulation points in the graph, by implementing Tarjan's Algorithm
+
  * 
  */
 
@@ -389,3 +391,37 @@ O(V) + O(V+E) = O(V+E)
 
  => Final Time Complexity => O(V + E)
 
+________________Tarjan's Algorithm to find Articulation Point in graph________________
+
+- A point is said to be Articulation point if by removing it and all the edges through it, increases the number of components in graph
+- Its similar to bridge concept
+
+Key Points to remeber:
+    While performing DFS on graph, we get all the neighbours of graph, the neighbour can be:
+    - Visited Parent of current vertex
+    - Visited (Non-parent) Ancestor -> Here vertex itself cannot be atriculation point
+    - Unvisted Neighbour
+    - Articulation Point Conditions
+        1. if vertex is not the start of DFS i.e, (parent != null) and:
+            if there is only one path from vertex to neighbour => disc[self] < low[neighbour]
+            if there is a cycle through vertex => disc[self] = low[neighbour]
+            
+            Above both can be combined as: disc[self] <= low[neighbour]
+        
+        2. if vertex is start of DFS (parent == null) and it has more than 1 children
+
+Algorithm Stpes:
+
+1. For each neighbour:
+        - If neighbour is parent -> skip
+
+        - If univisited neighbour - neither parent nor ancestor
+            -> Apply DFS
+            -> Update self lowest time by: low[self] = min (low[slef], low[neighbour])
+            -> Check for atriculation point condition 1:
+                    if (parent != null and disc[self] <= low[neighbour])
+
+        - If neighbour is non parent but visited - Ancestor
+            -> update self low time -> low[self] = min(low[self], disc[neighbour])
+    
+2. Check for condition 2 of Articulation point
