@@ -2,7 +2,7 @@
 // ArrayList has no fixed size, can store only objects, memory is in heap
 
 /*
-ArrayList functions/operatios
+General ArrayList functions/operatios
 
 1. Add
 2. Get
@@ -17,7 +17,8 @@ import java.util.Collections;
 
 class ArrayLists{
     public static void main(String[] args) {
-        // Integer | Character | String | Boolean | Float
+        // Generic types that can be used:
+        //  Integer | Character | String | Boolean | Float | Byte | Short | Long | Double
         ArrayList<Integer> intList =  new ArrayList<Integer>();
 
         // Add elements
@@ -62,8 +63,6 @@ class ArrayLists{
         // Sorting
         Collections.sort(intList);
         System.out.println("Sorted List: "+intList);
-
-        
 
     }
 }
