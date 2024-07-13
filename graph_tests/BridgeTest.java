@@ -59,14 +59,13 @@ public class BridgeTest {
         System.out.println("\nTotal Vertices in Graph: " + graph.size());
 
         List<Edge<Integer>> bridges = graph.getBridges();
-        System.out.println("\nBridges: " + bridges.size());
-
-        for (Edge<Integer> bridge : bridges) {
-            if (bridge != null) {
+        if (bridges.size() == 0) {
+            System.out.println("\nNo bridge found in graph !");
+        } else {
+            System.out.println("\nToal Bridges: " + bridges.size());
+            bridges.forEach((bridge) -> {
                 System.out.println(bridge.src + " ――― " + bridge.dest);
-            } else {
-                System.out.println("No bridge found in graph !");
-            }
+            });
         }
     }
 }
