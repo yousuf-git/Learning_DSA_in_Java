@@ -1,0 +1,46 @@
+As you know that array has fixed size and number of elements are also fixed 
+We cannot add new element in a predefined array
+
+Here comes the ArrayList:
+ArrayList is a class in java.util package
+ArrayList is a dynamic array
+ArrayList is a resizable array
+ArrayList can grow and shrink in size
+ArrayList can store elements of any type
+
+I've implemented ArrayList from scratch that includes following methods:
+ - boolean add (E element) -> Add new element in the array, if array is already full, just increase the size of array
+ 
+ - E get(int index) -> Get the element at the given index
+ 
+ - E remove(int index) -> Remove the element at the given index
+ 
+ - int size() -> Get the number of elements in the array
+ 
+ - void print() -> Print all the elements in the array
+ 
+ - boolean isEmpty() -> Check if the array is empty
+ 
+ - void clear() -> Remove all the elements from the ArrayList
+ 
+ - boolean contains(E element) -> Check if the element is present in the ArrayList
+ 
+ - int indexOf(E element) -> Get the index of the element
+ 
+ - int lastIndexOf(E element) -> Get the last index of the element
+ 
+ - E remove(E element) -> Remove the element from the ArrayList
+ 
+ - set(int index, E element) -> Set the element at the given index, Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices)
+ 
+ - toArray() -> Convert the ArrayList to an array
+ 
+ - addAll(ArrayList<E> list) -> Add all the elements of the list to the ArrayList
+ 
+ - removeAll(ArrayList<E> list) -> Remove all the elements of the list from the ArrayList
+ 
+ - retainAll(ArrayList<E> list) -> Retain all the elements of the list in the ArrayList
+ 
+ - subList(int fromIndex, int toIndex) -> Get the sublist from the given range
+ 
+ - equals(ArrayList<E> list) -> Check if the ArrayList is equal to the given list
