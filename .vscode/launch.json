@@ -6,6 +6,223 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpiralMatrix2",
+            "request": "launch",
+            "mainClass": "SpiralMatrix2",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "SpiralMatrix",
+            "request": "launch",
+            "mainClass": "SpiralMatrix",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ArrayListTest",
+            "request": "launch",
+            "mainClass": "ArrayListTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BridgeTest",
+            "request": "launch",
+            "mainClass": "graph_tests.BridgeTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "ArticulationPointTest",
+            "request": "launch",
+            "mainClass": "graph_tests.ArticulationPointTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "DijkstraTest",
+            "request": "launch",
+            "mainClass": "graph_tests.DijkstraTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "CycleDetection",
+            "request": "launch",
+            "mainClass": "graph_tests.CycleDetection",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "TopologicalSort",
+            "request": "launch",
+            "mainClass": "graph_tests.TopologicalSort",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "graph_tests.Main",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BellmanFord",
+            "request": "launch",
+            "mainClass": "graph_tests.BellmanFord",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BinarySearch",
+            "request": "launch",
+            "mainClass": "Searching_Algorithms.BinarySearch",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "LinearSearch",
+            "request": "launch",
+            "mainClass": "Searching_Algorithms.LinearSearch",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BridgeTest",
+            "request": "launch",
+            "mainClass": "graph.BridgeTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "QuickSortRevision",
+            "request": "launch",
+            "mainClass": "QuickSortRevision",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "KosarajuTest",
+            "request": "launch",
+            "mainClass": "graph.KosarajuTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "KosarajuTest",
+            "request": "launch",
+            "mainClass": "graph.KosarajuTest",
+            "projectName": "03-DSA_in_JAVA_Practice_7f26272b"
+        },
+        {
+            "type": "java",
+            "name": "NQueens",
+            "request": "launch",
+            "mainClass": "NQueens",
+            "projectName": "03-DSA_in_JAVA_Practice_7f26272b"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "Temp.Test",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "UniquePaths",
+            "request": "launch",
+            "mainClass": "UniquePaths",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "PrimsAlgoTest",
+            "request": "launch",
+            "mainClass": "graph.PrimsAlgoTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "BellmanFord",
+            "request": "launch",
+            "mainClass": "graph.BellmanFord",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "DijkstraTest",
+            "request": "launch",
+            "mainClass": "graph.DijkstraTest",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "WeightedGraph",
+            "request": "launch",
+            "mainClass": "graph.WeightedGraph",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "CycleDetection",
+            "request": "launch",
+            "mainClass": "graph.CycleDetection",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "TopologicalSort",
+            "request": "launch",
+            "mainClass": "graph.TopologicalSort",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Graph",
+            "request": "launch",
+            "mainClass": "graph.Graph",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "HTrie",
+            "request": "launch",
+            "mainClass": "trie.HTrie",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "HmQuestion",
+            "request": "launch",
+            "mainClass": "hashmap.HmQuestion",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "test",
+            "request": "launch",
+            "mainClass": "Temp.test",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "HHashMap",
+            "request": "launch",
+            "mainClass": "hashmap.HHashMap",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "03-DSA_in_JAVA_Practice_47049265"
+        },
+        {
+            "type": "java",
             "name": "HHashMap",
             "request": "launch",
             "mainClass": "HHashMap",
