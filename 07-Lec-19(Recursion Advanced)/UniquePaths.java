@@ -1,4 +1,4 @@
-// Count all paths from (0, 0) to (m, n)
+// Count all paths from (0, 0) to (m-1, n-1)
 
 public class UniquePaths {
 
