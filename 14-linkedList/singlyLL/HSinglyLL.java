@@ -1,18 +1,19 @@
 // File 1 - it contains methods that I used realted to singly linked list-----------*/
 
 /**
- * This is generic type Singly Linked List class that contains basic linked list methods in
- * order to understand its implementation
+ * This is generic type Singly Linked List class that contains basic linked list methods in order to understand its
+ * implementation
+ * 
  * @param T => Type of Data that will be stored in the nodes of linked list
  */
 package singlyLL;
 
 // LinkedList is already a class in JAVA so I used another name-----------*/
-public class HSinglyLL <T> {
-  public final String ANSI_RESET = "\u001B[0m";
-  public final String ANSI_RED = "\u001B[31m";
-  public final String ANSI_GREEN = "\u001B[32m";
-  public final String ANSI_YELLOW = "\u001B[33m";
+public class HSinglyLL<T> {
+  private final String ANSI_RESET = "\u001B[0m";
+  private final String ANSI_RED = "\u001B[31m";
+  private final String ANSI_GREEN = "\u001B[32m";
+  private final String ANSI_YELLOW = "\u001B[33m";
 
   // Each linked list has a head(First Node) and size
   private Node<T> head;
@@ -44,8 +45,14 @@ public class HSinglyLL <T> {
 
   // Add Element / Node Method can be of 2 types => addFirst() and addLast()
 
-  /* ---------- Adds element at the start ----------- */
-  public void addFirst(T data) {
+  /* ---------- Adds element at the start -----------
+   * Time Complexity: O(1) in worse canse - adjust pointers only
+   */
+  public boolean addFirst(T data) {
+    // Validation
+    if (data == null) {
+      return false;
+    }
     // Create a new node
     Node<T> newNode = new Node<>(data);
 
@@ -60,10 +67,17 @@ public class HSinglyLL <T> {
       head = newNode;
     }
     this.size += 1;
+    return true;
   }
 
-  /* ---------- Adds element at the end ----------- */
-  public void addLast(T data) {
+  /* ---------- Adds element at the end -----------
+   * Time Complexity: O(n)
+   *   - can be optimized to O(1) if tail is maintained alongwith head
+   */
+  public boolean addLast(T data) {
+    if (data == null) {
+      return false;
+    }
     Node<T> newNode = new Node<>(data);
     if (isEmpty()) {
       head = newNode;
@@ -77,23 +91,27 @@ public class HSinglyLL <T> {
       currentNode.next = newNode;
     }
     this.size += 1;
+    return true;
   }
 
   /* ---------- default add -> To add element at the end ----------- */
-  public void add(T data) {
-    this.addLast(data);
+  public boolean add(T data) {
+    return this.addLast(data);
   }
 
-  /* ------------------To Add Element at a position------------------ */
+  /* ------------------To Add Element at a position------------------
+   * Time Complexity: O(n) in worse case if position = size - 1
+   */
   public void addAtIndex(int idx, T data) {
-    if (idx > this.size || idx < 0) {
-      System.out.println("Invalid Index :( ");
+    // Validation of index
+    if (idx >= this.size || idx < 0) {
+      throw new IndexOutOfBoundsException();
     } else {
       Node<T> newNode = new Node<>(data);
+      // Case 1: addFirst()
       if (idx == 0) {
         newNode.next = head;
         head = newNode;
-        System.out.println("Item " + data + " added at index " + idx + " :)");
         size += 1;
       } else {
         Node<T> currNode = head;
@@ -103,14 +121,15 @@ public class HSinglyLL <T> {
         Node<T> nextNode = currNode.next;
         currNode.next = newNode;
         newNode.next = nextNode;
-        System.out.println("Item " + data + " added at index " + idx + " :)");
         size += 1;
       }
     }
   }
 
-  /* ---------- Removes element from start ----------- */
-  public T delFirst() {
+  /* ---------- Removes element from start -----------
+   * Time Complexity: O(1) - Adjust Pointers only
+   */
+  public T removeFirst() {
     if (isEmpty()) {
       return null;
     } else {
@@ -121,8 +140,11 @@ public class HSinglyLL <T> {
     }
   }
 
-  /* ---------- Removes element from the end ----------- */
-  public T delLast() {
+  /* ---------- Removes element from the end -----------
+   * Time Complexity: O(n) for worse case
+   *    - Can be optimized to O(1) if tail pointer is maintained
+   */
+  public T removeLast() {
     if (isEmpty()) {
       return null;
     } else {
@@ -134,8 +156,7 @@ public class HSinglyLL <T> {
       // while (currentNode.next != null) {
       // Update currentNode
       // currentNode = currentNode.next;
-      // if (currentNode.next == null){ // if currentNode.next is null, it means that
-      // currentNode is last element
+      // if (currentNode.next == null){ // if currentNode.next is null, it means that currentNode is last element
       // currentNode = null; // make the last element null
       // return;
       // }
@@ -166,56 +187,61 @@ public class HSinglyLL <T> {
 
   /* ---------- default remove -> removes element from the end ----------- */
   public T remove() {
-    return this.delLast();
+    return this.removeLast();
   }
 
-  /* ------------------To Remove Element from a position------------------ */
-  public void delFromIdx(int idx) {
-    if (isEmpty()) {
-      System.out.println("Cannot Remove, List is Empty :( ");
+  /* ------------------To Remove Element from a position------------------
+   * Time Complexity: O(n)  if idx = size-1
+   */
+  public T removeFrom(int idx) {
+    if (isEmpty() || idx >= this.size || idx < 0) {
+      throw new IndexOutOfBoundsException();
     } else {
-      if (idx > this.size || idx < 0) {
-        System.out.println("Invalid Index <:( ");
+      T oldData = this.get(idx);
+      if (idx == 0) {
+        head = head.next;
+        size -= 1;
       } else {
-        T data;
-        if (idx == 0) {
-          data = head.data;
-          head = head.next;
-          System.out.println("Item " + data + " removed from index " + idx + " :)");
-          size -= 1;
-        } else {
-          Node<T> currNode = head;
-          for (int i = 0; i < idx - 1; i++) {
-            currNode = currNode.next;
-          }
-          data = currNode.next.data;
-          currNode.next = currNode.next.next;
-          System.out.println("Item " + data + " removed from index " + idx + " :)");
-          size -= 1;
+        Node<T> currNode = head;
+        for (int i = 0; i < idx - 1; i++) {
+          currNode = currNode.next;
         }
+        currNode.next = currNode.next.next;
+        size -= 1;
       }
+      return oldData;
     }
   }
 
-  /* ---------- To Update Value at a specifc index ----------- */
-  public void update(int idx, T val) {
-    if (idx >= size || idx < 0) {
-      System.out.println("Invalid Index <:( ");
+  /* ---------- To Update Value at a specifc index -----------
+   * Time Complexity: O(n)  
+   */
+  public T set(int idx, T val) {
+    if (isEmpty() || idx >= size || idx < 0) {
+      throw new IndexOutOfBoundsException();
+      // System.out.println("Invalid Index <:( ");
     } else if (idx == 0) {
-      delFirst();
+      T oldValue = removeFirst();
       addFirst(val);
+      return oldValue;
     } else {
       Node<T> newNode = new Node<>(val);
       Node<T> currNode = head;
-      for (int i = 0; i < idx-1; i++) {
+      // Goto 2nd last node till idx
+      for (int i = 0; i < idx - 1; i++) {
         currNode = currNode.next;
       }
+      // currNode.next is the node that is to be replaced
+      T oldValue = currNode.next.data;
       newNode.next = currNode.next.next;
       currNode.next = newNode;
+      return oldValue;
     }
   }
 
-  /* ----------To display elements of list ----------- */
+  /* ----------To display elements of list -----------
+   * Time Complexity: O(n)  -Traversing whole list
+   */
   public void display() {
     if (isEmpty()) {
       System.out.println("Nothing to display, List is Empty !");
@@ -290,10 +316,12 @@ public class HSinglyLL <T> {
     }
   }
 
-  /* ---------- To Search an item by linear search----------- */
-  public int linearSearch(String item) {
+  /* ---------- To Search an item by linear search-----------
+   * Time Complexity: O(n) in worse case if item is at the end
+   */
+  public int linearSearch(T item) {
     int idx = -1;
-    if (isEmpty()) {
+    if (isEmpty() || item == null) {
       return idx;
     } else {
       idx = 0;
@@ -310,11 +338,12 @@ public class HSinglyLL <T> {
   }
 
   /* ---------- To Sort items in list by Bubble Sort ----------- */
-  public void bubbleSort() {
-    if (isEmpty()) {
-      System.out.println("\nCannot Sort, List is Empty :( ");
-    } else if (head.next == null) {
-      System.out.println("\nAlready Sorted :) ");
+  public boolean bubbleSort() {
+    if (isEmpty() || head.next == null) {
+      return true;
+    } else if (!(head.data instanceof Integer)) {
+      return false;
+      // System.out.println("\nAlready Sorted :) ");
     } else {
       int prevItem, currItem;
       int count;
@@ -323,8 +352,7 @@ public class HSinglyLL <T> {
         Node<T> prevNode = head;
         Node<T> currNode = head.next;
         Node<T> nextNode;
-        int flag = 0; // either swapping occcurs or not, change the prevNode, start from head and step
-                      // forward till flag (old prev is reached)
+        int flag = 0; // either swapping occcurs or not, change the prevNode, start from head and step forward till flag (old prev is reached)
 
         // while (currNode != null) {
         for (int k = 0; k < size - i - 1; k++) {
@@ -365,6 +393,7 @@ public class HSinglyLL <T> {
         // System.out.println("\nInner Ended");
       }
       // System.out.println("\nOuter Ended");
+      return true;
     }
   }
 
@@ -552,9 +581,9 @@ public class HSinglyLL <T> {
 
     head.next.next = head; // if current head is 1st element then next of its next element should point to
                            // it (1st element) and so on....
-    // upper line can be divided as below 2 lines
-    // Node upperNode = head.next;
-    // upperNode.next = head;
+                           // upper line can be divided as below 2 lines
+                           // Node upperNode = head.next;
+                           // upperNode.next = head;
     head.next = null; // upperNode will point to currNode/currHead and currHead will point to nothing
     return newHead;
   }
@@ -670,6 +699,29 @@ public class HSinglyLL <T> {
     return sum;
   }
 
+  /*--------- get value from a specific index----------
+   * Time Complexity: O(n) in worse case if idx = size - 1
+  */
+  public T get(int idx) {
+    if (isEmpty() || idx < 0 || idx >= size) {
+      throw new IndexOutOfBoundsException();
+    } else {
+      Node<T> currNode = head;
+      for (int i = 0; i < idx; i++) {
+        currNode = currNode.next;
+      }
+      return currNode.data;
+    }
+  }
+
+  /*--------- get index of given value / item ----------
+   * Time Complexity: O(n) in worse case if item is at the end
+  */
+  public int get(T item) {
+    return linearSearch(item);
+  }
+
+
   public static void main(String[] args) {
     HSinglyLL<String> list = new HSinglyLL<>();
     // list.add("nth");
@@ -688,7 +740,7 @@ public class HSinglyLL <T> {
     System.out.print("\nOriginal List: ");
     // list.newDisplay();
     list.display();
-    list.update(0, "69");
+    list.set(0, "69");
     System.out.print("Updated List: ");
     list.display();
 
