@@ -69,7 +69,7 @@ public class MenuLL {
                     System.out.println("Item " + item + " Added at first Successfully :) ");
                     break;
                 case 4:
-                    item = list.delLast();
+                    item = list.removeLast();
                     if (item != null) {
                         System.out.println("Item " + item + " Removed from last Successfully :) ");
                     } else {
@@ -77,7 +77,7 @@ public class MenuLL {
                     }
                     break;
                 case 5:
-                    item = list.delFirst();
+                    item = list.removeFirst();
                     if (item != null) {
                         System.out.println("Item " + item + " Removed from first Successfully :) ");
                     } else {
@@ -89,19 +89,34 @@ public class MenuLL {
                     item = input.next();
                     System.out.print("Enter Index: ");
                     idx = input.nextInt();
-                    list.addAtIndex(idx, item);
+                    try {
+                        list.addAtIndex(idx, item);
+                        System.out.println("Item " + item + " added at index " + idx + " :)");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Invalid Index :( ");
+                    }
                     break;
                 case 7:
                     System.out.print("\nEnter Index from where to remove: ");
-                    idx = input.nextInt();
-                    list.delFromIdx(idx);
+                    try {
+                        idx = input.nextInt();
+                        item = list.removeFrom(idx);
+                        System.out.println("Item " + item + " removed from index " + idx + " :)");
+                    } catch (Exception e) {
+                        System.out.println("Something wrong with the input !");
+                    }
                     break;
                 case 8:
                     // list.display();
                     list.newDisplay();
                     break;
                 case 9:
-                    list.bubbleSort();
+                    if (list.bubbleSort()) {
+                        System.out.println("List Sorted :)");
+                    } else {
+                        System.out.println("Sorting Error, Check Type of List :( ");
+                    }
+
                     break;
                 case 10:
                     System.out.print("\nEnter Item to search: ");
@@ -117,7 +132,7 @@ public class MenuLL {
                     System.out.println("\nElement(s) in list: " + list.getSize());
                     break;
                 case 12:
-                System.out.println("\n----------Happy Coding, GoodBye Yousuf :) --------- \n");
+                    System.out.println("\n---------- Happy Coding, GoodBye Yousuf :) --------- \n");
                     break;
                 default:
                     System.out.println("Invalid Choice <:( ");

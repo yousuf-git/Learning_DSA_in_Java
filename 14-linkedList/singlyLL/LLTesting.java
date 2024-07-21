@@ -19,11 +19,11 @@ public class LLTesting {
     // list.display();
     list.newDisplay();
     /*-----------delFirst Method------------*/
-    list.delFirst();
+    list.removeFirst();
     // list.display();
     list.newDisplay();
     /*-----------delLast Method------------*/
-    list.delLast();
+    list.removeLast();
     // list.display();
     list.newDisplay();
 

@@ -22,7 +22,7 @@ public class LLStack<T> {
       return null;
     } else {
       T item = stack.getHead().data;
-      stack.delFirst();
+      stack.removeFirst();
       return item;
     }
   }
