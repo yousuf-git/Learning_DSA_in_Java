@@ -104,7 +104,7 @@ public class MenuLL_2 {
           if (listIdx == -1) {
             System.out.println("Invalid List Number :( ");
           } else {
-            item = lists[listIdx].delLast();
+            item = lists[listIdx].removeLast();
             if (item != null) {
               System.out.println("Item " + item + " Removed from last Successfully :) ");
             } else {
@@ -119,7 +119,7 @@ public class MenuLL_2 {
           if (listIdx == -1) {
             System.out.println("Invalid List Number :( ");
           } else {
-            item = lists[listIdx].delFirst();
+            item = lists[listIdx].removeFirst();
             if (item != null) {
               System.out.println("Item " + item + " Removed from first Successfully :) ");
             } else {
@@ -150,7 +150,7 @@ public class MenuLL_2 {
           } else {
             System.out.print("\nEnter Index from where to remove: ");
             idx = input.nextInt();
-            lists[listIdx].delFromIdx(idx);
+            lists[listIdx].removeFrom(idx);
           }
           break;
         case 8: // display a list
