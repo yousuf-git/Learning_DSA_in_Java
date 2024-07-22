@@ -426,4 +426,18 @@ public class HArrayList<E> {
         }
         return copy;
     }
+
+    /*------TO get maximum number from list, only if list is Integer Type------ */
+    public Integer max() {
+        if (isEmpty() || !(list[0] instanceof Integer)) {
+            return null;
+        }
+        Integer max = Integer.MIN_VALUE;
+        for (int i = 0; i < size; i++) {
+            if ((Integer)(list[i]) > max) {
+                max = (Integer) (list[i]);
+            }
+        }
+        return max;
+    }
 }
