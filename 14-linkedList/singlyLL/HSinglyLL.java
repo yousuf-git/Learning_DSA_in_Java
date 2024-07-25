@@ -397,7 +397,9 @@ public class HSinglyLL<T> {
     }
   }
 
-  /* ----------Boolean Method to check if 2 linked lists are equal----------- */
+  /* ----------Boolean Method to check if 2 linked lists are equal-----------
+   * Time Complexity: O(n) - compare all nodes
+   */
   public boolean isEqual(HSinglyLL<T> list) {
     // case 1 : if both lists are empty
     if (this.isEmpty() && list.isEmpty()) {
@@ -445,7 +447,9 @@ public class HSinglyLL<T> {
     }
   }
 
-  /* ----------Returns a new list that is reverse of original----------- */
+  /* ----------Returns a new list that is reverse of original-----------
+   * Time Complexity: O(n) - Traverse whole list
+   */
   public HSinglyLL<T> reverse() {
     HSinglyLL<T> revList = new HSinglyLL<>();
     if (isEmpty()) {
@@ -468,8 +472,9 @@ public class HSinglyLL<T> {
   }
 
   /*
-   * returns middle Node of list => Hare - Turtle approach-----------
+   * Returns middle Node of list => Hare - Turtle approach-----------
    * If only starting point is given, range will be till end
+   * Time Complexity: O(n) - Traverse whole list
    */
   public Node<T> middle(Node<T> head) {
     if (isEmpty()) {
@@ -485,7 +490,9 @@ public class HSinglyLL<T> {
     }
   }
 
-  /* ---------Method 2 for middle: If start and end both are given----------- */
+  /* ---------Method 2 for middle: If start and end both are given-----------
+   * Time Complexity: O(n) - Traverse whole list  
+   */
   public Node<T> middle(Node<T> start, Node<T> end) {
     if (start == null) {
       return null;
