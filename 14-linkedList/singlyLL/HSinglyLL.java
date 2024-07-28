@@ -341,7 +341,7 @@ public class HSinglyLL<T> {
   public boolean bubbleSort() {
     if (isEmpty() || head.next == null) {
       return true;
-    } else if (!(head.data instanceof Integer)) {
+    } else if (!(head.data instanceof Integer || head.data instanceof String)) {
       return false;
       // System.out.println("\nAlready Sorted :) ");
     } else {

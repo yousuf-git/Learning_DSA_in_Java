@@ -150,7 +150,12 @@ public class MenuLL_2 {
           } else {
             System.out.print("\nEnter Index from where to remove: ");
             idx = input.nextInt();
-            lists[listIdx].removeFrom(idx);
+            item = lists[listIdx].removeFrom(idx);
+            if(item != null) {
+              System.out.println("Item " + item + " Removed Successfully :) ");
+            } else {
+              System.out.println("Cannot remove from Empty List or Invalid Index :( ");
+            }
           }
           break;
         case 8: // display a list
@@ -217,8 +222,10 @@ public class MenuLL_2 {
           if (listIdx == -1) {
             System.out.println("Invalid List Number :( ");
           } else {
-            lists[listIdx].bubbleSort();
-            System.out.println("\nList Sorted Successfully :) ");
+            if(lists[listIdx].bubbleSort())
+              System.out.println("\nList Sorted Successfully :) ");
+            else
+              System.out.println("\nInvalid List or list empty :( ");
           }
           break;
         case 14: // merge 2 lists
