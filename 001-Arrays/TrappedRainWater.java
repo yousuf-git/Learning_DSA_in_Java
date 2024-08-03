@@ -4,8 +4,8 @@ public class TrappedRainWater {
     // Approach 1 - Using auxilary arrays
     public static int getTrappedWater(int[] heights) {
         int water = 0;
-        // Step 1: Create 2 auxilary arrays to store left max and right max boundaries
-        // for each index
+        // Step 1: Create 2 auxilary arrays to store left max and right max boundaries for each index
+        // Time Complexity: O(n^2)      |       Space Complexity: O(n)
         int[] leftMax = new int[heights.length], rightMax = new int[heights.length];
         leftMax[0] = heights[0];
         rightMax[heights.length - 1] = heights[heights.length - 1];
@@ -17,8 +17,7 @@ public class TrappedRainWater {
         // printArray(leftMax);
         // printArray(rightMax);
 
-        // Step 2: For each index i -> trapped water = (waterLevel - currHeight) * width
-        // <width is optional>
+        // Step 2: For each index i -> trapped water = (waterLevel - currHeight) * width    <width is optional>
         // => waterLevel = min(leftMax, rightMax)
 
         int waterLevel = 0, trappedWater = 0;
@@ -31,6 +30,7 @@ public class TrappedRainWater {
     }
 
     // Approach 2 - Using 2 pointers approach
+    // Time Complexity: O(n)      |       Space Complexity: O(1)
     public static int getTrappedWater2(int[] heights) {
         int water = 0;
         int leftPtr = 0, rightPtr = heights.length - 1;
@@ -38,8 +38,7 @@ public class TrappedRainWater {
         // Repeat untill pointers are in valid range
         while (leftPtr <= rightPtr) {
             // Check if we have to consider left side or right side
-            // If height[leftPtr] < height[rightPtr] then check if current bar can store
-            // water or not
+            // If height[leftPtr] < height[rightPtr] then check if current bar can store water or not
             if (heights[leftPtr] < heights[rightPtr]) {
                 // If height of leftPtr is greater than leftMax it means it cannot trap water
                 if (heights[leftPtr] >= leftMax) {
