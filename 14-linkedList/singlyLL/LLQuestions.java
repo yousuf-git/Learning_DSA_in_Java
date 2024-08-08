@@ -92,6 +92,25 @@ public class LLQuestions {
 
   }
 
+  public static void reorderList(Node<String> lHead, Node<String> rHead) {
+    Node<String> lh = lHead;
+    Node<String> rh = rHead;
+    Node<String> lnext;
+    Node<String> rnext;
+
+    while (lh != null && rh != null) {
+      lnext = lh.next;
+      lh.next = rh;
+      
+      rnext = rh.next;
+      rh.next = lnext;
+      
+      lh = lnext;
+      rh = rnext;
+      
+    }
+  }
+
   public static void main(String[] args) {
     /*
      * Q1: Find nth node from last and delete it
@@ -165,9 +184,35 @@ public class LLQuestions {
     inputList.add("6");
     System.out.print("Input List: ");
     inputList.display();
-    inputList.middle(inputList.getHead()).next = inputList.recursiveReverse(inputList.middle(inputList.getHead()).next);
-    reorderList(inputList.getHead(), inputList.middle(inputList.getHead()), inputList.getSize());
+    // inputList.middle(inputList.getHead()).next = inputList.recursiveReverse(inputList.middle(inputList.getHead()).next);
+    // reorderList(inputList.getHead(), inputList.middle(inputList.getHead()), inputList.getSize());
+
+    // Step 1: reverse the second half of list
+    Node<String> rHead = inputList.recursiveReverse(inputList.middle(inputList.getHead()));
+    Node<String> lHead = inputList.getHead();
+    // System.out.println(inputList.middle(inputList.getHead()).data);
+    inputList.middle(inputList.getHead()).next = null; // divide list into 2 lists
+    reorderList(lHead, rHead);
+    
+    
     System.out.print("Reordered List: ");
     inputList.display();
+
+    // display(rHead);
+
+
+  }
+
+  public static void display(Node<String> head) {
+    if (head == null) {
+      System.out.println("null");
+      return;
+    }
+    Node<String> curr = head;
+    while (curr != null) {
+      System.out.print(curr.data + " --> ");
+      curr = curr.next;
+    }
+    System.out.println("null");
   }
 }

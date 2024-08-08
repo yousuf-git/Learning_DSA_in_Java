@@ -482,7 +482,7 @@ public class HSinglyLL<T> {
     } else {
       Node<T> hare = head;
       Node<T> turtle = head;
-      while (hare.next != null && hare.next.next != null) {
+      while (hare != null && hare.next != null) {
         hare = hare.next.next; // 2 steps
         turtle = turtle.next; // 1 step
       }
@@ -499,7 +499,7 @@ public class HSinglyLL<T> {
     } else {
       Node<T> hare = start;
       Node<T> turtle = start;
-      while (hare == end || hare.next != end) {
+      while (hare != end && hare.next != end) {
         hare = hare.next.next; // 2 stpes
         turtle = turtle.next; // 1 step
       }
