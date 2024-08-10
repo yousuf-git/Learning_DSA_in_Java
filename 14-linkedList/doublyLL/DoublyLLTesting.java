@@ -18,18 +18,26 @@ public class DoublyLLTesting {
         list.delLast();
         list.display();
         System.out.println(list.getSize());
-        list.addAtIndex(0, "WELCOME");
+        list.addAtIdx(0, "WELCOME");
         list.display();
         System.out.println(list.getSize());
-        list.addAtIndex(3, "DSA");
+        list.addAtIdx(3, "DSA");
         list.display();
         list.delFromIdx(3);
         list.display();
         // System.out.println(" ⟺");
-        list.update(4, "harry");
+        list.set(3, "harry");
         // list.newDisplay();
+        list.display();
 
         System.out.println("Value at index 3: " + list.get(3));
+
+        list.reverse();
+        list.add("new");
+        list.add("node");
+        list.display();
+
+        System.out.println( "Middle: " + list.middle(list.getHead()).data);
 
         
     }

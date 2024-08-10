@@ -48,7 +48,9 @@ public class HDoublyLL<T> {
 
   // Add Element / Node Method can be of 2 types => addFirst() and addLast()
 
-  /* ---------- Adds element at the start ----------- */
+  /* ---------- Adds element at the start -----------
+   * Time Complexity: O(1)
+   */
   public void addFirst(T data) {
     // Create a new node
     Node<T> newNode = new Node<>(data);
@@ -68,7 +70,9 @@ public class HDoublyLL<T> {
     this.size += 1;
   }
 
-  /* ---------- Adds element at the end ----------- */
+  /* ---------- Adds element at the end -----------
+   * Time Complexity: O(1)
+   */
   public void addLast(T data) {
     Node<T> newNode = new Node<>(data);
     if (isEmpty()) { // if list is empty create a new node and assume it is first and last node
@@ -77,13 +81,19 @@ public class HDoublyLL<T> {
     } else {
       // if we directly change the head, first item and hence list list will be lost,
       // thats why we use a currentNode and update it untill null is reached
-      Node<T> currentNode = head;
-      while (currentNode.next != null) {
-        currentNode = currentNode.next;
-      }
-      currentNode.next = newNode;
-      newNode.prev = currentNode;
-      tail = newNode;
+      // Approach 1, if we don't use tail pointer ->  O(n)
+      // Node<T> currentNode = head;
+      // while (currentNode.next != null) {
+      //   currentNode = currentNode.next;
+      // }
+      // currentNode.next = newNode;
+      // newNode.prev = currentNode;
+      // tail = newNode;
+
+      // Approach 2: using tail pointer -> O(1)
+      tail.next = newNode; // attach new node at the end
+      newNode.prev = tail; // set its previous to old tail
+      tail = newNode; // update tail
     }
     this.size += 1;
   }
@@ -93,32 +103,40 @@ public class HDoublyLL<T> {
     this.addLast(data);
   }
 
-  /* ------------------To Add Element at a specific valid index------------------ */
-  public void addAtIndex(int idx, T data) {
+  /*----------- Pushes element to start - if LL represents a stack */
+  public void push(T data) {
+    addFirst(data);
+  }
+
+  /* ------------------To Add Element at a specific valid index------------------
+   * Time Complexity: O(n) in worse case if n = size - 1
+   */
+  public void addAtIdx(int idx, T data) {
     if (idx >= this.size || idx < 0) { // if size = 5 => valid indices are 0 to 4
-      System.out.println("Invalid Index :<( ");
+      throw new IndexOutOfBoundsException();
+      // System.out.println("Invalid Index :<( ");
     } else {
       if (idx == 0) { // addFirst()
         addFirst(data);
-        System.out.println("Item " + data + " added at index " + idx + " :)");
+        // System.out.println("Item " + data + " added at index " + idx + " :)");
       } else {
         Node<T> newNode = new Node<>(data);
         Node<T> currNode = head;
         for (int i = 1; i < idx; i++) {
           currNode = currNode.next;
         }
-        // now current.next is the actual node which is to be shifted right
-        newNode.next = currNode.next; // newNodw --> existing node at that index
-        currNode.next.prev = newNode; // existingNode.prev --> newNode
+        // now current.next is the actual node that is to be shifted right
+        newNode.next = currNode.next; // link: newNode --> existing node at that index
+        currNode.next.prev = newNode; // link: existingNode.prev --> newNode
         currNode.next = newNode; // newNode is now the at the place of existing node
         newNode.prev = currNode; // attach new Node with prev list
-        System.out.println("Item " + data + " added at index " + idx + " :)");
+        // System.out.println("Item " + data + " added at index " + idx + " :)");
         size += 1;
       }
     }
   }
 
-  /* ---------- Removes element from start and returns it----------- */
+  /* ---------- Removes element from start and returns it - O(1) ----------- */
   public T delFirst() {
     if (isEmpty()) {
       return null;
@@ -131,7 +149,7 @@ public class HDoublyLL<T> {
     }
   }
 
-  /* ---------- Removes element from the end and returns it----------- */
+  /* ---------- Removes element from the end and returns it: O(1) ----------- */
   public T delLast() {
     if (isEmpty()) {
       return null;
@@ -139,11 +157,10 @@ public class HDoublyLL<T> {
       T item;
       if (head.next == null) { // if there is single element
         item = head.data;
-        head = null; // simply assign the single element (head) as null
-        tail = null;
+        head = tail =  null; // simply assign the single element (head/tail) as null
         this.size -= 1;
         return item;
-      } // otherwise
+      } // To Revise delLast of SLL
       /**
        * 1. Iterate and goto 2nd last node
        * 2. Retrieve data from 2ndLast.next (last node)
@@ -156,9 +173,11 @@ public class HDoublyLL<T> {
       // // currentNode is 2nd last element now
       // item = currentNode.next.data;
       // currentNode.next = null;
-      item = tail.data;
-      tail.prev.next = null;
-      tail = tail.prev;
+      
+      // If we use this approach for even single element in the list, step 3 will throw NullPointerException
+      item = tail.data; // get data from last node
+      tail = tail.prev; // update last node
+      tail.next = null; // next of last node is always null in DLL
       this.size -= 1;
       return item;
     }
@@ -169,28 +188,34 @@ public class HDoublyLL<T> {
     return this.delLast();
   }
 
-  /* ------------------To Remove Element from a position------------------ */
+  /*------- To remove element from top (first) if LL is satck ---------*/ 
+  public T pop() {
+    return delFirst();
+  }
+
+  /* ------------------To Remove Element from a position: O(n) ------------------ */
   public T delFromIdx(int idx) {
     if (isEmpty()) {
-      System.out.println("Cannot Remove, List is Empty :( ");
+      // System.out.println("Cannot Remove, List is Empty :( ");
       return null;
     } else {
       if (idx >= this.size || idx < 0) {
-        System.out.println("Invalid Index <:( ");
-        return null;
+        // System.out.println("Invalid Index <:( ");
+        throw new IndexOutOfBoundsException();
       } else {
         if (idx == 0) { // delFirst
           return delFirst();
         } else {
           T data;
           Node<T> currNode = head;
-          for (int i = 0; i < idx - 1; i++) {
+          for (int i = 0; i < idx - 1; i++) { // 1 to idx   ||   0 to idx-1
             currNode = currNode.next;
           }
-          data = currNode.next.data;
-          currNode.next.next.prev = currNode;
+          // currNode.next is the node that is to be removed
+          data = currNode.next.data; // retrieve its data first to return 
           currNode.next = currNode.next.next;
-          System.out.println("Item " + data + " removed from index " + idx + " :)");
+          currNode.next.prev = currNode;
+          // System.out.println("Item " + data + " removed from index " + idx + " :)");
           size -= 1;
           return data;
         }
@@ -198,13 +223,12 @@ public class HDoublyLL<T> {
     }
   }
 
-  /* ---------- To Update Value at a specifc index ----------- */
-  public void update(int idx, T val) {
+  /* ---------- To Update Value at a specifc index: O(n) ----------- */
+  public void set(int idx, T val) {
     if (idx >= size || idx < 0) {
-      System.out.println("Invalid Index <:( ");
+      // System.out.println("Invalid Index <:( ");
+      throw new IndexOutOfBoundsException();
     } else if (idx == 0) {
-      // delFirst();
-      // addFirst(val);
       head.data = val;
     } else {
       Node<T> newNode = new Node<>(val);
@@ -216,14 +240,12 @@ public class HDoublyLL<T> {
       currNode.next = newNode;
     }
   }
-  /* ---------- To get Value from a specifc index ----------- */
+  /* ---------- To get Value from a specifc index: O(n)----------- */
   public T get(int idx) {
     if (idx >= size || idx < 0) {
-      System.out.println("Invalid Index <:( ");
-      return null;
+      // System.out.println("Invalid Index <:( ");
+      throw new IndexOutOfBoundsException();
     } else if (idx == 0) {
-      // delFirst();
-      // addFirst(val);
       return head.data;
     } else {
       Node<T> currNode = head;
@@ -242,8 +264,8 @@ public class HDoublyLL<T> {
     } else {
       Node<T> currentNode = head;
       while (currentNode != null) {
-        // System.out.print(currentNode.data + " <--> ");
-        System.out.print(currentNode.data +" ⟺  "); // use upper one if this is not working
+        System.out.print(currentNode.data + " <--> ");
+        // System.out.print(currentNode.data +" ⟺  "); // use upper one if this is not working
         currentNode = currentNode.next;
       }
       System.out.println("null");
@@ -283,8 +305,8 @@ public class HDoublyLL<T> {
           Thread.sleep(150);
           System.out.print(" │");
           Thread.sleep(150);
-          // System.out.print(" --> ");
-          System.out.print(ANSI_YELLOW + " ⟺  " + ANSI_GREEN);
+          System.out.print(ANSI_YELLOW + " <-->  " + ANSI_GREEN);
+          // System.out.print(ANSI_YELLOW + " ⟺  " + ANSI_GREEN);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
@@ -301,8 +323,7 @@ public class HDoublyLL<T> {
             e.printStackTrace();
           }
           System.out.print("¯");
-          // System.out.print("-"); use this if upper symbol is not supported by your
-          // terminal
+          // System.out.print("-"); use this if upper symbol is not supported by your terminal
         }
         System.out.print("    ");
         currNode = currNode.next;
@@ -311,7 +332,7 @@ public class HDoublyLL<T> {
     }
   }
 
-  /* ---------- To Search an item by linear search----------- */
+  /* ---------- To Search an item by linear search: O(n) ----------- */
   public int linearSearch(String item) {
     int idx = -1;
     if (isEmpty()) {
@@ -329,7 +350,7 @@ public class HDoublyLL<T> {
       return -1;
     }
   }
-// ------------------------------Done till here---------------------------------
+
   // /* ---------- To Sort items in list by Bubble Sort ----------- */
   // public void bubbleSort() {
   //   if (isEmpty()) {
@@ -389,35 +410,31 @@ public class HDoublyLL<T> {
   //   }
   // }
 
-  // /* ----------Boolean Method to check if 2 linked lists are equal----------- */
-  // public boolean isEqual(HDoublyLL list) {
-  //   // case 1 : if both lists are empty
-  //   if (this.isEmpty() && list.isEmpty()) {
-  //     return true;
-  //   }
-  //   // case 2: if their size varies
-  //   else if (this.size != list.size) {
-  //     return false;
-  //   }
-  //   // case 3: if both lists have same size and contain some data
-  //   else {
-  //     Node currNode = this.head;
-  //     Node listNode = list.head;
-  //     boolean flag = true; // equality indicator flag
+  /* ----------Boolean Method to check if 2 linked lists are equal----------- */
+  public boolean isEqual(HDoublyLL<T> list) {
+    // case 1 : if both lists are empty
+    if (this.isEmpty() && list.isEmpty()) {
+      return true;
+    }
+    // case 2: if their size varies
+    else if (this.size != list.size) {
+      return false;
+    }
+    // case 3: if both lists have same size and contain some data
+    else {
+      Node<T> currNode = this.head;
+      Node<T> listNode = list.head;
 
-  //     while (currNode != null && listNode != null) {
-  //       if (currNode.data.equals(listNode.data)) {
-  //         currNode = currNode.next;
-  //         listNode = listNode.next;
-  //       } else {
-  //         // direct return statement can also be used
-  //         flag = false;
-  //         break;
-  //       }
-  //     }
-  //     return flag;
-  //   }
-  // }
+      while (currNode != null && listNode != null) {
+        if (!currNode.data.equals(listNode.data)) {
+          return false;
+        }
+        currNode = currNode.next;
+        listNode = listNode.next;
+      }
+      return true;
+    }
+  }
 
   // /* ----------Copies the current list into provided list----------- */
   // public HDoublyLL copyInto(HDoublyLL list) {
@@ -437,60 +454,62 @@ public class HDoublyLL<T> {
   //   }
   // }
 
-  // /* ----------Returns a new list that is reverse of original----------- */
-  // public HDoublyLL reverse() {
-  //   HDoublyLL revList = new HDoublyLL();
-  //   if (isEmpty()) {
-  //     return revList;
-  //   } else {
-  //     revList = this.copyInto(revList);
-  //     Node prevNode = revList.head;
-  //     Node currNode = prevNode.next;
-  //     while (currNode != null) {
-  //       Node nextNode = currNode.next;
-  //       currNode.next = prevNode;
-  //       prevNode = currNode;
-  //       currNode = nextNode;
-  //     }
-  //     revList.head.next = null;
-  //     revList.head = prevNode;
+  /* ---------- To Reverse the original list ----------- */
+  public void reverse() {
+    // HDoublyLL<T> revList = new HDoublyLL<T>();
+    if (isEmpty() || head.next == null) {
+      return;
+    } else {
+      Node<T> prevNode = null;
+      Node<T> currNode = head;
+      Node<T> nextNode = null;
+      this.tail = head; // tail is now head
+      while (currNode != null) {
+        nextNode = currNode.next; // update nextNode
+        
+        currNode.next = prevNode; // adjust pointers of current node
+        currNode.prev = nextNode;
+        
+        prevNode = currNode; // update curr and prev
+        currNode = nextNode;
+      }
+      this.head = prevNode; // head is now last node
+    }
+  }
 
-  //     return revList;
-  //   }
-  // }
+  /*
+   * returns middle Node of list => Hare - Turtle approach-----------
+   * If only starting point is given, range will be till end
+   */
+  public Node<T> middle(Node<T> head) {
+    if (isEmpty()) {
+      return null; // if list is empty
+    } else {
+      Node<T> hare = head;    // slow ptr
+      Node<T> turtle = head;  // fast ptr
+      while (hare != null && hare.next != null) {
+        hare = hare.next.next; // 2 steps
+        turtle = turtle.next; // 1 step
+      }
+      return turtle;
+    }
+  }
 
-  // /*
-  //  * returns middle Node of list => Hare - Turtle approach-----------
-  //  * If only starting point is given, range will be till end
-  //  */
-  // public Node middle(Node head) {
-  //   if (isEmpty()) {
-  //     return null; // if list is empty
-  //   } else {
-  //     Node hare = head;
-  //     Node turtle = head;
-  //     while (hare.next != null && hare.next.next != null) {
-  //       hare = hare.next.next; // 2 steps
-  //       turtle = turtle.next; // 1 step
-  //     }
-  //     return turtle;
-  //   }
-  // }
-
-  // /* ---------Method 2 for middle: If start and end both are given----------- */
-  // public Node middle(Node start, Node end) {
-  //   if (start == null) {
-  //     return null;
-  //   } else {
-  //     Node hare = start;
-  //     Node turtle = start;
-  //     while (hare == end || hare.next != end) {
-  //       hare = hare.next.next; // 2 stpes
-  //       turtle = turtle.next; // 1 step
-  //     }
-  //     return turtle;
-  //   }
-  // }
+  /* ---------Method 2 for middle: If start and end both are given----------- */
+  public Node<T> middle(Node<T> start, Node<T> end) {
+    if (start == null) {
+      return null;
+    } else {
+      Node<T> hare = start;
+      Node<T> turtle = start;
+      while (hare != end && hare.next != end) {
+        hare = hare.next.next; // 2 stpes
+        turtle = turtle.next; // 1 step
+      }
+      return turtle;
+    }
+  }
+  // ------------------------------Done till here---------------------------------
 
   // // // Update Middle Mode --> ***********************Not
   // // completed************************
@@ -691,65 +710,4 @@ public class HDoublyLL<T> {
   //   return sum;
   // }
 
-  // public static void main(String[] args) {
-  //   HDoublyLL list = new HDoublyLL();
-  //   // list.add("nth");
-  //   // list.add("Sehri");
-  //   // list.add("Done");
-  //   // list.add("Alhamdulillah");
-  //   // list.add(":)");
-  //   list.add("12");
-  //   list.add("2");
-  //   list.add("34");
-  //   list.add("4"); // mid
-  //   list.add("1");
-  //   list.add("69");
-  //   list.add("0");
-  //   list.add("-1");
-  //   System.out.print("\nOriginal List: ");
-  //   // list.newDisplay();
-  //   list.display();
-  //   list.update(0, "69");
-  //   System.out.print("Updated List: ");
-  //   list.display();
-
-    // calculate mid of 2 --> 34 --> 4 --> 1
-
-    // Node midNode = list.middle(list.getHead().next,
-    // list.middle(list.getHead()).next);
-    // System.out.println(midNode.data);
-
-    // list.bubbleSort();
-    // list.display();
-    // list.newDisplay();
-
-    // String testStr = "harry";
-    // System.out.println(testStr);
-    // try {
-    // Thread.sleep(2000);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // System.out.println(testStr.length());
-
-  }
-// }
-/********************* Object References Testing **************************/
-// class A {
-// int a;
-// A() {
-// a = 9;
-// }
-// public static void main(String[] args) {
-// A obj1 = new A();
-// A obj2;
-// A obj3;
-// obj2 = obj3 = obj1;
-// System.out.println("Address of obj1 = " + obj1);
-// System.out.println("Address of obj2 = " + obj2);
-// System.out.println("Address of obj3 = " + obj3);
-// System.out.println("a from obj1 = " + obj1.a);
-// System.out.println("a from obj2 = " + obj2.a);
-// System.out.println("a from obj3 = " + obj3.a);
-// }
-// }
+}
