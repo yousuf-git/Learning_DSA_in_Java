@@ -41,8 +41,8 @@ public class CQueueTest {
 					}
 					break;
 				case 3:
-					queue.display();
-					// queue.newDisplay();
+					// queue.display();
+					queue.newDisplay();
 					break;
 				case 4:
 					queue.printPointers();

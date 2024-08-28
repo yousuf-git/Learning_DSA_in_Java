@@ -1,6 +1,6 @@
 // Implementing stack using 2 queues
 
-package queue;
+package queue.questions;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

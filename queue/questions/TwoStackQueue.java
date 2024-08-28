@@ -1,6 +1,6 @@
 // Implementing queue using 2 stacks
 
-package queue;
+package queue.questions;
 
 import java.util.Stack;
 
