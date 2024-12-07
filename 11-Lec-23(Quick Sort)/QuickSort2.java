@@ -8,14 +8,14 @@ public class QuickSort2 {
         if (left >= right) {
             return;
         }
-        // Step 1 : Get the pivot
-        int pivot = array[right];
+        // Step 1 : Choose the pivot element (I chose the leftmost element)
+        int pivot = array[left];
         
-        // Step 2:move elements less than pivot to left of it and greater than pivot to right of it
+        // Step 2: Move elements less than pivot to left of it and greater than pivot to right of it
         int pivotIdx = placePivot(array, pivot, left, right);
         
-        // Step 2:  Place pivot to correct location 
-        swap(array, pivotIdx, right);
+        // Step 3:  Place pivot to correct location 
+        swap(array, left, pivotIdx);
         
         // recursive call for left 
         quickSort(array, left, pivotIdx - 1);
@@ -27,16 +27,18 @@ public class QuickSort2 {
         // Untill the pointers are in valid range
         while (leftPtr < rightPtr) {
             // Find element greater than pivot in left side, untill then move leftPtr right
-            while (array[leftPtr] <= pivot && leftPtr < rightPtr) {
+            while (leftPtr <= rightPtr && array[leftPtr] <= pivot) {
                 leftPtr++;
             }
             // Find element less than pivot in right side, untill then move rightPtr left
-            while (array[rightPtr] >= pivot && leftPtr < rightPtr) {
+            while (leftPtr <= rightPtr && array[rightPtr] > pivot) {
                 rightPtr--;
             }
-            swap(array, leftPtr, rightPtr); // move the small value to left, and large value to right
+            if (leftPtr < rightPtr) {
+                swap(array, leftPtr, rightPtr); // move the small value to left, and large value to right
+            }
         }
-        return leftPtr;
+        return rightPtr;
     }
 
     public static void swap(int[] array, int idx1, int idx2) {
@@ -46,7 +48,8 @@ public class QuickSort2 {
     }
 
     public static void main(String[] args) {
-        int[] array = {2, 4, 5, 10, 4, 0, 4, 9, 1};
+        // int[] array = {2, 4, 5, 10, 4, 0, 4, 9, 1};
+        int[] array = {9, 4, 3, 5, 2, -1, 0};
 
         System.out.print("\nOriginal Array: ");
         for (int element : array) {
